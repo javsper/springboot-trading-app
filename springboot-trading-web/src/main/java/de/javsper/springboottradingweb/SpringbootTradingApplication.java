@@ -1,4 +1,4 @@
-package de.javsper.springboottrading;
+package de.javsper.springboottradingweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
