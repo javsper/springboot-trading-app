@@ -1,6 +1,6 @@
-package com.spring.professional.exam.tutorial.module06.question01.dao;
+package de.javsper.springboottradingdata.dao;
 
-import com.spring.professional.exam.tutorial.module06.question01.ds.Customer;
+import de.javsper.springboottradingdata.ds.Customer;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CustomersDao extends CrudRepository<Customer, Integer> {
