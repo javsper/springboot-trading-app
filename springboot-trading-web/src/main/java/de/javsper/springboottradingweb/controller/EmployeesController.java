@@ -1,8 +1,8 @@
 package de.javsper.springboottradingweb.controller;
 
-import com.spring.professional.exam.tutorial.module06.question01.security.annotations.employees.IsEmployeesCreate;
-import com.spring.professional.exam.tutorial.module06.question01.security.annotations.employees.IsEmployeesDelete;
-import com.spring.professional.exam.tutorial.module06.question01.security.annotations.employees.IsEmployeesRead;
+import de.javsper.springboottradingweb.security.annotations.employees.IsEmployeesCreate;
+import de.javsper.springboottradingweb.security.annotations.employees.IsEmployeesDelete;
+import de.javsper.springboottradingweb.security.annotations.employees.IsEmployeesRead;
 import de.javsper.springboottradingdata.dao.EmployeesDao;
 import de.javsper.springboottradingdata.ds.Employee;
 import org.springframework.beans.factory.annotation.Autowired;

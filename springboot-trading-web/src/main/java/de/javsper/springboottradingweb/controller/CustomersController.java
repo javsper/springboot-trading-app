@@ -1,8 +1,8 @@
 package de.javsper.springboottradingweb.controller;
 
-import com.spring.professional.exam.tutorial.module06.question01.security.annotations.customers.IsCustomersCreate;
-import com.spring.professional.exam.tutorial.module06.question01.security.annotations.customers.IsCustomersDelete;
-import com.spring.professional.exam.tutorial.module06.question01.security.annotations.customers.IsCustomersRead;
+import de.javsper.springboottradingweb.security.annotations.customers.IsCustomersCreate;
+import de.javsper.springboottradingweb.security.annotations.customers.IsCustomersDelete;
+import de.javsper.springboottradingweb.security.annotations.customers.IsCustomersRead;
 import de.javsper.springboottradingdata.dao.CustomersDao;
 import de.javsper.springboottradingdata.ds.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
