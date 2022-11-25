@@ -1,11 +1,11 @@
 package de.javsper.springboottradingweb.controller;
 
+import de.javsper.springboottradingdata.dao.EmployeesDao;
+import de.javsper.springboottradingdata.ds.Employee;
 import de.javsper.springboottradingweb.security.annotations.employees.IsEmployeesCreate;
 import de.javsper.springboottradingweb.security.annotations.employees.IsEmployeesDelete;
 import de.javsper.springboottradingweb.security.annotations.employees.IsEmployeesRead;
-import de.javsper.springboottradingdata.dao.EmployeesDao;
-import de.javsper.springboottradingdata.ds.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.validation.Valid;
-
 @Controller
 public class EmployeesController {
 
-    @Autowired
-    private EmployeesDao employeesDao;
+    private final EmployeesDao employeesDao;
+
+    public EmployeesController(EmployeesDao employeesDao) {
+        this.employeesDao = employeesDao;
+    }
 
     @IsEmployeesRead
     @GetMapping("/employees")
