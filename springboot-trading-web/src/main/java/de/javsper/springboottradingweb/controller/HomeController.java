@@ -1,2 +1,7 @@
-package de.javsper.springboottradingweb.controller;public class HomeController {
+package de.javsper.springboottradingweb.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class HomeController {
 }
