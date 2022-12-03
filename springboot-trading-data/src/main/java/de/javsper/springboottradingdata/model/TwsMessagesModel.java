@@ -1,8 +1,8 @@
-package de.javsper.springboottradingibkr.model;
+package de.javsper.springboottradingdata.model;
 
 import java.util.Collection;
 
-public class TextModel {
+public class TwsMessagesModel {
 
     public void add(Collection<String> lines) {
         for (String line : lines) {

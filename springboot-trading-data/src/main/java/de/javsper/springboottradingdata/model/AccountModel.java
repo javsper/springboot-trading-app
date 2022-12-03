@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.model;
+package de.javsper.springboottradingdata.model;
 
 import com.ib.client.Contract;
 import com.ib.client.Decimal;

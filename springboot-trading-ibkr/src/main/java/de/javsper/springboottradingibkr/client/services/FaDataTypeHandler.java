@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.services;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingibkr.model.FinancialAdvisorModel;
+import de.javsper.springboottradingdata.model.FinancialAdvisorModel;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

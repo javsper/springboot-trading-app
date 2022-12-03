@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.model;
+package de.javsper.springboottradingdata.model;
 
 public class GroupsModel {
     public void displayGroupList(int reqId, String groups) {

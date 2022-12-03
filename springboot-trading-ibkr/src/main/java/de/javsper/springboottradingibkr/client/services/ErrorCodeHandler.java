@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.services;
 
 import de.javsper.springboottradingibkr.client.FaErrorCode;
-import de.javsper.springboottradingibkr.model.MktDepthModel;
+import de.javsper.springboottradingdata.model.MktDepthModel;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
