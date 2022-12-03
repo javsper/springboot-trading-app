@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.model;
 
-public class GroupsModel {
+public class Groups {
     public void displayGroupList(int reqId, String groups) {
         //TODO Implement
     }

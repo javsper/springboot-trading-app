@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.model;
 
-public class OrderModel {
+public class OrderData {
     private boolean isFAAccount;
 
 

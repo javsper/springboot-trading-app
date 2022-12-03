@@ -1,5 +1,5 @@
 package de.javsper.springboottradingdata.model;
 
-public class NewsArticleModel {
+public class NewsArticle {
     public String m_retPath;
 }
