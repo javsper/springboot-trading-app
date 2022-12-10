@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.model;
 
-import de.javsper.springboottradingdata.type.Action;
+import com.ib.client.Types;
 import de.javsper.springboottradingdata.type.OrderType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class OrderData {
     private Integer orderId;
 
     @Enumerated(EnumType.STRING)
-    private Action action;
+    private Types.Action action;
 
     private BigDecimal totalQuantity;
 
