@@ -2,6 +2,7 @@ package de.javsper.springboottradingibkr.client.services;
 
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
+import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
@@ -31,11 +32,15 @@ public class ContractDataApiCaller {
 
     private ContractData getUpdatedContractData(Integer id) {
         ContractData savedContactData;
-        do {
-            //TODO Do Something against infinite Loop
-        repositoryRefreshService.clearCacheAndWait(contractDataRepository);
-        savedContactData = contractDataRepository.findById(id).orElseThrow();
-        }while(!savedContactData.isTouchedByApi());
+        int i = 0;
+            do {
+                repositoryRefreshService.clearCacheAndWait(contractDataRepository);
+                savedContactData = contractDataRepository.findById(id).orElseThrow();
+                i++;
+            }while(!savedContactData.isTouchedByApi()
+                    && !savedContactData.getSecurityType().equals(Types.SecType.BAG)
+                    && i < 10);
+
         return savedContactData;
     }
 
