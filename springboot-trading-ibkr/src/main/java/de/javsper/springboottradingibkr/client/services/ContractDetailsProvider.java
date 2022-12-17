@@ -4,9 +4,11 @@ import com.ib.client.Contract;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.modelconverter.IBKRContractToContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class ContractDetailsProvider {
 
     private final IBKRContractToContractData ibkrContractToContractData;
@@ -23,9 +25,8 @@ public class ContractDetailsProvider {
             contractData.setId(id);
             contractData.setTouchedByApi(true);
             contractDataRepository.save(contractData);
-            System.out.println("contractDataId to update: " + id);
         } else {
-            System.out.println("Contract with Contract Id: " + contract.conid() + " already exists in DB");
+            log.debug("Contract with Contract Id: " + contract.conid() + " already exists in DB");
         }
     }
 }
