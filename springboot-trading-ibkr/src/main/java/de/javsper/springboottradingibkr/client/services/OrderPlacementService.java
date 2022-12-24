@@ -3,29 +3,27 @@ package de.javsper.springboottradingibkr.client.services;
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.Order;
-import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.modelconverter.OrderDataToIBKROrder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderExecutionService {
+public class OrderPlacementService {
 
     private final ContractDataToIBKRContract contractDataToIBKRContract;
     private final OrderDataToIBKROrder orderDatatoIBKROrder;
     private  final EClientSocket client;
 
-    public OrderExecutionService(ContractDataToIBKRContract contractDataToIBKRContract, OrderDataToIBKROrder orderDatatoIBKROrder, EClientSocket client) {
+    public OrderPlacementService(ContractDataToIBKRContract contractDataToIBKRContract, OrderDataToIBKROrder orderDatatoIBKROrder, EClientSocket client) {
         this.contractDataToIBKRContract = contractDataToIBKRContract;
         this.orderDatatoIBKROrder = orderDatatoIBKROrder;
         this.client = client;
     }
 
-    public void executeOrder(ContractData contractData, OrderData orderData){
-        Contract contract = contractDataToIBKRContract.convertContractData(contractData);
+    public void placeOrder(OrderData orderData){
+        Contract contract = contractDataToIBKRContract.convertContractData(orderData.getContractData());
         Order order = orderDatatoIBKROrder.convertOrderData(orderData);
-
         client.placeOrder(orderData.getOrderId(), contract, order);//Todo some kind of Feedback.
     }
 }
