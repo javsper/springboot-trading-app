@@ -5,11 +5,10 @@ package de.javsper.springboottradingibkr.client;
 
 import com.ib.client.*;
 import de.javsper.springboottradingdata.model.*;
-import de.javsper.springboottradingdata.model.message.ErrorMessage;
 import de.javsper.springboottradingdata.model.message.TickerMessage;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
-import de.javsper.springboottradingdata.repository.message.ErrorMessageRepository;
 import de.javsper.springboottradingdata.repository.message.TickerMessageRepository;
+import de.javsper.springboottradingdata.service.ErrorMessageHandler;
 import de.javsper.springboottradingibkr.client.callback.ContractDetailsCallback;
 import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
 import de.javsper.springboottradingibkr.client.services.*;
@@ -35,7 +34,7 @@ public class IBKRConnection implements EWrapper {
 
 
     private final TickerMessageRepository m_tickers;
-    private final ErrorMessageRepository m_errors;
+    private final ErrorMessageHandler errorsMessageHandler;
     private final ConnectionDataRepository connectionDataRepository;
     private final OrderStatusUpdateService orderStatusUpdateService;
     private final ContractDetailsProvider contractDetailsProvider;
@@ -59,7 +58,7 @@ public class IBKRConnection implements EWrapper {
             ErrorCodeHandler errorCodeHandler,
             FaDataTypeHandler faDataTypeHandler,
             TickerMessageRepository m_tickers,
-            ErrorMessageRepository m_errors,
+            ErrorMessageHandler errorMessageHandler,
             ConnectionDataRepository connectionDataRepository,
             ContractDetailsProvider contractDetailsProvider,
             OrderStatusUpdateService orderStatusUpdateService,
@@ -67,7 +66,7 @@ public class IBKRConnection implements EWrapper {
         this.callbackHanlder = callbackHanlder;
         this.errorCodeHandler = errorCodeHandler;
         this.faDataTypeHandler = faDataTypeHandler;
-        this.m_errors = m_errors;
+        this.errorsMessageHandler = errorMessageHandler;
         this.m_tickers = m_tickers;
         this.connectionDataRepository = connectionDataRepository;
         this.contractDetailsProvider = contractDetailsProvider;
@@ -227,7 +226,7 @@ public class IBKRConnection implements EWrapper {
     @Override
     public void error(String str) {
         log.warn(EWrapperMsgGenerator.error(str));
-        m_errors.save(ErrorMessage.builder().message(EWrapperMsgGenerator.error(str)).build());
+//        m_errors.save(ErrorMessage.builder().message(EWrapperMsgGenerator.error(str)).build());
     }
 
     @Override
@@ -235,8 +234,7 @@ public class IBKRConnection implements EWrapper {
         // received error
         callbackHanlder.contractDetailsError(id, errorCode, errorMsg, m_callbackMap);
 
-        log.warn(EWrapperMsgGenerator.error(id, errorCode, errorMsg, advancedOrderRejectJson));
-        m_errors.save(ErrorMessage.builder().id(id).message(EWrapperMsgGenerator.error(id, errorCode, errorMsg, advancedOrderRejectJson)).build());
+        errorsMessageHandler.handleError(id, EWrapperMsgGenerator.error(id, errorCode, errorMsg, advancedOrderRejectJson));
         faError = errorCodeHandler.isFaError(errorCode);
         errorCodeHandler.handleDataReset(id, errorCode, m_mapRequestToMktDepthModel);
     }
