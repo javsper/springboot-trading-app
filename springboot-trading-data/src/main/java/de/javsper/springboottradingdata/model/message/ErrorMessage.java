@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.model.message;
 
-import de.javsper.springboottradingdata.model.BaseEntity;
+import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorMessage extends BaseEntity {
+public class ErrorMessage extends IBKRDataTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

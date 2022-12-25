@@ -1,6 +1,7 @@
 package de.javsper.springboottradingdata.service;
 
-import de.javsper.springboottradingdata.repository.BaseRepository;
+import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.repository.IBKRDataTypeRepository;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class RepositoryRefreshService {
         this.entityManager = entityManager;
     }
 
-    public void clearCacheAndWait(BaseRepository<?> repository){
+    public <T extends IBKRDataTypeEntity> void clearCacheAndWait(IBKRDataTypeRepository<T> repository){
         timeOutToWaitForRefresh();
         entityManager.getEntityManagerFactory().getCache().evict(repository.getClass());
         entityManager.clear();

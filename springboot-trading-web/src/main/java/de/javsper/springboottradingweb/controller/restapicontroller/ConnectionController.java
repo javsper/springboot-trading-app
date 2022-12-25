@@ -1,6 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
 import com.ib.client.EClientSocket;
+import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingweb.ConnectionInitiator;
 import de.javsper.springboottradingweb.SpringbootTradingApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,17 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ConnectionController {
 
-    private ConnectionInitiator connectionInitiator;
-    private EClientSocket client;
+    private final ConnectionInitiator connectionInitiator;
+    private final EClientSocket client;
+    private final ConnectionDataRepository connectionDataRepository;
 
-    public ConnectionController(ConnectionInitiator connectionInitiator, EClientSocket client) {
+    public ConnectionController(ConnectionInitiator connectionInitiator, EClientSocket client, ConnectionDataRepository connectionDataRepository) {
         this.connectionInitiator = connectionInitiator;
         this.client = client;
+        this.connectionDataRepository = connectionDataRepository;
     }
 
     @GetMapping("disconnect")
     public void disconnect(){
         client.eDisconnect();;
+        connectionDataRepository.deleteAll();
     }
 
     @GetMapping("connect")
