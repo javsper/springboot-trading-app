@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.repository.message;
 
 import de.javsper.springboottradingdata.model.message.ErrorMessage;
-import org.springframework.data.repository.CrudRepository;
+import de.javsper.springboottradingdata.repository.BaseRepository;
 
-public interface ErrorMessageRepository extends CrudRepository<ErrorMessage, Integer> {
+public interface ErrorMessageRepository extends BaseRepository<ErrorMessage> {
 }

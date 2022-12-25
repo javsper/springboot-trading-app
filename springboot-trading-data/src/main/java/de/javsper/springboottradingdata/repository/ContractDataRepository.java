@@ -2,13 +2,12 @@ package de.javsper.springboottradingdata.repository;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ContractData;
-import org.springframework.data.repository.CrudRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public interface ContractDataRepository  extends CrudRepository<ContractData, Integer> {
+public interface ContractDataRepository  extends BaseRepository<ContractData> {
 
     public List<ContractData> findAllByContractId(Integer id);
 
