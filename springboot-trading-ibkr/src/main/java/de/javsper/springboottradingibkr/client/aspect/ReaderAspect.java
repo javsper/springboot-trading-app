@@ -1,4 +1,4 @@
-package de.javsper.springboottradingweb.aspect;
+package de.javsper.springboottradingibkr.client.aspect;
 
 import com.ib.client.EReader;
 import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
