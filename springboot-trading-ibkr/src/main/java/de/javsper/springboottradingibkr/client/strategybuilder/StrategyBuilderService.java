@@ -4,7 +4,7 @@ import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ComboLegData;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
-import de.javsper.springboottradingibkr.client.services.UniqueContractDataProvider;
+import de.javsper.springboottradingibkr.client.service.UniqueContractDataProvider;
 import de.javsper.springboottradingibkr.client.strategybuilder.type.Leg;
 import org.springframework.stereotype.Service;
 

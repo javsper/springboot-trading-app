@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.aspect;
 
 import com.ib.client.EReader;
 import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
-import de.javsper.springboottradingibkr.client.services.EReaderHolder;
+import de.javsper.springboottradingibkr.client.service.EReaderHolder;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;

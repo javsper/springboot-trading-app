@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.services;
+package de.javsper.springboottradingibkr.client.service;
 
 import com.ib.client.ContractDetails;
 import de.javsper.springboottradingibkr.client.callback.ContractDetailsCallback;

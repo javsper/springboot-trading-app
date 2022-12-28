@@ -5,7 +5,7 @@ import de.javsper.springboottradingdata.model.ConnectionData;
 import de.javsper.springboottradingdata.model.message.TwsMessage;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingdata.repository.message.TwsMessageRepository;
-import de.javsper.springboottradingibkr.client.services.EReaderHolder;
+import de.javsper.springboottradingibkr.client.service.EReaderHolder;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
