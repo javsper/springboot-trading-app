@@ -3,7 +3,7 @@ package de.javsper.springboottradingdata.dataobject;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ContractData;
 
-public class ContractDataObjects {
+public class ContractDataTemplates {
 
     public static ContractData SpxData(){
         return ContractData.builder()

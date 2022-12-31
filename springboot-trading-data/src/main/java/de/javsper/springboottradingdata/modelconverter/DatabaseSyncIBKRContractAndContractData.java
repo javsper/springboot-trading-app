@@ -7,7 +7,7 @@ import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 @Component
 public class DatabaseSyncIBKRContractAndContractData {
@@ -22,7 +22,7 @@ public class DatabaseSyncIBKRContractAndContractData {
         this.comboLegDataRepository = comboLegDataRepository;
     }
 
-    public ContractData findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(OptionalInt id, Contract contract){
+    public ContractData findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(OptionalLong id, Contract contract){
         return contractDataRepository.findFirstByContractId(contract.conid())
                 .orElseGet(()->{
             ContractData newContractData = ibkrContractToContractData.convertIBKRContract(contract);
