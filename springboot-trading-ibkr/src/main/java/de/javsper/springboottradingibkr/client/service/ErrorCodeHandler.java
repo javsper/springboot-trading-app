@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service;
 
 import de.javsper.springboottradingibkr.client.FaErrorCode;
-import de.javsper.springboottradingdata.model.MktDepth;
+import de.javsper.springboottradingdata.model.adopted.MktDepth;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

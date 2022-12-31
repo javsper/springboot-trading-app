@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service;
+package de.javsper.springboottradingibkr.client.service.order;
 
 import com.ib.client.OrderStatus;
 import de.javsper.springboottradingdata.model.OrderData;

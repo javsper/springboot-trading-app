@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingdata.model.FinancialAdvisor;
+import de.javsper.springboottradingdata.model.adopted.FinancialAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

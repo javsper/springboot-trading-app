@@ -3,6 +3,8 @@ package de.javsper.springboottradingibkr.client.service;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingibkr.client.service.contract.ContractDataValidator;
+import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

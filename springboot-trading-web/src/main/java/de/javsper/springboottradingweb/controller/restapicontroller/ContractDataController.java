@@ -3,17 +3,15 @@ package de.javsper.springboottradingweb.controller.restapicontroller;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
-import de.javsper.springboottradingibkr.client.service.UniqueContractDataProvider;
-import de.javsper.springboottradingibkr.client.strategybuilder.StrategyBuilderService;
-import de.javsper.springboottradingibkr.client.strategybuilder.type.Leg;
+import de.javsper.springboottradingibkr.client.datamodel.Leg;
 import de.javsper.springboottradingibkr.client.service.LegMapService;
+import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
+import de.javsper.springboottradingibkr.client.strategybuilder.StrategyBuilderService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/contract")

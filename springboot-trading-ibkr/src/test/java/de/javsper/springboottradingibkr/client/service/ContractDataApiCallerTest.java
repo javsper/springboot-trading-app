@@ -9,6 +9,7 @@ import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingdata.repository.message.ErrorMessageRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingdata.type.Currency;
+import de.javsper.springboottradingibkr.client.service.contract.ContractDataApiCaller;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

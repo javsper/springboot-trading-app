@@ -2,7 +2,7 @@ package de.javsper.springboottradingweb.controller.restapicontroller;
 
 import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
-import de.javsper.springboottradingibkr.client.service.OrderService;
+import de.javsper.springboottradingibkr.client.service.order.OrderService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;

@@ -1,9 +1,10 @@
-package de.javsper.springboottradingibkr.client.service;
+package de.javsper.springboottradingibkr.client.service.order;
 
 import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
 import de.javsper.springboottradingdata.service.ApiResponseInEntityChecker;
 import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
+import de.javsper.springboottradingibkr.client.service.contract.ContractDataValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service;
+package de.javsper.springboottradingibkr.client.service.contract;
 
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
