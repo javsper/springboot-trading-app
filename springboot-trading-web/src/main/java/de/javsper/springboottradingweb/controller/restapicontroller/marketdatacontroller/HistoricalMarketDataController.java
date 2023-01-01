@@ -4,7 +4,7 @@ import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
 import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
 import de.javsper.springboottradingibkr.client.datamodel.subtype.WhatToShowType;
-import de.javsper.springboottradingibkr.client.service.HistoricalMarketDataService;
+import de.javsper.springboottradingibkr.client.service.historicalmarketdata.HistoricalMarketDataService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
