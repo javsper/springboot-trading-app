@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller.marketdatacontroller;
 
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.HistoricalMarketData;
 import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
 import de.javsper.springboottradingibkr.client.datamodel.subtype.WhatToShowType;
 import de.javsper.springboottradingibkr.client.service.historicalmarketdata.HistoricalMarketDataService;
@@ -27,7 +27,7 @@ public class HistoricalMarketDataController {
     }
 
     @GetMapping("/Test")
-    public ResponseEntity<List<IBKRDataTypeEntity>> testHistoricalData() {
+    public ResponseEntity<List<HistoricalMarketData>> testHistoricalData() {
         HistoricalDataSettings settings = HistoricalDataSettings.builder()
                 .barSizeSetting("1 day")
                 .backfillDuration("1 Y")
@@ -37,7 +37,7 @@ public class HistoricalMarketDataController {
                 .dateFormatStyle(1)
                 .keepUpToDate(false)
                 .build();
-        List<IBKRDataTypeEntity> historicalData = historicalMarketDataService.requestHistoricalData(ContractDataTemplates.SpxData(), settings);
+        List<HistoricalMarketData> historicalData = historicalMarketDataService.requestHistoricalData(ContractDataTemplates.SpxData(), settings);
         return responseMapper.mapResponse(historicalData);
     }
 }

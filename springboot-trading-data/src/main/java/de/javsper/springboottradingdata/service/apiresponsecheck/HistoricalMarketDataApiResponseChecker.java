@@ -1,13 +1,12 @@
 package de.javsper.springboottradingdata.service.apiresponsecheck;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.HistoricalMarketData;
 import de.javsper.springboottradingdata.repository.HistoricalMarketDataRepository;
 import de.javsper.springboottradingdata.repository.message.ErrorMessageRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,13 +25,11 @@ public class HistoricalMarketDataApiResponseChecker {
     }
 
 
-    public List<IBKRDataTypeEntity> checkForApiResponseAndUpdate(Integer id) {
+    public List<HistoricalMarketData> checkForApiResponseAndUpdate(Integer id) {
         do {
             repositoryRefreshService.clearCacheAndWait(repository);
         } while (propertiesConfig.getActiveApiCalls().contains((long)id));
-        List<IBKRDataTypeEntity> dataList = new ArrayList<>();
-        dataList.addAll(errorMessageRepository.findAllByErrorId(id));
-        dataList.addAll(repository.findAllByContractId(id));
-        return dataList;
+        return repository.findAllByContractId(id);
+
     }
 }
