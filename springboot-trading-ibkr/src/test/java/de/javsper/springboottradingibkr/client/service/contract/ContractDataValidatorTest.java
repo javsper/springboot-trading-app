@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service;
+package de.javsper.springboottradingibkr.client.service.contract;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ContractData;

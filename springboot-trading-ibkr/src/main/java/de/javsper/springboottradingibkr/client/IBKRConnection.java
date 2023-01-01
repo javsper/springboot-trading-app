@@ -4,21 +4,22 @@
 package de.javsper.springboottradingibkr.client;
 
 import com.ib.client.*;
-import de.javsper.springboottradingdata.model.*;
+import de.javsper.springboottradingdata.model.ConnectionData;
 import de.javsper.springboottradingdata.model.adopted.Account;
 import de.javsper.springboottradingdata.model.adopted.Groups;
 import de.javsper.springboottradingdata.model.adopted.MktDepth;
 import de.javsper.springboottradingdata.model.adopted.NewsArticle;
 import de.javsper.springboottradingdata.modelconverter.DatabaseSyncIBKRContractAndContractData;
+import de.javsper.springboottradingdata.modelconverter.HistoricalMarketDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingdata.service.ErrorMessageHandler;
 import de.javsper.springboottradingdata.service.OrderWriteToDBService;
 import de.javsper.springboottradingibkr.client.callback.ContractDetailsCallback;
-import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
+import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingibkr.client.service.ErrorCodeHandler;
 import de.javsper.springboottradingibkr.client.service.FaDataTypeHandler;
-import de.javsper.springboottradingibkr.client.service.order.OrderStatusUpdateService;
 import de.javsper.springboottradingibkr.client.service.SynchronizedCallbackHanlder;
+import de.javsper.springboottradingibkr.client.service.order.OrderStatusUpdateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -47,6 +48,7 @@ public class IBKRConnection implements EWrapper {
     private final ConnectionDataRepository connectionDataRepository;
     private final OrderStatusUpdateService orderStatusUpdateService;
     private final DatabaseSyncIBKRContractAndContractData databaseSyncIBKRContractAndContractData;
+    private final HistoricalMarketDataDatabaseSynchronizer historicalMarketDataDatabaseSynchronizer;
     private final PropertiesConfig propertiesConfig;
     private final OrderWriteToDBService orderWriteToDBService;
 
@@ -70,7 +72,7 @@ public class IBKRConnection implements EWrapper {
             ErrorMessageHandler errorMessageHandler,
             KafkaTemplate<String,String> kafkaTemplate, ConnectionDataRepository connectionDataRepository,
             OrderStatusUpdateService orderStatusUpdateService,
-            DatabaseSyncIBKRContractAndContractData databaseSyncIBKRContractAndContractData, PropertiesConfig propertiesConfig, OrderWriteToDBService orderWriteToDBService) {
+            DatabaseSyncIBKRContractAndContractData databaseSyncIBKRContractAndContractData, HistoricalMarketDataDatabaseSynchronizer historicalMarketDataDatabaseSynchronizer, PropertiesConfig propertiesConfig, OrderWriteToDBService orderWriteToDBService) {
         this.callbackHanlder = callbackHanlder;
         this.errorCodeHandler = errorCodeHandler;
         this.faDataTypeHandler = faDataTypeHandler;
@@ -79,6 +81,7 @@ public class IBKRConnection implements EWrapper {
         this.connectionDataRepository = connectionDataRepository;
         this.orderStatusUpdateService = orderStatusUpdateService;
         this.databaseSyncIBKRContractAndContractData = databaseSyncIBKRContractAndContractData;
+        this.historicalMarketDataDatabaseSynchronizer = historicalMarketDataDatabaseSynchronizer;
         this.propertiesConfig = propertiesConfig;
 
         this.orderWriteToDBService = orderWriteToDBService;
@@ -298,13 +301,14 @@ public class IBKRConnection implements EWrapper {
     }
 
     @Override
+    @Transactional
     public void historicalData(int reqId, Bar bar) {
-        kafkaTemplate.send("tickHistorical",EWrapperMsgGenerator.historicalData(reqId, bar.time(), bar.open(), bar.high(), bar.low(), bar.close(), bar.volume(), bar.count(), bar.wap()));
+        historicalMarketDataDatabaseSynchronizer.findInDbOrSave(reqId, bar);
     }
 
     @Override
     public void historicalDataEnd(int reqId, String startDate, String endDate) {
-        kafkaTemplate.send("tickHistorical",EWrapperMsgGenerator.historicalDataEnd(reqId, startDate, endDate));
+      log.info(EWrapperMsgGenerator.historicalDataEnd(reqId, startDate, endDate));
     }
 
     @Override

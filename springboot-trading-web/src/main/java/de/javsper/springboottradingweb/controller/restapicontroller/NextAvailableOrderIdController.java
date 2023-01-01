@@ -1,6 +1,6 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
-import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
+import de.javsper.springboottradingdata.config.PropertiesConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 

@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
 import de.javsper.springboottradingdata.model.OrderData;
-import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
+import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingibkr.client.service.order.OrderService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import org.springframework.http.ResponseEntity;

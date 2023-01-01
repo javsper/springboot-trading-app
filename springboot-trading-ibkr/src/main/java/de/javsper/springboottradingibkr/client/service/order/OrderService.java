@@ -1,8 +1,8 @@
 package de.javsper.springboottradingibkr.client.service.order;
 
 import de.javsper.springboottradingdata.model.OrderData;
-import de.javsper.springboottradingdata.service.apiresponsecheck.OrderDataApiResonseChecker;
-import de.javsper.springboottradingibkr.client.config.PropertiesConfig;
+import de.javsper.springboottradingdata.service.apiresponsecheck.OrderDataApiResponseChecker;
+import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingibkr.client.service.contract.ContractDataValidator;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ public class OrderService {
 
     private final ContractDataValidator contractDataValidator;
     private final OrderPlacementService orderPlacementService;
-    private final OrderDataApiResonseChecker orderDataApiResonseChecker;
+    private final OrderDataApiResponseChecker orderDataApiResonseChecker;
     private final PropertiesConfig propertiesConfig;
 
-    public OrderService( ContractDataValidator contractDataValidator, OrderPlacementService orderPlacementService, PropertiesConfig propertiesConfig, OrderDataApiResonseChecker orderDataApiResonseChecker) {
+    public OrderService( ContractDataValidator contractDataValidator, OrderPlacementService orderPlacementService, PropertiesConfig propertiesConfig, OrderDataApiResponseChecker orderDataApiResonseChecker) {
         this.contractDataValidator = contractDataValidator;
         this.orderPlacementService = orderPlacementService;
         this.orderDataApiResonseChecker = orderDataApiResonseChecker;
