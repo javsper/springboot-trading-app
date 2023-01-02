@@ -1,6 +1,5 @@
 package de.javsper.springboottradingibkr.client.service.historicalmarketdata;
 
-import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.model.HistoricalMarketData;
 import de.javsper.springboottradingdata.service.apiresponsecheck.HistoricalMarketDataApiResponseChecker;
@@ -12,12 +11,10 @@ import java.util.List;
 @Service
 public class HistoricalResponseListService {
 
-    private final PropertiesConfig propertiesConfig;
     private final HistoricalMarketDataApiResponseChecker historicalMarketDataApiResponseChecker;
     private final HistoricalDataApiCaller historicalDataApiCaller;
 
-    public HistoricalResponseListService(PropertiesConfig propertiesConfig, HistoricalMarketDataApiResponseChecker historicalMarketDataApiResponseChecker, HistoricalDataApiCaller historicalDataApiCaller) {
-        this.propertiesConfig = propertiesConfig;
+    public HistoricalResponseListService(HistoricalMarketDataApiResponseChecker historicalMarketDataApiResponseChecker, HistoricalDataApiCaller historicalDataApiCaller) {
         this.historicalMarketDataApiResponseChecker = historicalMarketDataApiResponseChecker;
         this.historicalDataApiCaller = historicalDataApiCaller;
     }
@@ -29,8 +26,8 @@ public class HistoricalResponseListService {
      * @param contractData Contract that historical Data will be called off of
      */
     public List<HistoricalMarketData> getResponseList(HistoricalDataSettings settings, ContractData contractData) {
-        propertiesConfig.addToActiveApiCalls((long) contractData.getContractId());
+
         historicalDataApiCaller.callApi(contractData,settings);
-        return (historicalMarketDataApiResponseChecker.checkForApiResponseAndUpdate(contractData.getContractId()));
+        return historicalMarketDataApiResponseChecker.checkForApiResponseAndUpdate(contractData.getContractId());
     }
 }

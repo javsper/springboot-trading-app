@@ -3,6 +3,7 @@ package de.javsper.springboottradingibkr.client.service.order;
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.Order;
+import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.modelconverter.OrderDataToIBKROrder;
@@ -13,17 +14,21 @@ public class OrderPlacementService {
 
     private final ContractDataToIBKRContract contractDataToIBKRContract;
     private final OrderDataToIBKROrder orderDatatoIBKROrder;
-    private  final EClientSocket client;
+    private final EClientSocket client;
+    private final PropertiesConfig propertiesConfig;
 
-    public OrderPlacementService(ContractDataToIBKRContract contractDataToIBKRContract, OrderDataToIBKROrder orderDatatoIBKROrder, EClientSocket client) {
+    public OrderPlacementService(ContractDataToIBKRContract contractDataToIBKRContract, OrderDataToIBKROrder orderDatatoIBKROrder, EClientSocket client, PropertiesConfig propertiesConfig) {
         this.contractDataToIBKRContract = contractDataToIBKRContract;
         this.orderDatatoIBKROrder = orderDatatoIBKROrder;
         this.client = client;
+        this.propertiesConfig = propertiesConfig;
     }
 
-    public void placeOrder(OrderData orderData){
+    public void placeOrder(OrderData orderData) {
         Contract contract = contractDataToIBKRContract.convertContractData(orderData.getContractData());
         Order order = orderDatatoIBKROrder.convertOrderData(orderData);
+
+        propertiesConfig.addToActiveApiCalls(orderData.getId());
         client.placeOrder(orderData.getId().intValue(), contract, order);//Todo some kind of Feedback.
     }
 }

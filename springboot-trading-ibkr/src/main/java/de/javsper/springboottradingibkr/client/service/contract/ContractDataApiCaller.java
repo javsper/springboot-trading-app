@@ -2,6 +2,7 @@ package de.javsper.springboottradingibkr.client.service.contract;
 
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
+import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
@@ -23,21 +24,26 @@ class ContractDataApiCaller {
     private final ContractDataToIBKRContract contractDataToIBKRContract;
     private final ContractDataRepository contractDataRepository;
     private final ContractDataApiResponseChecker contractDataApiResponseChecker;
+    private final PropertiesConfig propertiesConfig;
 
     public ContractDataApiCaller(EClientSocket client,
                                  ContractDataToIBKRContract contractDataToIBKRContract,
                                  ContractDataRepository contractDataRepository,
-                                ContractDataApiResponseChecker contractDataApiResponseChecker) {
+                                 ContractDataApiResponseChecker contractDataApiResponseChecker, PropertiesConfig propertiesConfig) {
         this.client = client;
         this.contractDataToIBKRContract = contractDataToIBKRContract;
         this.contractDataRepository = contractDataRepository;
         this.contractDataApiResponseChecker = contractDataApiResponseChecker;
+        this.propertiesConfig = propertiesConfig;
     }
 
     public Optional<ContractData> callContractDetailsFromAPI(ContractData contractData) {
         Contract ibkrContract = contractDataToIBKRContract.convertContractData(contractData);
+
         //ugly: having to increment by 2 because I am too stupid to do it properly
         Long nextId = getNextId(contractData);
+        propertiesConfig.addToActiveApiCalls(nextId);
+
         client.reqContractDetails(nextId.intValue(), ibkrContract);
         return contractDataApiResponseChecker.checkForApiResponseAndUpdate(nextId);
     }
