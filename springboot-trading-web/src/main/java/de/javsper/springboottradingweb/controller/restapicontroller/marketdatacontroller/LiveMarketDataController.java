@@ -2,7 +2,7 @@ package de.javsper.springboottradingweb.controller.restapicontroller.marketdatac
 
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.ContractData;
-import de.javsper.springboottradingibkr.client.service.MarketDataService;
+import de.javsper.springboottradingibkr.client.service.marketdata.MarketDataService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

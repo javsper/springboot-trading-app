@@ -2,7 +2,6 @@ package de.javsper.springboottradingibkr.client.service.historicalmarketdata;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.model.HistoricalMarketData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HistoricalMarketDataService {
@@ -26,13 +24,12 @@ public class HistoricalMarketDataService {
         this.historicalResponseListService = historicalResponseListService;
     }
 
-    public List<HistoricalMarketData> requestHistoricalData(ContractData contractData, HistoricalDataSettings settings) {
-        List<HistoricalMarketData> historicalDataTicks = new ArrayList<>();
-        Optional<ContractData> contractDataOptional = uniqueContractDataProvider.getExistingContractDataOrCallApi(contractData);
-        return contractDataOptional.map((contractData1) -> {
-                historicalDataTicks.addAll(historicalResponseListService.getResponseList(settings, contractData1));
-                return historicalDataTicks;
-        }).orElseGet(() -> historicalDataTicks);
+    public List<HistoricalMarketData> requestHistoricalData(HistoricalDataSettings settings) {
+        return uniqueContractDataProvider.getExistingContractDataOrCallApi(settings.getContractData())
+                .map((uniqueContractData) -> {
+                    settings.setContractData(uniqueContractData);
+                    return historicalResponseListService.getResponseList(settings);
+                }).orElseGet(ArrayList::new);
     }
 
 

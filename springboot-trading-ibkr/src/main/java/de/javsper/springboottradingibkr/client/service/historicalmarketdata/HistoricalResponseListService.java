@@ -1,6 +1,5 @@
 package de.javsper.springboottradingibkr.client.service.historicalmarketdata;
 
-import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.model.HistoricalMarketData;
 import de.javsper.springboottradingdata.service.apiresponsecheck.HistoricalMarketDataApiResponseChecker;
 import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
@@ -25,9 +24,9 @@ public class HistoricalResponseListService {
      * @param settings Settings for the Historical Data
      * @param contractData Contract that historical Data will be called off of
      */
-    public List<HistoricalMarketData> getResponseList(HistoricalDataSettings settings, ContractData contractData) {
+    public List<HistoricalMarketData> getResponseList(HistoricalDataSettings settings) {
 
-        historicalDataApiCaller.callApi(contractData,settings);
-        return historicalMarketDataApiResponseChecker.checkForApiResponseAndUpdate(contractData.getContractId());
+        historicalDataApiCaller.callApi(settings);
+        return historicalMarketDataApiResponseChecker.checkForApiResponseAndUpdate(settings.getContractData().getContractId());
     }
 }
