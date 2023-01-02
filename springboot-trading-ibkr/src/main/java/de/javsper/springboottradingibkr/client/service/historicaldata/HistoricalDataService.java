@@ -1,11 +1,11 @@
-package de.javsper.springboottradingibkr.client.service.historicalmarketdata;
+package de.javsper.springboottradingibkr.client.service.historicaldata;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.HistoricalData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
-import de.javsper.springboottradingdata.service.apiresponsecheck.HistoricalMarketDataApiResponseChecker;
+import de.javsper.springboottradingdata.service.apiresponsecheck.HistoricalDataApiResponseChecker;
 import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class HistoricalDataService {
     private final UniqueContractDataProvider uniqueContractDataProvider;
     private final HistoricalResponseListService historicalResponseListService;
 
-    public HistoricalDataService(UniqueContractDataProvider uniqueContractDataProvider, EClientSocket client, HistoricalMarketDataApiResponseChecker historicalMarketDataApiResponseChecker, ContractDataToIBKRContract contractDataToIBKRContract, IBKRTimeStampFormatter ibkrTimeStampFormatter, PropertiesConfig propertiesConfig, HistoricalResponseListService historicalResponseListService) {
+    public HistoricalDataService(UniqueContractDataProvider uniqueContractDataProvider, EClientSocket client, HistoricalDataApiResponseChecker historicalDataApiResponseChecker, ContractDataToIBKRContract contractDataToIBKRContract, IBKRTimeStampFormatter ibkrTimeStampFormatter, PropertiesConfig propertiesConfig, HistoricalResponseListService historicalResponseListService) {
         this.uniqueContractDataProvider = uniqueContractDataProvider;
         this.historicalResponseListService = historicalResponseListService;
     }

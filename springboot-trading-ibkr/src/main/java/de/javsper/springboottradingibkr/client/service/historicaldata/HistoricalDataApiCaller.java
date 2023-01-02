@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service.historicalmarketdata;
+package de.javsper.springboottradingibkr.client.service.historicaldata;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
