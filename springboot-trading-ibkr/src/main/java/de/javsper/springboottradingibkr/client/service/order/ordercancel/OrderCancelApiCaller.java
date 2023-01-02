@@ -5,7 +5,7 @@ import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("OrderCancelApiCaller")
 class OrderCancelApiCaller implements ApiCaller<OrderData> {
 
     private final EClientSocket client;

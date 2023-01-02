@@ -4,6 +4,7 @@ import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingdata.service.apiresponsecheck.ApiResponseCheckerForOptional;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,12 +13,12 @@ import java.util.Optional;
 public class OrderValidateAndPlacementService {
 
     private final UniqueContractDataProvider uniqueContractDataProvider;
-    private final ApiCaller<OrderData> orderPlacementService;
+    private final ApiCaller<OrderData> orderPlacementApiCaller;
     private final ApiResponseCheckerForOptional<OrderData> orderDataApiResponseChecker;
 
-    public OrderValidateAndPlacementService(UniqueContractDataProvider uniqueContractDataProvider, ApiCaller<OrderData> orderPlacementService, ApiResponseCheckerForOptional<OrderData>orderDataApiResponseChecker) {
+    public OrderValidateAndPlacementService(UniqueContractDataProvider uniqueContractDataProvider, @Qualifier("OrderPlacementApiCaller")ApiCaller<OrderData> orderPlacementApiCaller, ApiResponseCheckerForOptional<OrderData>orderDataApiResponseChecker) {
         this.uniqueContractDataProvider = uniqueContractDataProvider;
-        this.orderPlacementService = orderPlacementService;
+        this.orderPlacementApiCaller = orderPlacementApiCaller;
         this.orderDataApiResponseChecker = orderDataApiResponseChecker;
     }
 
@@ -26,7 +27,7 @@ public class OrderValidateAndPlacementService {
                         orderData.getContractData())
                 .map((contractData -> {
                     orderData.setContractData(contractData);
-                    orderPlacementService.callApi(orderData);
+                    orderPlacementApiCaller.callApi(orderData);
                     return orderDataApiResponseChecker.checkForApiResponseAndUpdate(orderData.getId().intValue());
                 })).orElseGet(Optional::empty);
 
