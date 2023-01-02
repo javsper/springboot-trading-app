@@ -3,6 +3,7 @@ package de.javsper.springboottradingweb.controller.restapicontroller.marketdatac
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.HistoricalMarketData;
 import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
+import de.javsper.springboottradingibkr.client.datamodel.subtype.BarSizeSetting;
 import de.javsper.springboottradingibkr.client.datamodel.subtype.WhatToShowType;
 import de.javsper.springboottradingibkr.client.service.historicalmarketdata.HistoricalMarketDataService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
@@ -29,7 +30,7 @@ public class HistoricalMarketDataController {
     @GetMapping("/Test")
     public ResponseEntity<List<HistoricalMarketData>> testHistoricalData() {
         HistoricalDataSettings settings = HistoricalDataSettings.builder()
-                .barSizeSetting("1 day")
+                .barSizeSetting(BarSizeSetting.get("1 day"))
                 .backfillDuration("1 Y")
                 .backfillEndTime(Timestamp.valueOf("2023-12-08 09:00:00"))
                 .whatToShow(WhatToShowType.TRADES)

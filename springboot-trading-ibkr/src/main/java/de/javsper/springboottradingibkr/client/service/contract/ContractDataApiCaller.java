@@ -1,6 +1,5 @@
 package de.javsper.springboottradingibkr.client.service.contract;
 
-import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
@@ -31,7 +30,6 @@ class ContractDataApiCaller {
      * @param contractData DB object to be converted to ib.Contract to call API
      */
     public void callApi(Long nextId, ContractData contractData) {
-        Contract ibkrContract = contractDataToIBKRContract.convertContractData(contractData);
-        client.reqContractDetails(nextId.intValue(), ibkrContract);
+        client.reqContractDetails(nextId.intValue(), contractDataToIBKRContract.convertContractData(contractData));
     }
 }

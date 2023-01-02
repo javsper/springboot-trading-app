@@ -1,14 +1,16 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
+import com.ib.client.OrderType;
+import com.ib.client.Types;
+import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingibkr.client.service.order.OrderService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/order")
@@ -23,6 +25,17 @@ public class OrderController {
         this.propertiesConfig = propertiesConfig;
         this.orderService = orderService;
         this.responseMapper = responseMapper;
+    }
+    @GetMapping("/test")
+    public ResponseEntity<OrderData> test(){
+        OrderData orderData = OrderData.builder()
+                .action(Types.Action.BUY)
+                .totalQuantity(BigDecimal.ONE)
+                .orderType(OrderType.LMT)
+                .limitPrice(BigDecimal.valueOf(400))
+                .contractData(ContractDataTemplates.SpxData())
+                .build();
+        return responseMapper.mapResponse(orderService.validateAndPlaceOrder(orderData));
     }
 
 //    valid Test Statements:
