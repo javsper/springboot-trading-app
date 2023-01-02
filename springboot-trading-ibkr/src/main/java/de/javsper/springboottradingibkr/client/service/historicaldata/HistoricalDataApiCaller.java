@@ -3,11 +3,11 @@ package de.javsper.springboottradingibkr.client.service.historicaldata;
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
-import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
+import de.javsper.springboottradingdata.model.HistoricalDataSettings;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HistoricalDataApiCaller {
+class HistoricalDataApiCaller {
 
     private final EClientSocket client;
     private final ContractDataToIBKRContract contractDataToIBKRContract;

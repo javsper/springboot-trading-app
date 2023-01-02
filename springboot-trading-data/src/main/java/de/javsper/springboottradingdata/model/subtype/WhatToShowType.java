@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.datamodel.subtype;
+package de.javsper.springboottradingdata.model.subtype;
 
 public enum WhatToShowType {
     TRADES,

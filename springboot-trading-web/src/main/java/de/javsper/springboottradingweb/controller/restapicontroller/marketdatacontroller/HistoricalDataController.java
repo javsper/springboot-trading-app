@@ -2,9 +2,9 @@ package de.javsper.springboottradingweb.controller.restapicontroller.marketdatac
 
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.HistoricalData;
-import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
-import de.javsper.springboottradingibkr.client.datamodel.subtype.BarSizeSetting;
-import de.javsper.springboottradingibkr.client.datamodel.subtype.WhatToShowType;
+import de.javsper.springboottradingdata.model.HistoricalDataSettings;
+import de.javsper.springboottradingdata.model.subtype.BarSizeSetting;
+import de.javsper.springboottradingdata.model.subtype.WhatToShowType;
 import de.javsper.springboottradingibkr.client.service.historicaldata.HistoricalDataService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import jakarta.validation.Valid;

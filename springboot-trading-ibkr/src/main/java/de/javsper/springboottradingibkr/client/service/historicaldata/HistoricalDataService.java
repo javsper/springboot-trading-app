@@ -6,7 +6,7 @@ import de.javsper.springboottradingdata.model.HistoricalData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
 import de.javsper.springboottradingdata.service.apiresponsecheck.HistoricalDataApiResponseChecker;
-import de.javsper.springboottradingibkr.client.datamodel.HistoricalDataSettings;
+import de.javsper.springboottradingdata.model.HistoricalDataSettings;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import org.springframework.stereotype.Service;
 

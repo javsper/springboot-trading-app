@@ -5,7 +5,7 @@ import de.javsper.springboottradingdata.model.ComboLegData;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
-import de.javsper.springboottradingibkr.client.datamodel.Leg;
+import de.javsper.springboottradingdata.model.Leg;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

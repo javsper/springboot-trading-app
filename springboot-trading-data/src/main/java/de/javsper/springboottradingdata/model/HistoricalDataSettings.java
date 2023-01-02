@@ -1,9 +1,8 @@
-package de.javsper.springboottradingibkr.client.datamodel;
+package de.javsper.springboottradingdata.model;
 
 import com.ib.client.TagValue;
-import de.javsper.springboottradingdata.model.ContractData;
-import de.javsper.springboottradingibkr.client.datamodel.subtype.BarSizeSetting;
-import de.javsper.springboottradingibkr.client.datamodel.subtype.WhatToShowType;
+import de.javsper.springboottradingdata.model.subtype.BarSizeSetting;
+import de.javsper.springboottradingdata.model.subtype.WhatToShowType;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -21,7 +20,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HistoricalDataSettings {
+public class HistoricalDataSettings extends IBKRDataTypeEntity {
 
     private ContractData contractData;
 

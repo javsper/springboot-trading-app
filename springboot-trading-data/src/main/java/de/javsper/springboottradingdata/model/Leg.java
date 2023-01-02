@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.datamodel;
+package de.javsper.springboottradingdata.model;
 
 import com.ib.client.Types;
 import lombok.*;
