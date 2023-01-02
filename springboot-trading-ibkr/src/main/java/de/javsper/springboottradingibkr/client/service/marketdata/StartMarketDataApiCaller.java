@@ -4,10 +4,11 @@ import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
+import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.stereotype.Service;
 
 @Service
-class StartMarketDataApiCaller {
+class StartMarketDataApiCaller implements ApiCaller<ContractData> {
 
     private final EClientSocket client;
     private final ContractDataToIBKRContract contractDataToIBKRContract;

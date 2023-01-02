@@ -4,10 +4,11 @@ import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
 import de.javsper.springboottradingdata.model.HistoricalDataSettings;
+import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.stereotype.Service;
 
 @Service
-class HistoricalDataApiCaller {
+class HistoricalDataApiCaller implements ApiCaller<HistoricalDataSettings> {
 
     private final EClientSocket client;
     private final ContractDataToIBKRContract contractDataToIBKRContract;

@@ -1,0 +1,10 @@
+package de.javsper.springboottradingdata.service.apiresponsecheck;
+
+import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+
+import java.util.Optional;
+
+public interface ApiResponseCheckerForOptional <T extends IBKRDataTypeEntity> {
+
+    public Optional<T> checkForApiResponseAndUpdate(int id);
+}

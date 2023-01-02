@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service;
+package de.javsper.springboottradingdata.service;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.Leg;

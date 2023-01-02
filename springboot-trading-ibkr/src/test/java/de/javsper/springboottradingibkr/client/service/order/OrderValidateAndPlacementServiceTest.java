@@ -3,7 +3,7 @@ package de.javsper.springboottradingibkr.client.service.order;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.model.OrderData;
-import de.javsper.springboottradingdata.service.apiresponsecheck.OrderDataApiResponseChecker;
+import de.javsper.springboottradingdata.service.apiresponsecheck.ApiResponseCheckerForOptional;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ class OrderValidateAndPlacementServiceTest {
     @Mock
     private OrderPlacementService orderPlacementService;
     @Mock
-    private OrderDataApiResponseChecker orderDataApiResponseChecker;
+    private ApiResponseCheckerForOptional<OrderData> orderDataApiResponseChecker;
     @InjectMocks
     OrderValidateAndPlacementService orderValidateAndPlacementService;
 
