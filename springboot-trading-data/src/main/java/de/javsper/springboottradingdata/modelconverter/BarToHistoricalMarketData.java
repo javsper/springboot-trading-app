@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.modelconverter;
 
 import com.ib.client.Bar;
-import de.javsper.springboottradingdata.model.HistoricalMarketData;
+import de.javsper.springboottradingdata.model.HistoricalData;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +14,8 @@ public class BarToHistoricalMarketData {
         this.ibkrTimeStampFormatter = ibkrTimeStampFormatter;
     }
 
-    public HistoricalMarketData convert(Bar bar){
-        return HistoricalMarketData.builder()
+    public HistoricalData convert(Bar bar){
+        return HistoricalData.builder()
                 .time(ibkrTimeStampFormatter.formatStringToTimeStamp(bar.time()))
                 .open(bar.open())
                 .high(bar.high())

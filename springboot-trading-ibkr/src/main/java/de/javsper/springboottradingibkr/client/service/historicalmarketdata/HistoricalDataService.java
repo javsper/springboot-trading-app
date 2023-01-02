@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.service.historicalmarketdata;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.HistoricalMarketData;
+import de.javsper.springboottradingdata.model.HistoricalData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
 import de.javsper.springboottradingdata.service.apiresponsecheck.HistoricalMarketDataApiResponseChecker;
@@ -14,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class HistoricalMarketDataService {
+public class HistoricalDataService {
 
     private final UniqueContractDataProvider uniqueContractDataProvider;
     private final HistoricalResponseListService historicalResponseListService;
 
-    public HistoricalMarketDataService(UniqueContractDataProvider uniqueContractDataProvider, EClientSocket client, HistoricalMarketDataApiResponseChecker historicalMarketDataApiResponseChecker, ContractDataToIBKRContract contractDataToIBKRContract, IBKRTimeStampFormatter ibkrTimeStampFormatter, PropertiesConfig propertiesConfig, HistoricalResponseListService historicalResponseListService) {
+    public HistoricalDataService(UniqueContractDataProvider uniqueContractDataProvider, EClientSocket client, HistoricalMarketDataApiResponseChecker historicalMarketDataApiResponseChecker, ContractDataToIBKRContract contractDataToIBKRContract, IBKRTimeStampFormatter ibkrTimeStampFormatter, PropertiesConfig propertiesConfig, HistoricalResponseListService historicalResponseListService) {
         this.uniqueContractDataProvider = uniqueContractDataProvider;
         this.historicalResponseListService = historicalResponseListService;
     }
 
-    public List<HistoricalMarketData> requestHistoricalData(HistoricalDataSettings settings) {
+    public List<HistoricalData> requestHistoricalData(HistoricalDataSettings settings) {
         return uniqueContractDataProvider.getExistingContractDataOrCallApi(settings.getContractData())
                 .map((uniqueContractData) -> {
                     settings.setContractData(uniqueContractData);
