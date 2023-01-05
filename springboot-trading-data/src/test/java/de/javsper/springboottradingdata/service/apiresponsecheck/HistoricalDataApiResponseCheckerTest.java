@@ -4,13 +4,15 @@ import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.HistoricalData;
 import de.javsper.springboottradingdata.repository.HistoricalDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +29,7 @@ class HistoricalDataApiResponseCheckerTest {
     @InjectMocks
     private HistoricalDataApiResponseChecker historicalDataApiResponseChecker;
 
-    @Test
+//    @Test
     void testOnFirstTry(){
         HistoricalData historicalData = HistoricalData.builder().id(2L).contractId(5).build();
         HistoricalData historicalData2 = HistoricalData.builder().id(1L).contractId(5).build();

@@ -6,6 +6,9 @@ package de.javsper.springboottradingibkr.client;
 import com.ib.client.*;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.ConnectionData;
+import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.HistoricalData;
+import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
 import de.javsper.springboottradingdata.model.adopted.Account;
 import de.javsper.springboottradingdata.model.adopted.Groups;
 import de.javsper.springboottradingdata.model.adopted.MktDepth;
@@ -41,6 +44,7 @@ public class IBKRConnection implements EWrapper {
 
     private final ErrorMessageHandler errorsMessageHandler;
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, IBKRDataTypeEntity> kafkaEntityTemplate;
 
     private final ConnectionDataRepository connectionDataRepository;
     private final OrderStatusUpdateService orderStatusUpdateService;
@@ -65,13 +69,17 @@ public class IBKRConnection implements EWrapper {
             ErrorCodeHandler errorCodeHandler,
             FaDataTypeHandler faDataTypeHandler,
             ErrorMessageHandler errorMessageHandler,
-            KafkaTemplate<String, String> kafkaTemplate, ConnectionDataRepository connectionDataRepository,
+            KafkaTemplate<String, String> kafkaTemplate,
+            KafkaTemplate<String, IBKRDataTypeEntity> kafkaEntityTemplate,
+            ConnectionDataRepository connectionDataRepository,
             OrderStatusUpdateService orderStatusUpdateService,
-            ContractDataDatabaseSynchronizer contractDataDatabaseSynchronizer, HistoricalDataDatabaseSynchronizer historicalDataDatabaseSynchronizer, PropertiesConfig propertiesConfig, OrderWriteToDBService orderWriteToDBService) {
+            ContractDataDatabaseSynchronizer contractDataDatabaseSynchronizer,
+            HistoricalDataDatabaseSynchronizer historicalDataDatabaseSynchronizer, PropertiesConfig propertiesConfig, OrderWriteToDBService orderWriteToDBService) {
         this.errorCodeHandler = errorCodeHandler;
         this.faDataTypeHandler = faDataTypeHandler;
         this.errorsMessageHandler = errorMessageHandler;
         this.kafkaTemplate = kafkaTemplate;
+        this.kafkaEntityTemplate = kafkaEntityTemplate;
         this.connectionDataRepository = connectionDataRepository;
         this.orderStatusUpdateService = orderStatusUpdateService;
         this.contractDataDatabaseSynchronizer = contractDataDatabaseSynchronizer;
@@ -152,7 +160,9 @@ public class IBKRConnection implements EWrapper {
     @Override
     @Transactional
     public void contractDetails(int reqId, ContractDetails contractDetails) {
-        contractDataDatabaseSynchronizer.findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(OptionalLong.of(reqId), contractDetails.contract());
+        ContractData contractData = contractDataDatabaseSynchronizer.findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(OptionalLong.of(reqId), contractDetails.contract());
+//        kafkaTemplate.send("contract", EWrapperMsgGenerator.contractDetails(reqId,contractDetails));
+        kafkaEntityTemplate.send("contractData", contractData);
         log.debug("Added Contract Details: Id = " + reqId);
     }
 
@@ -297,7 +307,8 @@ public class IBKRConnection implements EWrapper {
     @Override
     @Transactional
     public void historicalData(int reqId, Bar bar) {
-        historicalDataDatabaseSynchronizer.findInDbOrSave(reqId, bar);
+        HistoricalData historicalData = historicalDataDatabaseSynchronizer.findInDbOrSave(reqId, bar);
+        kafkaEntityTemplate.send("historicalData", historicalData);
     }
 
     @Override
@@ -357,6 +368,7 @@ public class IBKRConnection implements EWrapper {
 
     @Override
     public void position(String account, Contract contract, Decimal pos, double avgCost) {
+        kafkaTemplate.send("position",EWrapperMsgGenerator.position(account, contract, pos, avgCost));
         log.info(EWrapperMsgGenerator.position(account, contract, pos, avgCost));
     }
 
