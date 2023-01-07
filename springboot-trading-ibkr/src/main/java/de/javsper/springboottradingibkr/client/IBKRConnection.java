@@ -5,15 +5,11 @@ package de.javsper.springboottradingibkr.client;
 
 import com.ib.client.*;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.ConnectionData;
-import de.javsper.springboottradingdata.model.ContractData;
-import de.javsper.springboottradingdata.model.HistoricalData;
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.*;
 import de.javsper.springboottradingdata.model.adopted.Account;
 import de.javsper.springboottradingdata.model.adopted.Groups;
 import de.javsper.springboottradingdata.model.adopted.MktDepth;
 import de.javsper.springboottradingdata.model.adopted.NewsArticle;
-import de.javsper.springboottradingdata.model.message.TwsMessage;
 import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelsynchronize.HistoricalDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;
@@ -173,7 +169,6 @@ public class IBKRConnection implements EWrapper {
     public void contractDetails(int reqId, ContractDetails contractDetails) {
         ContractData contractData = contractDataDatabaseSynchronizer.findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(
                 OptionalLong.of(reqId), contractDetails.contract());
-        log.debug("Added Contract Details: Id = " + reqId);
     }
 
     @Override
@@ -382,15 +377,13 @@ public class IBKRConnection implements EWrapper {
 
     @Override
     public void position(String account, Contract contract, Decimal pos, double avgCost) {
-        kafkaEntityTemplate.send("position",
-                positionDataDatabaseSynchronizer.findInDbOrSave(account, contract, pos.value(),
-                        avgCost));
+        PositionData data = positionDataDatabaseSynchronizer.findInDbOrSave(account, contract, pos.value(), avgCost);
         log.info(EWrapperMsgGenerator.position(account, contract, pos, avgCost));
     }
 
     @Override
     public void positionEnd() {
-        twsMessageHandler.handleMessage(propertiesConfig.getPositionsCallId(),EWrapperMsgGenerator.positionEnd());
+        twsMessageHandler.handleMessage(propertiesConfig.getPOSITION_CALL_ID(), EWrapperMsgGenerator.positionEnd());
     }
 
     @Override
