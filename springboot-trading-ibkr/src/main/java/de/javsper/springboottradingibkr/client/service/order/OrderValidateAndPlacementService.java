@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.order;
 
 import de.javsper.springboottradingdata.model.OrderData;
-import de.javsper.springboottradingdata.service.apiresponsecheck.ApiResponseCheckerForOptional;
+import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,9 +14,9 @@ public class OrderValidateAndPlacementService {
 
     private final UniqueContractDataProvider uniqueContractDataProvider;
     private final ApiCaller<OrderData> orderPlacementApiCaller;
-    private final ApiResponseCheckerForOptional<OrderData> orderDataApiResponseChecker;
+    private final OptionalApiResponseChecker<OrderData> orderDataApiResponseChecker;
 
-    public OrderValidateAndPlacementService(UniqueContractDataProvider uniqueContractDataProvider, @Qualifier("OrderPlacementApiCaller")ApiCaller<OrderData> orderPlacementApiCaller, ApiResponseCheckerForOptional<OrderData>orderDataApiResponseChecker) {
+    public OrderValidateAndPlacementService(UniqueContractDataProvider uniqueContractDataProvider, @Qualifier("OrderPlacementApiCaller")ApiCaller<OrderData> orderPlacementApiCaller, OptionalApiResponseChecker<OrderData> orderDataApiResponseChecker) {
         this.uniqueContractDataProvider = uniqueContractDataProvider;
         this.orderPlacementApiCaller = orderPlacementApiCaller;
         this.orderDataApiResponseChecker = orderDataApiResponseChecker;

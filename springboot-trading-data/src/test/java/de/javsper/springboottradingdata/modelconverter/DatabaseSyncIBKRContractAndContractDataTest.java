@@ -4,6 +4,7 @@ import com.ib.client.Contract;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.ComboLegData;
 import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import org.junit.jupiter.api.Test;

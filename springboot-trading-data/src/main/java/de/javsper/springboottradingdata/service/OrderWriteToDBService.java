@@ -5,7 +5,7 @@ import com.ib.client.Order;
 import com.ib.client.OrderStatus;
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.model.OrderData;
-import de.javsper.springboottradingdata.modelconverter.ContractDataDatabaseSynchronizer;
+import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelconverter.IBKROrderToOrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
 import org.springframework.stereotype.Service;

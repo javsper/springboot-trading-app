@@ -1,8 +1,9 @@
-package de.javsper.springboottradingdata.modelconverter;
+package de.javsper.springboottradingdata.modelsynchronize;
 
 import com.ib.client.Contract;
 import de.javsper.springboottradingdata.model.ComboLegData;
 import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.modelconverter.IBKRContractToContractData;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import org.springframework.stereotype.Component;

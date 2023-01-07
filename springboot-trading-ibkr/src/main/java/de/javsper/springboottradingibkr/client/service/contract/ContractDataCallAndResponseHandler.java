@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.service.contract;
 
 import de.javsper.springboottradingdata.model.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
-import de.javsper.springboottradingdata.service.apiresponsecheck.ApiResponseCheckerForOptional;
+import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +13,10 @@ import java.util.Optional;
 public class ContractDataCallAndResponseHandler {
 
     private final ContractDataRepository contractDataRepository;
-    private final ApiResponseCheckerForOptional<ContractData> contractDataApiResponseChecker;
+    private final OptionalApiResponseChecker<ContractData> contractDataApiResponseChecker;
     private final ApiCaller<ContractData> contractDataApiCaller;
 
-    public ContractDataCallAndResponseHandler(ContractDataRepository contractDataRepository, ApiResponseCheckerForOptional<ContractData> contractDataApiResponseChecker, ApiCaller<ContractData> contractDataApiCaller) {
+    public ContractDataCallAndResponseHandler(ContractDataRepository contractDataRepository, OptionalApiResponseChecker<ContractData> contractDataApiResponseChecker, ApiCaller<ContractData> contractDataApiCaller) {
         this.contractDataRepository = contractDataRepository;
         this.contractDataApiResponseChecker = contractDataApiResponseChecker;
         this.contractDataApiCaller = contractDataApiCaller;

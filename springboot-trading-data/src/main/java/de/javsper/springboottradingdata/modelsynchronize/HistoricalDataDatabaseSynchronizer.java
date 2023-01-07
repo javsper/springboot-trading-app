@@ -1,7 +1,8 @@
-package de.javsper.springboottradingdata.modelconverter;
+package de.javsper.springboottradingdata.modelsynchronize;
 
 import com.ib.client.Bar;
 import de.javsper.springboottradingdata.model.HistoricalData;
+import de.javsper.springboottradingdata.modelconverter.BarToHistoricalData;
 import de.javsper.springboottradingdata.repository.HistoricalDataRepository;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
 import org.springframework.stereotype.Component;
