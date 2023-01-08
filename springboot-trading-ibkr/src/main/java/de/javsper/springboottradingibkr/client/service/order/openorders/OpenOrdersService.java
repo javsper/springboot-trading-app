@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service.order.openorder;
+package de.javsper.springboottradingibkr.client.service.order.openorders;
 
 import de.javsper.springboottradingdata.model.OrderData;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithoutParameter;
@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class OpenOrderService {
+public class OpenOrdersService {
 
 
-    private ApiCallerWithoutParameter<OrderData> openOrderApiCaller;
+    private final ApiCallerWithoutParameter<OrderData> openOrderApiCaller;
 
-    public OpenOrderService(@Qualifier("OpenOrderApiCaller") ApiCallerWithoutParameter<OrderData> openOrderApiCaller) {
+    public OpenOrdersService(@Qualifier("OpenOrdersApiCaller") ApiCallerWithoutParameter<OrderData> openOrderApiCaller) {
         this.openOrderApiCaller = openOrderApiCaller;
     }
 
