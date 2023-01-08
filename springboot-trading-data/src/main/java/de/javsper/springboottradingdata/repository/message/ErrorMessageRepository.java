@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.repository.message;
 
-import de.javsper.springboottradingdata.model.message.ErrorMessage;
+import de.javsper.springboottradingdata.model.entity.message.ErrorMessage;
 import de.javsper.springboottradingdata.repository.BaseRepository;
 
 import java.util.List;

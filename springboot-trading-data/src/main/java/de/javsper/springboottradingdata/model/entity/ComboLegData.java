@@ -1,4 +1,4 @@
-package de.javsper.springboottradingdata.model;
+package de.javsper.springboottradingdata.model.entity;
 
 import com.ib.client.Types;
 import jakarta.persistence.*;

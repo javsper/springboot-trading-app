@@ -1,8 +1,8 @@
 package de.javsper.springboottradingweb;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingdata.model.ConnectionData;
-import de.javsper.springboottradingdata.model.message.TwsMessage;
+import de.javsper.springboottradingdata.model.entity.ConnectionData;
+import de.javsper.springboottradingdata.model.entity.message.TwsMessage;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingdata.repository.message.TwsMessageRepository;
 import de.javsper.springboottradingibkr.client.service.EReaderHolder;

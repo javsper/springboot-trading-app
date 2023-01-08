@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.config;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

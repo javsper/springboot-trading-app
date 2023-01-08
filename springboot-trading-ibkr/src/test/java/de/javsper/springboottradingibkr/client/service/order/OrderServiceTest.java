@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.order;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingdata.model.entity.OrderData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

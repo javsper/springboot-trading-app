@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.dataobject;
 
-import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

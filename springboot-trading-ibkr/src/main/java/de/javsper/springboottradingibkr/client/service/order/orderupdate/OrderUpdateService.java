@@ -1,6 +1,6 @@
 package de.javsper.springboottradingibkr.client.service.order.orderupdate;
 
-import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingdata.model.entity.OrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
 import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;

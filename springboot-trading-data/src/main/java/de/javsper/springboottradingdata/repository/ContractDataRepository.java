@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.repository;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
 import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;

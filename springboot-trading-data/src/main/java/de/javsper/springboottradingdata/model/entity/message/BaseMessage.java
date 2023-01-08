@@ -1,6 +1,6 @@
-package de.javsper.springboottradingdata.model.message;
+package de.javsper.springboottradingdata.model.entity.message;
 
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

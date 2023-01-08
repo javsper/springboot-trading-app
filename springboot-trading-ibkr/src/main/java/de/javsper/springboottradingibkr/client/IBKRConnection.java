@@ -5,11 +5,11 @@ package de.javsper.springboottradingibkr.client;
 
 import com.ib.client.*;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.*;
 import de.javsper.springboottradingdata.model.adopted.Account;
 import de.javsper.springboottradingdata.model.adopted.Groups;
 import de.javsper.springboottradingdata.model.adopted.MktDepth;
 import de.javsper.springboottradingdata.model.adopted.NewsArticle;
+import de.javsper.springboottradingdata.model.entity.ConnectionData;
 import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelsynchronize.HistoricalDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;

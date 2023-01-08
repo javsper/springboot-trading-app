@@ -1,6 +1,8 @@
 package de.javsper.springboottradingdata.model;
 
 import com.ib.client.TagValue;
+import de.javsper.springboottradingdata.model.entity.ContractData;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import de.javsper.springboottradingdata.model.subtype.BarSizeSetting;
 import de.javsper.springboottradingdata.model.subtype.WhatToShowType;
 import lombok.*;

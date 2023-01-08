@@ -1,9 +1,9 @@
 package de.javsper.springboottradingdata.kafkaconsumer;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.message.BaseMessage;
-import de.javsper.springboottradingdata.model.message.ErrorMessage;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.entity.message.BaseMessage;
+import de.javsper.springboottradingdata.model.entity.message.ErrorMessage;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

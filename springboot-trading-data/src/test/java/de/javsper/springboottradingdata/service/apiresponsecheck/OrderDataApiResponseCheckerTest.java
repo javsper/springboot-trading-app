@@ -1,7 +1,6 @@
 package de.javsper.springboottradingdata.service.apiresponsecheck;
 
-import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingdata.model.entity.OrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import org.junit.jupiter.api.extension.ExtendWith;

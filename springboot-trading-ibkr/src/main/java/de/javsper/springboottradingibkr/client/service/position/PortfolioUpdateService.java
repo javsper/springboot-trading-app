@@ -1,12 +1,11 @@
 package de.javsper.springboottradingibkr.client.service.position;
 
-import de.javsper.springboottradingdata.model.PositionData;
+import de.javsper.springboottradingdata.model.entity.PositionData;
 import de.javsper.springboottradingdata.repository.PositionDataRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PortfolioUpdateService {

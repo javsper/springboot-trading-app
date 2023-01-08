@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service;
 
 import com.ib.client.OrderStatus;
-import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingdata.model.entity.OrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
 import de.javsper.springboottradingibkr.client.service.order.OrderStatusUpdateService;
 import org.junit.jupiter.api.Test;

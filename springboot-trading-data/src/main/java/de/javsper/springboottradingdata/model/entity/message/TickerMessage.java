@@ -1,6 +1,6 @@
-package de.javsper.springboottradingdata.model.message;
+package de.javsper.springboottradingdata.model.entity.message;
 
-import de.javsper.springboottradingdata.model.BaseEntity;
+import de.javsper.springboottradingdata.model.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller.marketdatacontroller;
 
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
-import de.javsper.springboottradingdata.model.HistoricalData;
+import de.javsper.springboottradingdata.model.entity.HistoricalData;
 import de.javsper.springboottradingdata.model.HistoricalDataSettings;
 import de.javsper.springboottradingdata.model.subtype.BarSizeSetting;
 import de.javsper.springboottradingdata.model.subtype.WhatToShowType;

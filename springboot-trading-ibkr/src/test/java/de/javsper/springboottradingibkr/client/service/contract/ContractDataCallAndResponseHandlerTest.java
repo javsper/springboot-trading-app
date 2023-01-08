@@ -1,8 +1,8 @@
 package de.javsper.springboottradingibkr.client.service.contract;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.ComboLegData;
-import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.entity.ComboLegData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
 import de.javsper.springboottradingdata.type.Currency;

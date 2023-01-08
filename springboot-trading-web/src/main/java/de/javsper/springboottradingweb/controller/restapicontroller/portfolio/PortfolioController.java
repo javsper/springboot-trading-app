@@ -1,6 +1,6 @@
 package de.javsper.springboottradingweb.controller.restapicontroller.portfolio;
 
-import de.javsper.springboottradingdata.model.PositionData;
+import de.javsper.springboottradingdata.model.entity.PositionData;
 import de.javsper.springboottradingibkr.client.service.position.PositionService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
 import org.springframework.http.ResponseEntity;

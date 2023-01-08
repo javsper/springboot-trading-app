@@ -1,14 +1,12 @@
 package de.javsper.springboottradingdata.modelsynchronize;
 
 import com.ib.client.Contract;
-import de.javsper.springboottradingdata.model.ContractData;
-import de.javsper.springboottradingdata.model.PositionData;
+import de.javsper.springboottradingdata.model.entity.PositionData;
 import de.javsper.springboottradingdata.modelconverter.IBKRResponseToPositionData;
 import de.javsper.springboottradingdata.repository.PositionDataRepository;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.OptionalLong;
 
 @Component
 public class PositionDataDatabaseSynchronizer {

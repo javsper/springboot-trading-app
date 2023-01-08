@@ -1,12 +1,10 @@
 package de.javsper.springboottradingdata.service;
 
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import de.javsper.springboottradingdata.repository.IBKRDataTypeRepository;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j

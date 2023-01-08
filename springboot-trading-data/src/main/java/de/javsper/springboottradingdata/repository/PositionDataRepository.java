@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.repository;
 
-import de.javsper.springboottradingdata.model.ContractData;
-import de.javsper.springboottradingdata.model.PositionData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
+import de.javsper.springboottradingdata.model.entity.PositionData;
 import java.util.Optional;
 
 public interface PositionDataRepository extends IBKRDataTypeRepository<PositionData> {

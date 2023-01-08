@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.repository;
 
-import de.javsper.springboottradingdata.model.ConnectionData;
+import de.javsper.springboottradingdata.model.entity.ConnectionData;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

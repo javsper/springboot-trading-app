@@ -1,8 +1,8 @@
 package de.javsper.springboottradingdata.service.messagehandler;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.message.TwsMessage;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.entity.message.TwsMessage;
 import de.javsper.springboottradingdata.repository.message.TwsMessageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

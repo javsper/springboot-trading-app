@@ -4,7 +4,7 @@ import com.ib.client.OrderType;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
-import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingdata.model.entity.OrderData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingibkr.client.service.order.OrderService;
 import de.javsper.springboottradingibkr.client.service.order.openorders.OpenOrdersService;

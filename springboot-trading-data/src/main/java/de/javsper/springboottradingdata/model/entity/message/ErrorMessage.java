@@ -1,4 +1,4 @@
-package de.javsper.springboottradingdata.model.message;
+package de.javsper.springboottradingdata.model.entity.message;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

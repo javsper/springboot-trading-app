@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.dataobject;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
 
 public class ContractDataTemplates {
 

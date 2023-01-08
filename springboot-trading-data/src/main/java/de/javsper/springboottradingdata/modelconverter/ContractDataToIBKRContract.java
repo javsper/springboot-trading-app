@@ -2,7 +2,7 @@ package de.javsper.springboottradingdata.modelconverter;
 
 import com.ib.client.ComboLeg;
 import com.ib.client.Contract;
-import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

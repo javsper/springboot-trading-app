@@ -1,4 +1,4 @@
-package de.javsper.springboottradingdata.model;
+package de.javsper.springboottradingdata.model.entity;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller.marketdatacontroller;
 
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
-import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
 import de.javsper.springboottradingibkr.client.service.marketdata.StartMarketDataService;
 import de.javsper.springboottradingibkr.client.service.marketdata.StopMarketDataService;
 import de.javsper.springboottradingweb.service.ResponseMapper;

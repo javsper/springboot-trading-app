@@ -1,6 +1,6 @@
 package de.javsper.springboottradingibkr.client.service.historicaldata;
 
-import de.javsper.springboottradingdata.model.HistoricalData;
+import de.javsper.springboottradingdata.model.entity.HistoricalData;
 import de.javsper.springboottradingdata.model.HistoricalDataSettings;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import org.springframework.stereotype.Service;

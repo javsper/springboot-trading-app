@@ -2,7 +2,7 @@ package de.javsper.springboottradingdata.modelconverter;
 
 import com.ib.client.Decimal;
 import com.ib.client.Order;
-import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingdata.model.entity.OrderData;
 import org.springframework.stereotype.Component;
 
 @Component

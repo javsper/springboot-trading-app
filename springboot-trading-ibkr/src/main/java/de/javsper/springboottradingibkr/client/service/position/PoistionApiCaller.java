@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.position;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingdata.model.PositionData;
+import de.javsper.springboottradingdata.model.entity.PositionData;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithoutParameter;
 import org.springframework.stereotype.Service;
 

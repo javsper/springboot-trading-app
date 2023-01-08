@@ -2,7 +2,7 @@ package de.javsper.springboottradingdata.service.apiresponsecheck;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.kafkaconsumer.KafkaApiCallEndService;
-import de.javsper.springboottradingdata.model.HistoricalData;
+import de.javsper.springboottradingdata.model.entity.HistoricalData;
 import de.javsper.springboottradingdata.repository.HistoricalDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import org.springframework.stereotype.Service;

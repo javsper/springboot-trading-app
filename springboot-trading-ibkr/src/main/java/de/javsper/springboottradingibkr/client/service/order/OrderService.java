@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.order;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.OrderData;
+import de.javsper.springboottradingdata.model.entity.OrderData;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

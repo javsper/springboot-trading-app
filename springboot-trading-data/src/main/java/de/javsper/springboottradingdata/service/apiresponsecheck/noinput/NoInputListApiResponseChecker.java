@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.service.apiresponsecheck.noinput;
 
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 
 import java.util.List;
 

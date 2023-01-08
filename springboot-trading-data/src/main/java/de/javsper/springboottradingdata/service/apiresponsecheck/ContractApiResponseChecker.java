@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.service.apiresponsecheck;
 
 import de.javsper.springboottradingdata.kafkaconsumer.KafkaApiCallEndService;
-import de.javsper.springboottradingdata.model.ContractData;
+import de.javsper.springboottradingdata.model.entity.ContractData;
 import de.javsper.springboottradingdata.repository.IBKRDataTypeRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.kafkaconsumer;
 
-import de.javsper.springboottradingdata.model.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.stereotype.Component;

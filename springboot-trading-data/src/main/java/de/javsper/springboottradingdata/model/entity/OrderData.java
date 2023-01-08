@@ -1,4 +1,4 @@
-package de.javsper.springboottradingdata.model;
+package de.javsper.springboottradingdata.model.entity;
 
 import com.ib.client.OrderStatus;
 import com.ib.client.OrderType;
