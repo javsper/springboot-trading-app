@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.config;
+package de.javsper.springboottradingdata.config;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
