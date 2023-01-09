@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.kafkaconsumer;
 
-import de.javsper.springboottradingdata.config.PropertiesConfig;
+import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
 import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import de.javsper.springboottradingdata.model.entity.message.BaseMessage;
 import de.javsper.springboottradingdata.model.entity.message.ErrorMessage;
@@ -41,7 +41,7 @@ class KafkaApiCallEndServiceTest {
     @Mock
     private KafkaConsumerProvider kafkaConsumerProvider;
     @Mock
-    private PropertiesConfig propertiesConfig;
+    private KafkaConstantsConfig kafkaConstantsConfig;
     @InjectMocks
     KafkaApiCallEndService kafkaApiCallEndService;
 
@@ -50,8 +50,7 @@ class KafkaApiCallEndServiceTest {
         ConsumerRecords<String, IBKRDataTypeEntity> records = new ConsumerRecords<>(Map.of(new TopicPartition("error",
                         2), List.of(record1, record3), new TopicPartition("message", 1), List.of(record2)));
 
-        when(propertiesConfig.getERROR_MESSAGE_TOPIC()).thenReturn("error");
-        when(propertiesConfig.getTWS_MESSAGE_TOPIC()).thenReturn("message");
+        when(kafkaConstantsConfig.getERROR_MESSAGE_TOPIC()).thenReturn("error");
         when(kafkaConsumerProvider.createConsumerWithSubscription(List.of("message", "error"))).thenReturn(consumer);
         when(consumer.poll(Duration.ofMillis(50L))).thenReturn(records);
     }
@@ -68,7 +67,7 @@ class KafkaApiCallEndServiceTest {
         when(record2.value()).thenReturn(msg2);
         when(record3.value()).thenReturn(msg3);
 
-        kafkaApiCallEndService.waitForApiCallToFinish(2);
+        kafkaApiCallEndService.waitForApiCallToFinish(2, "message");
 
         verify(record1,times(1)).value();
         verify(record2,times(1)).value();
@@ -90,7 +89,7 @@ class KafkaApiCallEndServiceTest {
 
         boolean threw = true;
         try{
-        kafkaApiCallEndService.waitForApiCallToFinish(1);
+        kafkaApiCallEndService.waitForApiCallToFinish(1,"message");
         threw = false;
         }catch (RuntimeException e){
             assertEquals("Error occured: normal Error Message",e.getMessage());
@@ -112,7 +111,7 @@ class KafkaApiCallEndServiceTest {
 
         boolean threw = true;
         try {
-            kafkaApiCallEndService.waitForApiCallToFinish(1);
+            kafkaApiCallEndService.waitForApiCallToFinish(1,"message");
             threw = false;
         } catch (RuntimeException e) {
             assertEquals("Error occured: normal Error Message",e.getMessage());

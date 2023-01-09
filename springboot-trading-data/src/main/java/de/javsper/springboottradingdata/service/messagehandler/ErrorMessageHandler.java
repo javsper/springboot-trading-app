@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.service.messagehandler;
 
-import de.javsper.springboottradingdata.config.PropertiesConfig;
+import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
 import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import de.javsper.springboottradingdata.model.entity.message.ErrorMessage;
 import de.javsper.springboottradingdata.repository.message.ErrorMessageRepository;
@@ -14,18 +14,19 @@ public class ErrorMessageHandler {
 
     private final ErrorMessageRepository errorMessageRepository;
     private final KafkaTemplate<String, IBKRDataTypeEntity> kafkaEntityTemplate;
-    private final PropertiesConfig propertiesConfig;
+    private final KafkaConstantsConfig kafkaConstantsConfig;
 
-    public ErrorMessageHandler(ErrorMessageRepository errorMessageRepository, KafkaTemplate<String, IBKRDataTypeEntity> kafkaEntityTemplate, PropertiesConfig propertiesConfig) {
+    public ErrorMessageHandler(ErrorMessageRepository errorMessageRepository, KafkaTemplate<String,
+            IBKRDataTypeEntity> kafkaEntityTemplate, KafkaConstantsConfig kafkaConstantsConfig) {
         this.errorMessageRepository = errorMessageRepository;
         this.kafkaEntityTemplate = kafkaEntityTemplate;
-        this.propertiesConfig = propertiesConfig;
+        this.kafkaConstantsConfig = kafkaConstantsConfig;
     }
 
     public void handleError(ErrorMessage errorMessage) {
         log.warn(errorMessage.getMessage());
         ErrorMessage error = errorMessageRepository.save(errorMessage);
-        kafkaEntityTemplate.send(propertiesConfig.getERROR_MESSAGE_TOPIC(), error);
+        kafkaEntityTemplate.send(kafkaConstantsConfig.getERROR_MESSAGE_TOPIC(), error);
     }
 
 }

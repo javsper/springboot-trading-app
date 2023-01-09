@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.kafkaconsumer;
 
-import de.javsper.springboottradingdata.config.PropertiesConfig;
+import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
 import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import de.javsper.springboottradingdata.model.entity.message.BaseMessage;
 import de.javsper.springboottradingdata.model.entity.message.ErrorMessage;
@@ -16,17 +16,17 @@ import java.util.List;
 public class KafkaApiCallEndService {
 
     private final KafkaConsumerProvider kafkaConsumerProvider;
-    private final PropertiesConfig propertiesConfig;
+    private final KafkaConstantsConfig kafkaConstantsConfig;
 
-    public KafkaApiCallEndService(KafkaConsumerProvider kafkaConsumerProvider, PropertiesConfig propertiesConfig) {
+    public KafkaApiCallEndService(KafkaConsumerProvider kafkaConsumerProvider, KafkaConstantsConfig kafkaConstantsConfig) {
         this.kafkaConsumerProvider = kafkaConsumerProvider;
-        this.propertiesConfig = propertiesConfig;
+        this.kafkaConstantsConfig = kafkaConstantsConfig;
     }
 
-    public void waitForApiCallToFinish(int id) {
+    public void waitForApiCallToFinish(int id, String topic) {
         Consumer<String, IBKRDataTypeEntity> messageConsumer =
-                kafkaConsumerProvider.createConsumerWithSubscription(List.of(propertiesConfig.getTWS_MESSAGE_TOPIC(),
-                        propertiesConfig.getERROR_MESSAGE_TOPIC()));
+                kafkaConsumerProvider.createConsumerWithSubscription(List.of(topic,
+                        kafkaConstantsConfig.getERROR_MESSAGE_TOPIC()));
 
         while (!processMessagesForId(id, messageConsumer)) {
             continue;
