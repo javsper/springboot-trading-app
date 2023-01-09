@@ -5,7 +5,7 @@ package de.javsper.springboottradingibkr.client;
 
 import com.ib.client.*;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.AccountSummary;
+import de.javsper.springboottradingdata.model.entity.AccountSummaryData;
 import de.javsper.springboottradingdata.model.adopted.Account;
 import de.javsper.springboottradingdata.model.adopted.Groups;
 import de.javsper.springboottradingdata.model.adopted.MktDepth;
@@ -15,7 +15,7 @@ import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSyn
 import de.javsper.springboottradingdata.modelsynchronize.HistoricalDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
-import de.javsper.springboottradingdata.service.messagehandler.AccountSummaryMessageHandler;
+import de.javsper.springboottradingdata.modelsynchronize.AccountSummaryDataDBSynchronizer;
 import de.javsper.springboottradingdata.service.NextValidOrderIdGenerator;
 import de.javsper.springboottradingdata.service.messagehandler.ErrorMessageHandler;
 import de.javsper.springboottradingdata.service.OrderWriteToDBService;
@@ -53,7 +53,7 @@ public class IBKRConnection implements EWrapper {
     private final PositionDataDatabaseSynchronizer positionDataDatabaseSynchronizer;
     private final OrderWriteToDBService orderWriteToDBService;
     private final NextValidOrderIdGenerator nextValidOrderIdGenerator;
-    private final AccountSummaryMessageHandler accountSummaryMessageHandler;
+    private final AccountSummaryDataDBSynchronizer accountSummaryDataDBSynchronizer;
 
 
     private final Map<Integer, MktDepth> m_mapRequestToMktDepthModel = new HashMap<>();
@@ -77,7 +77,7 @@ public class IBKRConnection implements EWrapper {
             HistoricalDataDatabaseSynchronizer historicalDataDatabaseSynchronizer,
             PositionDataDatabaseSynchronizer positionDataDatabaseSynchronizer, PropertiesConfig propertiesConfig,
             OrderWriteToDBService orderWriteToDBService, NextValidOrderIdGenerator nextValidOrderIdGenerator,
-            AccountSummaryMessageHandler accountSummaryMessageHandler) {
+            AccountSummaryDataDBSynchronizer accountSummaryDataDBSynchronizer) {
         this.errorCodeHandler = errorCodeHandler;
         this.errorMessageHandler = errorMessageHandler;
         this.twsMessageHandler = twsMessageHandler;
@@ -91,7 +91,7 @@ public class IBKRConnection implements EWrapper {
 
         this.orderWriteToDBService = orderWriteToDBService;
         this.nextValidOrderIdGenerator = nextValidOrderIdGenerator;
-        this.accountSummaryMessageHandler = accountSummaryMessageHandler;
+        this.accountSummaryDataDBSynchronizer = accountSummaryDataDBSynchronizer;
     }
 
     @Override
@@ -385,8 +385,8 @@ public class IBKRConnection implements EWrapper {
 
     @Override
     public void accountSummary(int reqId, String account, String tag, String value, String currency) {
-        accountSummaryMessageHandler.sendAccountSummaryMessage(
-                AccountSummary.builder().id((long) reqId).account(account).tag(tag).value(value).currency(currency).build());
+        accountSummaryDataDBSynchronizer.sendAccountSummaryMessage(
+                AccountSummaryData.builder().account(account).tag(tag).amount(value).currency(currency).build());
     }
 
     @Override
