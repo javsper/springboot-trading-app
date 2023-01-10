@@ -5,11 +5,13 @@ import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingweb.ConnectionInitiator;
 import de.javsper.springboottradingweb.SpringbootTradingApplication;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(exposedHeaders="Access-Control-Allow-Origin",origins = "http://localhost:4200/")
 public class ConnectionController {
 
     private final ConnectionInitiator connectionInitiator;
