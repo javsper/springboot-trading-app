@@ -2,7 +2,6 @@ package de.javsper.springboottradingibkr.client.service.accountsummary.profitand
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.entity.ProfitAndLossData;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithoutParameter;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("AccountPnLApiCaller")
-class AccountPnLApiCaller implements ApiCallerWithoutParameter<ProfitAndLossData> {
+class AccountPnLApiCaller implements ApiCallerWithoutParameter {
 
     private final EClientSocket client;
     private final ConnectionDataRepository connectionDataRepository;

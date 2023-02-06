@@ -1,14 +1,13 @@
 package de.javsper.springboottradingibkr.client.service.order.openorders;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingdata.model.entity.OrderData;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithoutParameter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("OpenOrdersApiCaller")
-class OpenOrdersApiCaller implements ApiCallerWithoutParameter<OrderData> {
+class OpenOrdersApiCaller implements ApiCallerWithoutParameter {
 
     private final EClientSocket client;
 

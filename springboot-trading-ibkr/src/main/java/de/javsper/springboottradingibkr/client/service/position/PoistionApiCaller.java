@@ -1,12 +1,13 @@
 package de.javsper.springboottradingibkr.client.service.position;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingdata.model.entity.PositionData;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithoutParameter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-class PoistionApiCaller implements ApiCallerWithoutParameter<PositionData> {
+@Qualifier("PoistionApiCaller")
+class PoistionApiCaller implements ApiCallerWithoutParameter {
 
     private final EClientSocket client;
 
