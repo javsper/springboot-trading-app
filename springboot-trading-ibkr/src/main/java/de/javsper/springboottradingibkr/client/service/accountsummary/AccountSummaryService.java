@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service.accountsummery;
+package de.javsper.springboottradingibkr.client.service.accountsummary;
 
 import de.javsper.springboottradingdata.model.entity.AccountSummaryData;
 import de.javsper.springboottradingdata.service.apiresponsecheck.noinput.NoInputListApiResponseChecker;

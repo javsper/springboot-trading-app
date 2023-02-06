@@ -1,4 +1,4 @@
-package de.javsper.springboottradingibkr.client.service.accountsummery;
+package de.javsper.springboottradingibkr.client.service.accountsummary;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
