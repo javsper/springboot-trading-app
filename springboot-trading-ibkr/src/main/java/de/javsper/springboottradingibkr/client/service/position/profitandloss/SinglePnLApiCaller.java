@@ -3,15 +3,14 @@ package de.javsper.springboottradingibkr.client.service.position.profitandloss;
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.entity.ConnectionData;
-import de.javsper.springboottradingdata.model.entity.PositionData;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
-import de.javsper.springboottradingibkr.client.service.ApiCaller;
+import de.javsper.springboottradingibkr.client.service.ApiCallerWithId;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("SinglePnLApiCaller")
-class SinglePnLApiCaller implements ApiCaller<PositionData> {
+class SinglePnLApiCaller implements ApiCallerWithId {
 
     private final EClientSocket client;
     private final ConnectionDataRepository connectionDataRepository;
@@ -26,11 +25,9 @@ class SinglePnLApiCaller implements ApiCaller<PositionData> {
     }
 
     @Override
-    public void callApi(PositionData positionData) {
+    public void callApi(int id) {
         ConnectionData connectionData =
                 connectionDataRepository.findById(propertiesConfig.getConnectionId()).orElseThrow();
-        Integer contractId = positionData.getContractData().getContractId();
-        client.reqPnLSingle(contractId, connectionData.getAccountList(), "",
-                contractId);
+        client.reqPnLSingle(id, connectionData.getAccountList(), "", id);
     }
 }
