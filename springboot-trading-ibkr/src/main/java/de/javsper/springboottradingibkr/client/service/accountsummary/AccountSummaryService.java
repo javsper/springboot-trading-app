@@ -1,36 +1,28 @@
 package de.javsper.springboottradingibkr.client.service.accountsummary;
 
-import de.javsper.springboottradingdata.model.entity.AccountSummaryData;
-import de.javsper.springboottradingdata.service.apiresponsecheck.noinput.NoInputListApiResponseChecker;
+
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithoutParameter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AccountSummaryService {
 
     private final ApiCallerWithoutParameter accountSummaryApiCaller;
     private final ApiCallerWithoutParameter accountSummaryCancelApiCaller;
-    private final NoInputListApiResponseChecker<AccountSummaryData> accountSummaryApiResponseChecker;
 
     public AccountSummaryService(@Qualifier("AccountSummaryApiCaller") AccountSummaryApiCaller accountSummaryApiCaller,
-                                 @Qualifier("AccountSummaryCancelApiCaller") ApiCallerWithoutParameter accountSummaryCancelApiCaller,
-                                 NoInputListApiResponseChecker<AccountSummaryData> accountSummaryApiResponseChecker) {
+                                 @Qualifier("AccountSummaryCancelApiCaller") ApiCallerWithoutParameter accountSummaryCancelApiCaller
+                                 ) {
         this.accountSummaryApiCaller = accountSummaryApiCaller;
         this.accountSummaryCancelApiCaller = accountSummaryCancelApiCaller;
-        this.accountSummaryApiResponseChecker = accountSummaryApiResponseChecker;
     }
 
-    public List<AccountSummaryData> getAccountSummary() {
-        //cancel call if an active call is still ongoing. Call is idempotent so no if clause
-        accountSummaryCancelApiCaller.callApi();
+    public void getAccountSummary() {
         accountSummaryApiCaller.callApi();
-        return accountSummaryApiResponseChecker.checkForApiResponseAndUpdate();
     }
 
-    public void cancelAccountSummary(){
+    public void cancelAccountSummary() {
         accountSummaryCancelApiCaller.callApi();
     }
 }
