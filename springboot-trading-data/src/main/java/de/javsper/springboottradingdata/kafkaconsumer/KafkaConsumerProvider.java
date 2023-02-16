@@ -2,6 +2,7 @@ package de.javsper.springboottradingdata.kafkaconsumer;
 
 import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import org.apache.kafka.clients.consumer.Consumer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,8 @@ public class KafkaConsumerProvider {
 
     private final ConsumerFactory<String, IBKRDataTypeEntity> entityConsumerFactory;
 
-    public KafkaConsumerProvider(ConsumerFactory<String, IBKRDataTypeEntity> entityConsumerFactory) {
+    public KafkaConsumerProvider(@Qualifier("RestResponseConsumerFactory") ConsumerFactory<String,
+            IBKRDataTypeEntity> entityConsumerFactory) {
         this.entityConsumerFactory = entityConsumerFactory;
     }
 
