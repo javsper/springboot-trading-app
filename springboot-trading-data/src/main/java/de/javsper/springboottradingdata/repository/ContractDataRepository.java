@@ -1,8 +1,8 @@
 package de.javsper.springboottradingdata.repository;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.entity.ComboLegData;
-import de.javsper.springboottradingdata.model.entity.ContractData;
+import de.javsper.springboottradingdata.model.entity.database.ComboLegData;
+import de.javsper.springboottradingdata.model.entity.database.ContractData;
 import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;

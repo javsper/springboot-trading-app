@@ -1,10 +1,9 @@
 package de.javsper.springboottradingdata.service;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.entity.ComboLegData;
-import de.javsper.springboottradingdata.model.entity.ContractData;
+import de.javsper.springboottradingdata.model.entity.database.ComboLegData;
+import de.javsper.springboottradingdata.model.entity.database.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

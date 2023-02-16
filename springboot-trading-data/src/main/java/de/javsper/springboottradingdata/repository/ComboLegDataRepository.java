@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.repository;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.entity.ComboLegData;
+import de.javsper.springboottradingdata.model.entity.database.ComboLegData;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

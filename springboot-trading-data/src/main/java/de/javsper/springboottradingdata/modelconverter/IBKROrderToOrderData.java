@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.modelconverter;
 
 import com.ib.client.Order;
-import de.javsper.springboottradingdata.model.entity.OrderData;
+import de.javsper.springboottradingdata.model.entity.database.OrderData;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

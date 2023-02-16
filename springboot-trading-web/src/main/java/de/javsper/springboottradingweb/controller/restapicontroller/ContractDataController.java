@@ -1,9 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
-import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.entity.ContractData;
+import de.javsper.springboottradingdata.model.entity.database.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
-import de.javsper.springboottradingdata.model.Leg;
 import de.javsper.springboottradingdata.service.LegMapService;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import de.javsper.springboottradingibkr.client.strategybuilder.StrategyBuilderService;

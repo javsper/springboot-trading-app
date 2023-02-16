@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.service;
 
-import de.javsper.springboottradingdata.model.entity.ComboLegData;
+import de.javsper.springboottradingdata.model.entity.database.ComboLegData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import org.springframework.stereotype.Service;
 

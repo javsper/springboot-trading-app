@@ -3,12 +3,11 @@ package de.javsper.springboottradingdata.service;
 import com.ib.client.Contract;
 import com.ib.client.Order;
 import com.ib.client.OrderStatus;
-import de.javsper.springboottradingdata.model.entity.ContractData;
-import de.javsper.springboottradingdata.model.entity.OrderData;
+import de.javsper.springboottradingdata.model.entity.database.ContractData;
+import de.javsper.springboottradingdata.model.entity.database.OrderData;
 import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelconverter.IBKROrderToOrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
 import java.util.OptionalLong;

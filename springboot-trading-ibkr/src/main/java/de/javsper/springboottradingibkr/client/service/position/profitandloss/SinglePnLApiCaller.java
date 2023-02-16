@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.service.position.profitandloss;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.entity.ConnectionData;
+import de.javsper.springboottradingdata.model.entity.database.ConnectionData;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithId;
 import org.springframework.beans.factory.annotation.Qualifier;

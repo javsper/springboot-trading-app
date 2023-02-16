@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.strategybuilder;
 
-import de.javsper.springboottradingdata.model.StrategyData;
-import de.javsper.springboottradingdata.model.entity.OrderData;
+import de.javsper.springboottradingdata.model.entity.StrategyData;
+import de.javsper.springboottradingdata.model.entity.database.OrderData;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

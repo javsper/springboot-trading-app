@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.service.apiresponsecheck;
 
-import de.javsper.springboottradingdata.model.entity.ContractData;
+import de.javsper.springboottradingdata.model.entity.database.ContractData;
 import de.javsper.springboottradingdata.repository.IBKRDataTypeRepository;
 import de.javsper.springboottradingdata.repository.message.ErrorMessageRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;

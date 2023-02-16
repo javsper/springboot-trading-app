@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.order.ordercancel;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingdata.model.entity.OrderData;
+import de.javsper.springboottradingdata.model.entity.database.OrderData;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.stereotype.Service;
 

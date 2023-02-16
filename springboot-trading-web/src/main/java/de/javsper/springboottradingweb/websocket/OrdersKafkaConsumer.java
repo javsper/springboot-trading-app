@@ -2,7 +2,7 @@ package de.javsper.springboottradingweb.websocket;
 
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
 import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.entity.OrderData;
+import de.javsper.springboottradingdata.model.entity.database.OrderData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

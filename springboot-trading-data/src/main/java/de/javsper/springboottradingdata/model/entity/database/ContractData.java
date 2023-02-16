@@ -1,13 +1,13 @@
-package de.javsper.springboottradingdata.model.entity;
+package de.javsper.springboottradingdata.model.entity.database;
 
 import com.ib.client.Types;
+import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter

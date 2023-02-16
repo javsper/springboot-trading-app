@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
-import de.javsper.springboottradingdata.model.StrategyData;
-import de.javsper.springboottradingdata.model.entity.OrderData;
+import de.javsper.springboottradingdata.model.entity.StrategyData;
+import de.javsper.springboottradingdata.model.entity.database.OrderData;
 import de.javsper.springboottradingibkr.client.service.order.OrderPlacementService;
 import de.javsper.springboottradingibkr.client.service.order.openorders.OpenOrdersService;
 import de.javsper.springboottradingibkr.client.service.order.ordercancel.OrderCancelService;

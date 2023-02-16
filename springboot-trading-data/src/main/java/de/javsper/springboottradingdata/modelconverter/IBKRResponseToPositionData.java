@@ -1,8 +1,8 @@
 package de.javsper.springboottradingdata.modelconverter;
 
 import com.ib.client.Contract;
-import de.javsper.springboottradingdata.model.entity.ContractData;
-import de.javsper.springboottradingdata.model.entity.PositionData;
+import de.javsper.springboottradingdata.model.entity.database.ContractData;
+import de.javsper.springboottradingdata.model.entity.database.PositionData;
 import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import org.springframework.stereotype.Component;
 

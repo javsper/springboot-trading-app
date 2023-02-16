@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.historicaldata;
 
-import de.javsper.springboottradingdata.model.entity.HistoricalData;
-import de.javsper.springboottradingdata.model.HistoricalDataSettings;
+import de.javsper.springboottradingdata.model.entity.database.HistoricalData;
+import de.javsper.springboottradingdata.model.entity.HistoricalDataSettings;
 import de.javsper.springboottradingdata.service.apiresponsecheck.ListApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.stereotype.Service;

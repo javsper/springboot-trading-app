@@ -1,7 +1,8 @@
-package de.javsper.springboottradingdata.model;
+package de.javsper.springboottradingdata.model.entity;
 
+import de.javsper.springboottradingdata.model.Leg;
 import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.entity.OrderData;
+import de.javsper.springboottradingdata.model.entity.database.OrderData;
 import lombok.*;
 
 import java.util.List;

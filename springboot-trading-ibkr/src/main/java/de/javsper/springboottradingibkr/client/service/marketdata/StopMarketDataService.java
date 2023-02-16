@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.marketdata;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.entity.ContractData;
+import de.javsper.springboottradingdata.model.entity.database.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import org.springframework.stereotype.Service;
 
