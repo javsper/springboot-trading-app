@@ -3,7 +3,7 @@ package de.javsper.springboottradingibkr.client.service.order;
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.Order;
-import de.javsper.springboottradingdata.model.entity.database.OrderData;
+import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.modelconverter.OrderDataToIBKROrder;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;

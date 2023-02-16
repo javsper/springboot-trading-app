@@ -1,8 +1,8 @@
 package de.javsper.springboottradingweb.websocket;
 
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
-import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.entity.database.PositionData;
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
+import de.javsper.springboottradingdata.model.data.entity.PositionData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -21,7 +21,7 @@ public class PortfolioKafkaConsumer {
     }
 
     @KafkaListener(topics = "${spring.kafka.names.topic.positions}")
-    public void consumeMessage(IBKRDataTypeEntity message){
+    public void consumeMessage(IBKRDataType message){
         PositionData position = (PositionData) message;
         log.info("Message received: " + position.getId());
         messagingTemplate.convertAndSend("/topic/"+kafkaConstantsConfig.getPOSITION_TOPIC(), position);

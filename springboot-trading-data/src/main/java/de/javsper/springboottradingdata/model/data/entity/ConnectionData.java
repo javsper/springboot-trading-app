@@ -1,6 +1,6 @@
-package de.javsper.springboottradingdata.model.entity.database;
+package de.javsper.springboottradingdata.model.data.entity;
 
-import de.javsper.springboottradingdata.model.entity.BaseEntity;
+import de.javsper.springboottradingdata.model.data.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

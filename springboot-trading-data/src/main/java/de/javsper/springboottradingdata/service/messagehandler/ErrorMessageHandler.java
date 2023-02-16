@@ -1,8 +1,8 @@
 package de.javsper.springboottradingdata.service.messagehandler;
 
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
-import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.entity.message.ErrorMessage;
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
+import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import de.javsper.springboottradingdata.repository.message.ErrorMessageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class ErrorMessageHandler {
 
     private final ErrorMessageRepository errorMessageRepository;
-    private final KafkaTemplate<String, IBKRDataTypeEntity> kafkaEntityTemplate;
+    private final KafkaTemplate<String, IBKRDataType> kafkaEntityTemplate;
     private final KafkaConstantsConfig kafkaConstantsConfig;
 
     public ErrorMessageHandler(ErrorMessageRepository errorMessageRepository, KafkaTemplate<String,
-            IBKRDataTypeEntity> kafkaEntityTemplate, KafkaConstantsConfig kafkaConstantsConfig) {
+            IBKRDataType> kafkaEntityTemplate, KafkaConstantsConfig kafkaConstantsConfig) {
         this.errorMessageRepository = errorMessageRepository;
         this.kafkaEntityTemplate = kafkaEntityTemplate;
         this.kafkaConstantsConfig = kafkaConstantsConfig;

@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.service.marketdata;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.entity.database.ContractData;
+import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.repository;
 
-import de.javsper.springboottradingdata.model.entity.database.HistoricalData;
+import de.javsper.springboottradingdata.model.data.entity.HistoricalData;
 
 import java.util.Date;
 import java.sql.Timestamp;

@@ -1,6 +1,6 @@
-package de.javsper.springboottradingdata.model.entity.database;
+package de.javsper.springboottradingdata.model.data.entity;
 
-import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoricalData extends IBKRDataTypeEntity {
+public class HistoricalData extends IBKRDataType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

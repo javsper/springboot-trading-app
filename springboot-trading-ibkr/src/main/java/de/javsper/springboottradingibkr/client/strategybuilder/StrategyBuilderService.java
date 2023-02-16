@@ -1,8 +1,8 @@
 package de.javsper.springboottradingibkr.client.strategybuilder;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.entity.database.ComboLegData;
-import de.javsper.springboottradingdata.model.entity.database.ContractData;
+import de.javsper.springboottradingdata.model.data.entity.ComboLegData;
+import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import de.javsper.springboottradingdata.model.Leg;

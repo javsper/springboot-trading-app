@@ -1,6 +1,6 @@
 package de.javsper.springboottradingibkr.client.service.order.orderupdate;
 
-import de.javsper.springboottradingdata.model.entity.database.OrderData;
+import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,8 +1,8 @@
 package de.javsper.springboottradingibkr.client.service.contract;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.entity.database.ComboLegData;
-import de.javsper.springboottradingdata.model.entity.database.ContractData;
+import de.javsper.springboottradingdata.model.data.entity.ComboLegData;
+import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package de.javsper.springboottradingweb.websocket;
 
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
-import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.entity.database.OrderData;
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
+import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -21,7 +21,7 @@ public class OrdersKafkaConsumer {
     }
 
     @KafkaListener(topics = "${spring.kafka.names.topic.orderData}")
-    public void consumeMessage(IBKRDataTypeEntity message){
+    public void consumeMessage(IBKRDataType message){
         OrderData order = (OrderData) message;
         log.info("Order received: " + order.getId());
         messagingTemplate.convertAndSend("/topic/"+kafkaConstantsConfig.getORDER_TOPIC(), order);

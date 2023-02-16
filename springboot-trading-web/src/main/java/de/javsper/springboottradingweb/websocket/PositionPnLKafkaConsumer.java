@@ -1,8 +1,8 @@
 package de.javsper.springboottradingweb.websocket;
 
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
-import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
-import de.javsper.springboottradingdata.model.entity.ProfitAndLossData;
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
+import de.javsper.springboottradingdata.model.data.ProfitAndLossData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -21,7 +21,7 @@ public class PositionPnLKafkaConsumer {
     }
 
     @KafkaListener(topics = "${spring.kafka.names.topic.singlePnL}")
-    public void consumeMessage(IBKRDataTypeEntity message){
+    public void consumeMessage(IBKRDataType message){
         ProfitAndLossData pnl = (ProfitAndLossData) message;
       log.info("Message received: " + pnl.getId());
       messagingTemplate.convertAndSend("/topic/"+kafkaConstantsConfig.getSINGLE_PNL_TOPIC(), pnl);

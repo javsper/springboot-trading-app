@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.repository;
 
-import de.javsper.springboottradingdata.model.entity.BaseEntity;
+import de.javsper.springboottradingdata.model.data.BaseEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

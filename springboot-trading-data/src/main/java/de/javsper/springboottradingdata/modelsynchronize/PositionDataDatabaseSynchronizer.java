@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.modelsynchronize;
 
 import com.ib.client.Contract;
-import de.javsper.springboottradingdata.model.entity.database.PositionData;
+import de.javsper.springboottradingdata.model.data.entity.PositionData;
 import de.javsper.springboottradingdata.modelconverter.IBKRResponseToPositionData;
 import de.javsper.springboottradingdata.repository.PositionDataRepository;
 import org.springframework.stereotype.Component;

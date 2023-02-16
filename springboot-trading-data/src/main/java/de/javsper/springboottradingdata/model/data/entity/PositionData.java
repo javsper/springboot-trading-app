@@ -1,6 +1,6 @@
-package de.javsper.springboottradingdata.model.entity.database;
+package de.javsper.springboottradingdata.model.data.entity;
 
-import de.javsper.springboottradingdata.model.entity.IBKRDataTypeEntity;
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PositionData extends IBKRDataTypeEntity {
+public class PositionData extends IBKRDataType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

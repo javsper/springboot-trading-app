@@ -1,4 +1,4 @@
-package de.javsper.springboottradingdata.model.entity;
+package de.javsper.springboottradingdata.model.data;
 
 import jakarta.persistence.MappedSuperclass;
 

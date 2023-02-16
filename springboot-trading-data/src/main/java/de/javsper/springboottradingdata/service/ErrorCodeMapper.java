@@ -1,6 +1,6 @@
 package de.javsper.springboottradingdata.service;
 
-import de.javsper.springboottradingdata.model.entity.message.ErrorMessage;
+import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import org.springframework.stereotype.Component;
 
 @Component
