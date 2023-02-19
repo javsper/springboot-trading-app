@@ -2,12 +2,10 @@ package de.javsper.springboottradingdata.service.apiresponsecheck;
 
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.IBKRDataTypeRepository;
-import de.javsper.springboottradingdata.repository.message.ErrorMessageRepository;
+import de.javsper.springboottradingdata.service.ApiResponseErrorHandler;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -15,13 +13,14 @@ class ContractApiResponseChecker implements OptionalApiResponseChecker<ContractD
 
     private final IBKRDataTypeRepository<ContractData> repository;
     private final RepositoryRefreshService repositoryRefreshService;
-    private final ErrorMessageRepository errorMessageRepository;
+    private final ApiResponseErrorHandler apiResponseErrorHandler;
+
 
     public ContractApiResponseChecker(IBKRDataTypeRepository<ContractData> repository,
-                                      RepositoryRefreshService repositoryRefreshService, ErrorMessageRepository errorMessageRepository) {
+                                      RepositoryRefreshService repositoryRefreshService, ApiResponseErrorHandler apiResponseErrorHandler) {
         this.repositoryRefreshService = repositoryRefreshService;
         this.repository = repository;
-        this.errorMessageRepository = errorMessageRepository;
+        this.apiResponseErrorHandler = apiResponseErrorHandler;
     }
 
     public Optional<ContractData> checkForApiResponseAndUpdate(int id) {
@@ -33,7 +32,6 @@ class ContractApiResponseChecker implements OptionalApiResponseChecker<ContractD
     }
 
     protected boolean notInRepositoryOrError(int id){
-        return repository.findById((long)id).isEmpty() && errorMessageRepository.findAllByMessageIdAndCreateDateIsAfter(id,
-                Timestamp.from(Instant.now().minusSeconds(5))).isEmpty();
+        return repository.findById((long)id).isEmpty() && !apiResponseErrorHandler.isErrorForId(id);
     }
 }
