@@ -1,6 +1,6 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
-import de.javsper.springboottradingdata.model.data.StrategyData;
+import de.javsper.springboottradingdata.model.data.StrategyOrderData;
 import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import de.javsper.springboottradingibkr.client.service.order.OrderPlacementService;
 import de.javsper.springboottradingibkr.client.service.order.openorders.OpenOrdersService;
@@ -44,8 +44,8 @@ public class OrderController {
     }
 
     @PostMapping("/place-strategy-order")
-    public void orderWithStrategyOrderObject(@RequestBody StrategyData strategyData) {
-        strategyOrderDataBuilder.buildOrderWithStrategyData(strategyData).ifPresent(
+    public void orderWithStrategyOrderObject(@RequestBody StrategyOrderData strategyOrderData) {
+        strategyOrderDataBuilder.buildOrderWithStrategyData(strategyOrderData).ifPresent(
                 orderPlacementService::setIdAndPlaceOrder
         );
     }
