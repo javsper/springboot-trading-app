@@ -6,6 +6,7 @@ import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import de.javsper.springboottradingibkr.client.strategybuilder.StrategyBuilderService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,22 +14,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/contract")
+@RequiredArgsConstructor
 public class ContractDataController {
 
     private final ContractDataRepository contractDataRepository;
     private final UniqueContractDataProvider uniqueContractDataProvider;
     private final StrategyBuilderService strategyBuilderService;
     private final ResponseMapper responseMapper;
-
-    public ContractDataController(ContractDataRepository contractDataRepository,
-                                  UniqueContractDataProvider uniqueContractDataProvider,
-                                  StrategyBuilderService strategyBuilderService,
-                                  ResponseMapper responseMapper) {
-        this.contractDataRepository = contractDataRepository;
-        this.uniqueContractDataProvider = uniqueContractDataProvider;
-        this.strategyBuilderService = strategyBuilderService;
-        this.responseMapper = responseMapper;
-    }
 
     @PostMapping("/combo")
     public ResponseEntity<ContractData> ComboLegContractData(@RequestBody StrategyContractData strategyContractData) {
