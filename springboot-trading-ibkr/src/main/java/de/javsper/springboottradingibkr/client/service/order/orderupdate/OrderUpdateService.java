@@ -3,20 +3,18 @@ package de.javsper.springboottradingibkr.client.service.order.orderupdate;
 import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
+@RequiredArgsConstructor
 public class OrderUpdateService {
 
     private final OrderDataRepository orderDataRepository;
-    private final ApiCaller<OrderData> orderPlacementApiCaller;
-
-    public OrderUpdateService(OrderDataRepository orderDataRepository,
-                              @Qualifier("OrderPlacementApiCaller") ApiCaller<OrderData> orderPlacementApiCaller) {
-        this.orderDataRepository = orderDataRepository;
-        this.orderPlacementApiCaller = orderPlacementApiCaller;
-    }
+    private final @Qualifier("OrderPlacementApiCaller") ApiCaller<OrderData> orderPlacementApiCaller;
 
     public void updateOrderLimitPrice(Long id, BigDecimal price) {
         callApiAndGetResponse(orderDataRepository.findById(id).map((orderData) -> {

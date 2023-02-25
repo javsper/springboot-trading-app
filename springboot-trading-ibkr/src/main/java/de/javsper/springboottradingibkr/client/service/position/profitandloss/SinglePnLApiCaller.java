@@ -5,24 +5,16 @@ import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.data.entity.ConnectionData;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithId;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
-@Qualifier("SinglePnLApiCaller")
+@Service("SinglePnLApiCaller")
+@RequiredArgsConstructor
 class SinglePnLApiCaller implements ApiCallerWithId {
 
     private final EClientSocket client;
     private final ConnectionDataRepository connectionDataRepository;
     private final PropertiesConfig propertiesConfig;
-
-
-    public SinglePnLApiCaller(EClientSocket client, ConnectionDataRepository connectionDataRepository,
-                              PropertiesConfig propertiesConfig) {
-        this.client = client;
-        this.connectionDataRepository = connectionDataRepository;
-        this.propertiesConfig = propertiesConfig;
-    }
 
     @Override
     public void callApi(int id) {

@@ -7,20 +7,16 @@ import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingdata.modelconverter.OrderDataToIBKROrder;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service("OrderPlacementApiCaller")
+@RequiredArgsConstructor
 class OrderPlacementApiCaller implements ApiCaller<OrderData> {
 
     private final ContractDataToIBKRContract contractDataToIBKRContract;
     private final OrderDataToIBKROrder orderDatatoIBKROrder;
     private final EClientSocket client;
-
-    public OrderPlacementApiCaller(ContractDataToIBKRContract contractDataToIBKRContract, OrderDataToIBKROrder orderDatatoIBKROrder, EClientSocket client) {
-        this.contractDataToIBKRContract = contractDataToIBKRContract;
-        this.orderDatatoIBKROrder = orderDatatoIBKROrder;
-        this.client = client;
-    }
 
     public void callApi(OrderData orderData) {
         Contract contract = contractDataToIBKRContract.convertContractData(orderData.getContractData());

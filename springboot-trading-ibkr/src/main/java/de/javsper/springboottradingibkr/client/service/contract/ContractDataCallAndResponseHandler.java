@@ -4,23 +4,20 @@ import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 
 @Component
+@RequiredArgsConstructor
 public class ContractDataCallAndResponseHandler {
 
     private final ContractDataRepository contractDataRepository;
     private final OptionalApiResponseChecker<ContractData> contractDataApiResponseChecker;
     private final ApiCaller<ContractData> contractDataApiCaller;
 
-    public ContractDataCallAndResponseHandler(ContractDataRepository contractDataRepository, OptionalApiResponseChecker<ContractData> contractDataApiResponseChecker, ApiCaller<ContractData> contractDataApiCaller) {
-        this.contractDataRepository = contractDataRepository;
-        this.contractDataApiResponseChecker = contractDataApiResponseChecker;
-        this.contractDataApiCaller = contractDataApiCaller;
-    }
 
     public Optional<ContractData> callContractDetailsFromAPI(ContractData contractData) {
         //ugly: having to increment by 2 because I am too stupid to do it properly

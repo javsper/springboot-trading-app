@@ -8,22 +8,20 @@ import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelconverter.IBKROrderToOrderData;
 import de.javsper.springboottradingdata.repository.OrderDataRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.OptionalLong;
 
 @Service
+@RequiredArgsConstructor
 public class OrderWriteToDBService {
+
     private final OrderDataRepository orderDataRepository;
     private final IBKROrderToOrderData ibkrOrderToOrderData;
     private final ContractDataDatabaseSynchronizer contractDataDatabaseSynchronizer;
 
-    public OrderWriteToDBService(OrderDataRepository orderDataRepository, IBKROrderToOrderData ibkrOrderToOrderData,
-                                 ContractDataDatabaseSynchronizer contractDataDatabaseSynchronizer) {
-        this.orderDataRepository = orderDataRepository;
-        this.ibkrOrderToOrderData = ibkrOrderToOrderData;
-        this.contractDataDatabaseSynchronizer = contractDataDatabaseSynchronizer;
-    }
+
 
     public OrderData saveOrUpdateFullOrderDataToDb(Order order, Contract contract, String orderStatus) {
         ContractData contractData = contractDataDatabaseSynchronizer.findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(

@@ -6,21 +6,18 @@ import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import de.javsper.springboottradingdata.model.Leg;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class StrategyBuilderService {
 
     private final UniqueContractDataProvider uniqueContractDataProvider;
     private final ComboLegDataRepository comboLegDataRepository;
-
-    public StrategyBuilderService(UniqueContractDataProvider uniqueContractDataProvider, ComboLegDataRepository comboLegDataRepository) {
-        this.uniqueContractDataProvider = uniqueContractDataProvider;
-        this.comboLegDataRepository = comboLegDataRepository;
-    }
 
     public Optional<ContractData> getComboLegContractData(ContractData contractData, List<Leg> legs) {
         try {

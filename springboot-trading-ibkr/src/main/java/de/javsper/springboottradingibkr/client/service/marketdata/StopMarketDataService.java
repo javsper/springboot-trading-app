@@ -3,24 +3,21 @@ package de.javsper.springboottradingibkr.client.service.marketdata;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
+import de.javsper.springboottradingibkr.client.service.ApiCallerWithId;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StopMarketDataService {
 
     private final PropertiesConfig propertiesConfig;
-    private final StopMarketDataApiCaller stopMarketDataApiCaller;
+    private final @Qualifier("StopMarketDataApiCaller") ApiCallerWithId stopMarketDataApiCaller;
     private final ContractDataRepository contractDataRepository;
-
-    public StopMarketDataService(PropertiesConfig propertiesConfig, StopMarketDataApiCaller stopMarketDataApiCaller,
-                                 ContractDataRepository contractDataRepository) {
-        this.propertiesConfig = propertiesConfig;
-        this.stopMarketDataApiCaller = stopMarketDataApiCaller;
-        this.contractDataRepository = contractDataRepository;
-    }
 
     public void stopMarketDataForContractId(int id) {
         contractDataRepository.findById((long) id).ifPresent((contractData) -> {

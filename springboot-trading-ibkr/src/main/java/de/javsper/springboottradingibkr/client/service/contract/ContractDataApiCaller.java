@@ -4,6 +4,7 @@ import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,16 +14,12 @@ import org.springframework.stereotype.Service;
  * for there are no check if contract Data exists already
  */
 @Service
+@RequiredArgsConstructor
 class ContractDataApiCaller implements ApiCaller<ContractData> {
 
     private final ContractDataToIBKRContract contractDataToIBKRContract;
     private final EClientSocket client;
 
-    public ContractDataApiCaller(ContractDataToIBKRContract contractDataToIBKRContract, EClientSocket client) {
-
-        this.contractDataToIBKRContract = contractDataToIBKRContract;
-        this.client = client;
-    }
 
     /**
      * Sets Active Api Call Flag for Id and calls the IBKR Api.
