@@ -17,10 +17,10 @@ import de.javsper.springboottradingdata.model.data.entity.PositionData;
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelsynchronize.HistoricalDataDatabaseSynchronizer;
-import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingdata.service.NextValidOrderIdGenerator;
 import de.javsper.springboottradingdata.service.OrderWriteToDBService;
+import de.javsper.springboottradingibkr.client.responsehandler.PositionResponseHandler;
 import de.javsper.springboottradingibkr.client.service.order.OrderStatusUpdateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class IBKRConnection implements EWrapper {
     private final OrderStatusUpdateService orderStatusUpdateService;
     private final ContractDataDatabaseSynchronizer contractDataDatabaseSynchronizer;
     private final HistoricalDataDatabaseSynchronizer historicalDataDatabaseSynchronizer;
-    private final PositionDataDatabaseSynchronizer positionDataDatabaseSynchronizer;
+    private final PositionResponseHandler positionResponseHandler;
     private final OrderWriteToDBService orderWriteToDBService;
     private final NextValidOrderIdGenerator nextValidOrderIdGenerator;
 
@@ -370,7 +370,7 @@ public class IBKRConnection implements EWrapper {
     @Override
     @Transactional
     public void position(String account, Contract contract, Decimal pos, double avgCost) {
-        PositionData position = positionDataDatabaseSynchronizer.findInDbOrSave(account, contract, pos.value(),
+        PositionData position = positionResponseHandler.transformResponseAndSynchronizeDB(account, contract, pos.value(),
                 avgCost);
         String topic = position.getContractData().getSecurityType().equals(Types.SecType.OPT)
                 ? kafkaConstantsConfig.getOPTION_POSITIONS_TOPIC()

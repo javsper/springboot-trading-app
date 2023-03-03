@@ -1,6 +1,5 @@
 package de.javsper.springboottradingdata.modelsynchronize;
 
-import com.ib.client.Contract;
 import de.javsper.springboottradingdata.model.data.entity.PositionData;
 import de.javsper.springboottradingdata.modelconverter.IBKRResponseToPositionData;
 import de.javsper.springboottradingdata.repository.PositionDataRepository;
@@ -17,9 +16,7 @@ public class PositionDataDatabaseSynchronizer {
     private final PositionDataRepository positionDataRepository;
 
 
-    public PositionData findInDbOrSave(String account, Contract contract, BigDecimal position, double avgCost) {
-        PositionData positionData = ibkrResponseToPositionData.convertAndPersistContract(account, contract, position,
-                avgCost);
+    public PositionData findInDbOrSave(PositionData positionData) {
         return positionDataRepository.findFirstByContractData(positionData.getContractData()).map((dbPositionData) -> {
             dbPositionData.setPosition(positionData.getPosition());
             dbPositionData.setAverageCost(positionData.getAverageCost());
