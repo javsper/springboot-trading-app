@@ -1,4 +1,4 @@
-package de.javsper.springboottradingdata.service;
+package de.javsper.springboottradingdata.errorhandling;
 
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
 import de.javsper.springboottradingdata.kafkaconsumer.KafkaConsumerProvider;

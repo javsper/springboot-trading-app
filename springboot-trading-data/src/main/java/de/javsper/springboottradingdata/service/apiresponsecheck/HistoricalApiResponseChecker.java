@@ -3,7 +3,7 @@ package de.javsper.springboottradingdata.service.apiresponsecheck;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.data.entity.HistoricalData;
 import de.javsper.springboottradingdata.repository.HistoricalDataRepository;
-import de.javsper.springboottradingdata.service.ApiResponseErrorHandler;
+import de.javsper.springboottradingdata.errorhandling.ApiResponseErrorHandler;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

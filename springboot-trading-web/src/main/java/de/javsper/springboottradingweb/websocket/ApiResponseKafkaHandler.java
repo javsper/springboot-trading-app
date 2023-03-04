@@ -9,7 +9,7 @@ import de.javsper.springboottradingdata.model.data.StandardMarketData;
 import de.javsper.springboottradingdata.model.data.entity.OrderData;
 import de.javsper.springboottradingdata.model.data.entity.PositionData;
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
-import de.javsper.springboottradingdata.service.ErrorCodeMapper;
+import de.javsper.springboottradingdata.errorhandling.ErrorCodeMapper;
 import de.javsper.springboottradingibkr.client.responsehandler.StreamsAggregatedPositionHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

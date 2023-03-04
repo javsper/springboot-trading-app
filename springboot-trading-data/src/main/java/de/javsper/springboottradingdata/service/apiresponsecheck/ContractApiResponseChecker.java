@@ -2,7 +2,7 @@ package de.javsper.springboottradingdata.service.apiresponsecheck;
 
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.IBKRDataTypeRepository;
-import de.javsper.springboottradingdata.service.ApiResponseErrorHandler;
+import de.javsper.springboottradingdata.errorhandling.ApiResponseErrorHandler;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
