@@ -4,7 +4,7 @@ import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.data.entity.ComboLegData;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
-import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
+import de.javsper.springboottradingibkr.client.service.OptionalApiResponseChecker;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

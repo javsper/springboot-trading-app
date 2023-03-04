@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.service.historicaldata;
 
 import de.javsper.springboottradingdata.model.data.entity.HistoricalData;
 import de.javsper.springboottradingdata.model.data.HistoricalDataSettings;
-import de.javsper.springboottradingdata.service.apiresponsecheck.ListApiResponseChecker;
+import de.javsper.springboottradingibkr.client.service.ListApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

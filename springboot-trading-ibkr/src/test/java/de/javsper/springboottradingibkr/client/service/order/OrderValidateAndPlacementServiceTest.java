@@ -3,7 +3,7 @@ package de.javsper.springboottradingibkr.client.service.order;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.model.data.entity.OrderData;
-import de.javsper.springboottradingdata.service.apiresponsecheck.OptionalApiResponseChecker;
+import de.javsper.springboottradingibkr.client.service.OptionalApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

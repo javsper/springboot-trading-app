@@ -1,4 +1,4 @@
-package de.javsper.springboottradingdata.service.apiresponsecheck;
+package de.javsper.springboottradingibkr.client.service;
 
 import de.javsper.springboottradingdata.model.data.IBKRDataType;
 
