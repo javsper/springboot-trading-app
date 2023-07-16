@@ -1,0 +1,25 @@
+package de.javsper.springboottradingibkr.client.service.marketdata;
+
+import de.javsper.springboottradingdata.model.data.entity.ContractData;
+import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+
+@Service
+@RequiredArgsConstructor
+public class AutoTradeMarketDataService {
+
+    private final AutoTradeStartMarketDataApiCaller autoTradeStartMarketDataApiCaller;
+    private final UniqueContractDataProvider uniqueContractDataProvider;
+
+    public Optional<ContractData> requestLiveMarketDataForContractData(int id, ContractData contractData) {
+        Optional<ContractData> savedContractOptional = uniqueContractDataProvider.getExistingContractDataOrCallApi(
+                contractData);
+        savedContractOptional.ifPresent(savedContract ->
+                autoTradeStartMarketDataApiCaller.callApiWithId(id,savedContract));
+        return savedContractOptional;
+    }
+}
