@@ -5,6 +5,7 @@ import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingdata.service.ComboContractDataFinder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.OptionalLong;
@@ -18,6 +19,7 @@ public class UniqueContractDataProvider {
     private final ComboContractDataFinder comboContractDataFinder;
 
 
+    @Transactional
     public Optional<ContractData> getExistingContractDataOrCallApi(ContractData contractData) {
         //TODO extend for new Types that need to be used
         return switch (contractData.getSecurityType()) {

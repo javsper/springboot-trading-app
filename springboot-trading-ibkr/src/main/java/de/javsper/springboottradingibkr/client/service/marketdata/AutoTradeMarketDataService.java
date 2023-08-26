@@ -4,6 +4,7 @@ import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ public class AutoTradeMarketDataService {
     private final AutoTradeStartMarketDataApiCaller autoTradeStartMarketDataApiCaller;
     private final UniqueContractDataProvider uniqueContractDataProvider;
 
+    @Transactional
     public Optional<ContractData> requestLiveMarketDataForContractData(int id, ContractData contractData) {
         Optional<ContractData> savedContractOptional = uniqueContractDataProvider.getExistingContractDataOrCallApi(
                 contractData);
