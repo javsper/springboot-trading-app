@@ -1,0 +1,33 @@
+package de.javsper.springboottradingweb.spxautotrade.scheduler;
+
+import de.javsper.springboottradingdata.config.PropertiesConfig;
+import de.javsper.springboottradingdata.model.data.StandardMarketData;
+import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketData;
+import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
+import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeCallAndPutDataRequestService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@RequiredArgsConstructor
+@Slf4j
+@Component
+public class MarketDataAutoTradeKafkaHandler {
+
+
+    private final AutoTradeCallAndPutDataRequestService autoTradeOptionDataService;
+    private final LastPriceLiveMarketDataRepository lastPriceLiveMarketDataRepository;
+    private final PropertiesConfig propertiesConfig;
+
+
+    @Scheduled(cron = "0 30 15 * * 1-5")
+    public void getOptionDataForDayTradeStrategy(StandardMarketData message) {
+        LastPriceLiveMarketData liveData =
+                lastPriceLiveMarketDataRepository.findById((long) propertiesConfig.getSpxTickerId()).orElseThrow(
+                        () -> new RuntimeException(
+                                "No Live Data for SPX found"));
+        autoTradeOptionDataService.getOptionContractsAndCallAPI(liveData.getLastPrice());
+
+    }
+}

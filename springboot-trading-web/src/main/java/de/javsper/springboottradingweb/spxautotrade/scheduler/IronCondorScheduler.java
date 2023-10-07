@@ -1,5 +1,6 @@
 package de.javsper.springboottradingweb.spxautotrade.scheduler;
 
+import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingibkr.client.service.marketdata.AutoTradeMarketDataService;
@@ -13,14 +14,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class IronCondorScheduler {
 
-    public static final int SPX_TICKER_ID = 3214;
-
+    private final PropertiesConfig propertiesConfig;
     private final AutoTradeMarketDataService autoTradeMarketDataService;
 
-    @Scheduled(cron = "30 15 * * 1-5")
-    public void buy(){
+
+    @Scheduled(cron = "0 25 15 * * 1-5")
+    public void buy() {
         ContractData spx = ContractDataTemplates.SpxData();
-        autoTradeMarketDataService.requestLiveMarketDataForContractData(SPX_TICKER_ID, spx);
+        autoTradeMarketDataService.requestLiveMarketDataForContractData(propertiesConfig.getSpxTickerId(), spx);
 
     }
 
