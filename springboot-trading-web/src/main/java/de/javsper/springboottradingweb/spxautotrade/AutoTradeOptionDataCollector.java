@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.spxautotrade;
 
 import de.javsper.springboottradingdata.model.data.OptionMarketData;
-import de.javsper.springboottradingdata.service.LastTradeDateBuilder;
+import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

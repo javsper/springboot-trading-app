@@ -20,7 +20,7 @@ import de.javsper.springboottradingdata.modelsynchronize.HistoricalDataDatabaseS
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingdata.service.NextValidOrderIdGenerator;
 import de.javsper.springboottradingdata.service.OrderWriteToDBService;
-import de.javsper.springboottradingdata.service.TickerIDResolveService;
+import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
 import de.javsper.springboottradingibkr.client.responsehandler.PositionResponseHandler;
 import de.javsper.springboottradingibkr.client.service.livemarketdata.LastPriceLiveMarketDataCreateService;
 import de.javsper.springboottradingibkr.client.service.order.OrderStatusUpdateService;
@@ -55,7 +55,7 @@ public class IBKRConnection implements EWrapper {
     private final OrderWriteToDBService orderWriteToDBService;
     private final NextValidOrderIdGenerator nextValidOrderIdGenerator;
     private final LastPriceLiveMarketDataCreateService lastPriceLiveMarketDataCreateService;
-    private final TickerIDResolveService tickerIDResolveService;
+    private final OptionTickerIdResolver optionTickerIdResolver;
 
 
     private final Map<Integer, MktDepth> m_mapRequestToMktDepthModel = new HashMap<>();
@@ -95,7 +95,7 @@ public class IBKRConnection implements EWrapper {
     public void tickOptionComputation(int tickerId, int field, int tickAttrib, double impliedVol, double delta,
                                       double optPrice, double pvDividend, double gamma, double vega, double theta,
                                       double undPrice) {
-        String key = tickerIDResolveService.resolveTickerIdToString(tickerId);
+        String key = optionTickerIdResolver.resolveTickerIdToString(tickerId);
         // received computation tick
         kafkaEntityTemplate.send(kafkaConstantsConfig.getOPTION_MARKET_DATA_TOPIC(),
                 key,
