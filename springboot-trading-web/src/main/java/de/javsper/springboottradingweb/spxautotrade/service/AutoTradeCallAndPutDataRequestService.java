@@ -3,6 +3,7 @@ package de.javsper.springboottradingweb.spxautotrade.service;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.config.TradingConstants;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
+import de.javsper.springboottradingdata.model.subtype.Symbol;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
 import de.javsper.springboottradingibkr.client.service.marketdata.StartMarketDataService;
 import java.math.BigDecimal;
@@ -24,11 +25,11 @@ public class AutoTradeCallAndPutDataRequestService {
             ContractData.ContractDataBuilder builder =
                     ContractData.builder().securityType(Types
                                     .SecType.OPT)
-                            .symbol(TradingConstants.SPX)
+                            .symbol(Symbol.SPX.name())
                             .exchange(TradingConstants.CBOE)
                             .currency(TradingConstants.USD)
-                            .lastTradeDate(lastTradeDateBuilder.getDateStringFromToday())
-                            .tradingClass(TradingConstants.SPXW);
+                            .lastTradeDate(lastTradeDateBuilder.getDateStringFromTomorrow())
+                            .tradingClass(Symbol.SPXW.name());
             int callPrice = strike + strikediff;
             ContractData call = builder.strike(BigDecimal.valueOf(callPrice)).right(Types.Right.Call).build();
             callMarketData(call);
