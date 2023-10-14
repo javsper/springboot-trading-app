@@ -1,6 +1,7 @@
 package de.javsper.springboottradingibkr.client.strategybuilder;
 
 import com.ib.client.Types;
+import de.javsper.springboottradingdata.model.data.StrategyContractData;
 import de.javsper.springboottradingdata.model.data.entity.ComboLegData;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
@@ -19,9 +20,10 @@ public class StrategyBuilderService {
     private final UniqueContractDataProvider uniqueContractDataProvider;
     private final ComboLegDataRepository comboLegDataRepository;
 
-    public Optional<ContractData> getComboLegContractData(ContractData contractData, List<Leg> legs) {
+    public Optional<ContractData> getComboLegContractData(StrategyContractData strategyContractData) {
+        ContractData contractData = strategyContractData.getContractData();
         try {
-            contractData.setComboLegs(legListBuilder(contractData, legs));
+            contractData.setComboLegs(legListBuilder(contractData, strategyContractData.getStrategyLegs()));
             setComboLegsDescription(contractData);
             return uniqueContractDataProvider.getExistingContractDataOrCallApi(contractData);
         } catch (NoSuchElementException e) {
