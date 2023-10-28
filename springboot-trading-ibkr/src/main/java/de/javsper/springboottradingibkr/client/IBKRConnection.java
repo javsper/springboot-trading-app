@@ -17,23 +17,22 @@ import de.javsper.springboottradingdata.model.data.entity.PositionData;
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import de.javsper.springboottradingdata.modelsynchronize.ContractDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.modelsynchronize.HistoricalDataDatabaseSynchronizer;
+import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingdata.service.NextValidOrderIdGenerator;
 import de.javsper.springboottradingdata.service.OrderWriteToDBService;
-import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
 import de.javsper.springboottradingibkr.client.responsehandler.PositionResponseHandler;
 import de.javsper.springboottradingibkr.client.service.livemarketdata.LastPriceLiveMarketDataCreateService;
 import de.javsper.springboottradingibkr.client.service.order.OrderStatusUpdateService;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.*;
-import java.util.Map.Entry;
 
 @Component
 @Slf4j
