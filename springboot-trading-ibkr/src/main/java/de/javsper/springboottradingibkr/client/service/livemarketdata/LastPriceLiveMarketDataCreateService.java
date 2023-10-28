@@ -5,6 +5,7 @@ import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketData;
+import de.javsper.springboottradingdata.model.subtype.Symbol;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
 import jakarta.transaction.Transactional;
@@ -27,7 +28,7 @@ public class LastPriceLiveMarketDataCreateService {
     ContractData contractData;
       contractData =
           contractDataRepository
-              .findFirstBySymbolAndSecurityTypeAndCurrency("SPX", Types.SecType.IND, "USD")
+              .findFirstBySymbolAndSecurityTypeAndCurrency(Symbol.SPX, Types.SecType.IND, "USD")
               .orElseGet(() -> contractDataRepository.save(ContractDataTemplates.SpxOptionData()));
     LastPriceLiveMarketData lastPriceLiveMarketData =
         LastPriceLiveMarketData.builder()
