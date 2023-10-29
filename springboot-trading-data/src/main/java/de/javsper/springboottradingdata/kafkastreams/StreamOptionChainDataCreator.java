@@ -3,6 +3,7 @@ package de.javsper.springboottradingdata.kafkastreams;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.constants.AutoDayTradeConstants;
 import de.javsper.springboottradingdata.model.data.OptionChainData;
+import de.javsper.springboottradingdata.model.data.OptionListData;
 import de.javsper.springboottradingdata.model.data.OptionMarketData;
 import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,8 @@ public class StreamOptionChainDataCreator {
     return OptionChainData.builder()
         .lastTradeDate(marketData.getLastTradeDate())
         .symbol(marketData.getSymbol())
+        .puts(new OptionListData())
+        .calls(new OptionListData())
         .build();
   }
 }
