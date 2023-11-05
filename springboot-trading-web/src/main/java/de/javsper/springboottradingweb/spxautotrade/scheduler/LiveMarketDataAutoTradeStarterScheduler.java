@@ -3,6 +3,7 @@ package de.javsper.springboottradingweb.spxautotrade.scheduler;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketData;
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
+import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeCallAndPutDataRequestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class LiveMarketDataAutoTradeStarterScheduler {
   private final LastPriceLiveMarketDataRepository lastPriceLiveMarketDataRepository;
   private final PropertiesConfig propertiesConfig;
   private final SpxLiveDataActivator spxLiveDataActivator;
+  private final RepositoryRefreshService repositoryRefreshService;
 
   @Scheduled(cron = "0 30 15 * * 1-5")
   //  @Scheduled(cron = "*/30 * * * * *")
@@ -33,11 +35,7 @@ public class LiveMarketDataAutoTradeStarterScheduler {
         .orElseGet(
             () -> {
               spxLiveDataActivator.getLiveMarketDataSPX();
-              try {
-                Thread.sleep(200);
-              } catch (Exception e) {
-                  log.warn("Timer.sleep got interrupted");
-              }
+              repositoryRefreshService.clearCacheAndWait(lastPriceLiveMarketDataRepository);
                 return getLiveData();
             });
   }
