@@ -1,6 +1,6 @@
 package de.javsper.springboottradingibkr.client.service.contract;
 
-import de.javsper.springboottradingdata.model.data.entity.ContractData;
+import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
 import de.javsper.springboottradingdata.repository.IBKRDataTypeRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingibkr.client.errorhandling.ApiResponseErrorHandler;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class ContractApiResponseCheckerTest {
 
     @Mock
-    private IBKRDataTypeRepository<ContractData> repository;
+    private IBKRDataTypeRepository<ContractDataDBO> repository;
     @Mock
     private RepositoryRefreshService repositoryRefreshService;
     @Mock
@@ -29,24 +29,24 @@ class ContractApiResponseCheckerTest {
 
     @Test
     void testNormal(){
-        ContractData contractData = ContractData.builder().build();
-        when(repository.findById(1L)).thenReturn(Optional.empty(),Optional.of(contractData));
+        ContractDataDBO contractDataDBO = ContractDataDBO.builder().build();
+        when(repository.findById(1L)).thenReturn(Optional.empty(),Optional.of(contractDataDBO));
         when(apiResponseErrorHandler.isErrorForId(1)).thenReturn(false);
 
-        Optional<ContractData> result = contractApiResponseChecker.checkForApiResponseAndUpdate(1);
+        Optional<ContractDataDBO> result = contractApiResponseChecker.checkForApiResponseAndUpdate(1);
 
-        assertEquals(contractData, result.get());
+        assertEquals(contractDataDBO, result.get());
         verify(apiResponseErrorHandler,times(1)).isErrorForId(1);
         verify(repository, times(3)).findById(1L);
         verify(repositoryRefreshService, times(2)).clearCacheAndWait(repository);
     }
     @Test
     void testInError(){
-        ContractData contractData = ContractData.builder().build();
+        ContractDataDBO contractDataDBO = ContractDataDBO.builder().build();
         when(repository.findById(1L)).thenReturn(Optional.empty());
         when(apiResponseErrorHandler.isErrorForId(1)).thenReturn(false,true);
 
-        Optional<ContractData> result = contractApiResponseChecker.checkForApiResponseAndUpdate(1);
+        Optional<ContractDataDBO> result = contractApiResponseChecker.checkForApiResponseAndUpdate(1);
 
         assertEquals(Optional.empty(), result);
         verify(apiResponseErrorHandler,times(2)).isErrorForId(1);

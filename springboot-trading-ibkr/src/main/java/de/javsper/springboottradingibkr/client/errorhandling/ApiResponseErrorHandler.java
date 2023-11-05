@@ -3,6 +3,7 @@ package de.javsper.springboottradingibkr.client.errorhandling;
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
 import de.javsper.springboottradingdata.kafkaconsumer.KafkaConsumerProvider;
 import de.javsper.springboottradingdata.model.data.IBKRDataType;
+import de.javsper.springboottradingdata.model.data.kafka.KafkaDataType;
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import jakarta.annotation.PreDestroy;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -18,7 +19,7 @@ public class ApiResponseErrorHandler {
 
 
     private final ErrorCodeMapper errorCodeMapper;
-    private final Consumer<String, IBKRDataType> consumer;
+    private final Consumer<String, KafkaDataType> consumer;
 
     public ApiResponseErrorHandler(KafkaConsumerProvider kafkaConsumerProvider,
                                    KafkaConstantsConfig kafkaConstantsConfig,
@@ -31,8 +32,8 @@ public class ApiResponseErrorHandler {
 
     public boolean isErrorForId(int id) {
 
-        ConsumerRecords<String, IBKRDataType> records = consumer.poll(Duration.ofMillis(100L));
-        for (ConsumerRecord<String, IBKRDataType> record : records) {
+        ConsumerRecords<String, KafkaDataType> records = consumer.poll(Duration.ofMillis(100L));
+        for (ConsumerRecord<String, KafkaDataType> record : records) {
             if (record.key().equals(String.valueOf(id))) {
                 errorCodeMapper.mapError((ErrorMessage) record.value());
                 return true;

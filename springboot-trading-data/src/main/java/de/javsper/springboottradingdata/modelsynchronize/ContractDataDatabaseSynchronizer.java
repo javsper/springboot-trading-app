@@ -2,8 +2,8 @@ package de.javsper.springboottradingdata.modelsynchronize;
 
 import com.ib.client.Contract;
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.data.entity.ComboLegData;
-import de.javsper.springboottradingdata.model.data.entity.ContractData;
+import de.javsper.springboottradingdata.model.data.entity.ComboLegDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
 import de.javsper.springboottradingdata.modelconverter.IBKRContractToContractData;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingdata.repository.ContractDataRepository;
@@ -23,31 +23,31 @@ public class ContractDataDatabaseSynchronizer {
     private final ComboContractDataFinder comboContractDataFinder;
 
 
-    public ContractData findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(OptionalLong id, Contract contract){
+    public ContractDataDBO findInDBOrConvertAndSaveOrUpdateIfIdIsProvided(OptionalLong id, Contract contract){
         boolean isCombo = Types.SecType.BAG.name().equals(contract.getSecType());
         if(!isCombo && contractDataRepository.findFirstByContractId(contract.conid()).isPresent()){
             return contractDataRepository.findFirstByContractId(contract.conid()).get();
         } else {
-            List<ComboLegData> comboLegs = new ArrayList<>();
-            ContractData newContractData = ibkrContractToContractData.convertIBKRContract(contract);
+            List<ComboLegDataDBO> comboLegs = new ArrayList<>();
+            ContractDataDBO newContractDataDBO = ibkrContractToContractData.convertIBKRContract(contract);
 
             if(isCombo){
-            newContractData.getComboLegs().forEach(
+            newContractDataDBO.getComboLegs().forEach(
                     (comboLeg)-> {
                     comboLegs.add(saveComboLegIfNotExistent(comboLeg));
                     });
-            newContractData.setComboLegs(comboLegs);
+            newContractDataDBO.setComboLegs(comboLegs);
             id = id.isPresent()?id:comboContractDataFinder.checkContractWithComboLegs(comboLegs);
             }
-            id.ifPresent(newContractData::setId);
-            return contractDataRepository.save(newContractData);
+            id.ifPresent(newContractDataDBO::setId);
+            return contractDataRepository.save(newContractDataDBO);
         }
     }
-    private ComboLegData saveComboLegIfNotExistent(ComboLegData comboLegData){
+    private ComboLegDataDBO saveComboLegIfNotExistent(ComboLegDataDBO comboLegDataDBO){
        return comboLegDataRepository.findFirstByContractIdAndActionAndRatioAndExchange(
-                comboLegData.getContractId(),
-                comboLegData.getAction(),
-                comboLegData.getRatio(),
-                comboLegData.getExchange()).orElseGet(()-> comboLegDataRepository.save(comboLegData));
+                comboLegDataDBO.getContractId(),
+                comboLegDataDBO.getAction(),
+                comboLegDataDBO.getRatio(),
+                comboLegDataDBO.getExchange()).orElseGet(()-> comboLegDataRepository.save(comboLegDataDBO));
     }
 }

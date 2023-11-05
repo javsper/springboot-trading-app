@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.service.position.profitandloss;
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.data.entity.ConnectionData;
+import de.javsper.springboottradingdata.model.data.entity.ConnectionDataDBO;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCallerWithId;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ class SinglePnLApiCaller implements ApiCallerWithId {
 
     @Override
     public void callApi(int id) {
-        ConnectionData connectionData =
+        ConnectionDataDBO connectionDataDBO =
                 connectionDataRepository.findById(propertiesConfig.getConnectionId()).orElseThrow();
-        client.reqPnLSingle(id, connectionData.getAccountList(), "", id);
+        client.reqPnLSingle(id, connectionDataDBO.getAccountList(), "", id);
     }
 }

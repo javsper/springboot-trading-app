@@ -2,7 +2,7 @@ package de.javsper.springboottradingibkr.client.service.accountsummary.profitand
 
 import com.ib.client.EClientSocket;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingdata.model.data.entity.ConnectionData;
+import de.javsper.springboottradingdata.model.data.entity.ConnectionDataDBO;
 import de.javsper.springboottradingdata.repository.ConnectionDataRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,10 +29,10 @@ class AccountPnLApiCallerTest {
 
     @Test
     void testApiCall(){
-        ConnectionData connectionData = ConnectionData.builder().accountList("A").build();
+        ConnectionDataDBO connectionDataDBO = ConnectionDataDBO.builder().accountList("A").build();
         when(propertiesConfig.getConnectionId()).thenReturn(1L);
         when(propertiesConfig.getPnlAccountId()).thenReturn(2);
-        when(connectionDataRepository.findById(1L)).thenReturn(Optional.of(connectionData));
+        when(connectionDataRepository.findById(1L)).thenReturn(Optional.of(connectionDataDBO));
 
         accountPnLApiCaller.callApi();
 

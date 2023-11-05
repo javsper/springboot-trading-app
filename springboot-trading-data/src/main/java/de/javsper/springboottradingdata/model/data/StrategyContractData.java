@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.model.data;
 
 import de.javsper.springboottradingdata.model.Leg;
-import de.javsper.springboottradingdata.model.data.entity.ContractData;
+import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
 import lombok.*;
 
 import java.util.List;
@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class StrategyContractData extends IBKRDataType {
 
-    private ContractData contractData;
+    private ContractDataDBO contractDataDBO;
     private List<Leg> strategyLegs;
 }

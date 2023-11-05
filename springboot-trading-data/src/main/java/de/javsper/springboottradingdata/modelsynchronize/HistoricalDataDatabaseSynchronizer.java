@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.modelsynchronize;
 
 import com.ib.client.Bar;
-import de.javsper.springboottradingdata.model.data.entity.HistoricalData;
+import de.javsper.springboottradingdata.model.data.entity.HistoricalDataDBO;
 import de.javsper.springboottradingdata.modelconverter.BarToHistoricalData;
 import de.javsper.springboottradingdata.repository.HistoricalDataRepository;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
@@ -16,12 +16,12 @@ public class HistoricalDataDatabaseSynchronizer {
     private final BarToHistoricalData barToHistoricalData;
     private final IBKRTimeStampFormatter ibkrTimeStampFormatter;
 
-    public HistoricalData findInDbOrSave(int id, Bar bar) {
+    public HistoricalDataDBO findInDbOrSave(int id, Bar bar) {
         return historicalDataRepository.findFirstByContractIdAndTimeAndCount(id, ibkrTimeStampFormatter.formatStringToTimeStamp(bar.time()), bar.count())
                 .orElseGet(() -> {
-                    HistoricalData newHistoricalData = barToHistoricalData.convert(bar);
-                    newHistoricalData.setContractId(id);
-                    return historicalDataRepository.save(newHistoricalData);
+                    HistoricalDataDBO newHistoricalDataDBO = barToHistoricalData.convert(bar);
+                    newHistoricalDataDBO.setContractId(id);
+                    return historicalDataRepository.save(newHistoricalDataDBO);
                 });
     }
 }

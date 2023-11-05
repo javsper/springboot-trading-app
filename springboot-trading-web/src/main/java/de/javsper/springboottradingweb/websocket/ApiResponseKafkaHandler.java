@@ -2,12 +2,12 @@ package de.javsper.springboottradingweb.websocket;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
-import de.javsper.springboottradingdata.model.data.AccountSummaryData;
-import de.javsper.springboottradingdata.model.data.kafka.OptionMarketData;
-import de.javsper.springboottradingdata.model.data.kafka.ProfitAndLossData;
-import de.javsper.springboottradingdata.model.data.kafka.StandardMarketData;
-import de.javsper.springboottradingdata.model.data.entity.OrderData;
-import de.javsper.springboottradingdata.model.data.entity.PositionData;
+import de.javsper.springboottradingdata.model.data.kafka.KafkaAccountSummaryData;
+import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionMarketData;
+import de.javsper.springboottradingdata.model.data.kafka.KafkaProfitAndLossData;
+import de.javsper.springboottradingdata.model.data.kafka.KafkaStandardMarketData;
+import de.javsper.springboottradingdata.model.data.entity.OrderDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.PositionDataDBO;
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import de.javsper.springboottradingibkr.client.errorhandling.ErrorCodeMapper;
 import de.javsper.springboottradingibkr.client.responsehandler.StreamsAggregatedPositionHandler;
@@ -36,49 +36,49 @@ public class ApiResponseKafkaHandler {
         });
     }
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.singlePnL}")
-    public void consumeMessage(ProfitAndLossData message) {
+    public void consumeMessage(KafkaProfitAndLossData message) {
         log.info("PNL Message received: " + message.getId());
         messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getSINGLE_PNL_TOPIC(), message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.accountPnL}")
-    public void consumePnLMessage(ProfitAndLossData message) {
+    public void consumePnLMessage(KafkaProfitAndLossData message) {
         String topic = kafkaConstantsConfig.getACCOUNT_PNL_TOPIC();
         log.info("Message received: " + topic + "-" + message.getId());
         messagingTemplate.convertAndSend("/topic/" + topic, message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.accountSummary}")
-    public void consumeSummaryMessage(AccountSummaryData message) {
+    public void consumeSummaryMessage(KafkaAccountSummaryData message) {
         String summaryTopic = kafkaConstantsConfig.getACCOUNT_SUMMARY_TOPIC();
         log.info("Message received: " + summaryTopic + "-" + message.getTag());
         messagingTemplate.convertAndSend("/topic/" + summaryTopic, message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.optionMarketData}")
-    public void consumeOptionMarketDataMessage(OptionMarketData message) {
+    public void consumeOptionMarketDataMessage(KafkaOptionMarketData message) {
         String topic = kafkaConstantsConfig.getOPTION_MARKET_DATA_TOPIC();
         messagingTemplate.convertAndSend("/topic/" + topic, message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.standardMarketData}")
-    public void consumeSummaryMessage(StandardMarketData message) {
+    public void consumeSummaryMessage(KafkaStandardMarketData message) {
         String standardMarketTopic = kafkaConstantsConfig.getSTANDARD_MARKET_DATA_TOPIC();
         messagingTemplate.convertAndSend("/topic/" + standardMarketTopic, message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.orderData}")
-    public void consumeMessage(OrderData message) {
+    public void consumeMessage(OrderDataDBO message) {
         log.info("Order received: " + message.getId());
         messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getORDER_TOPIC(), message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.positions}")
     @Transactional
-    public void consumeMessage(PositionData message) {
-        if (message.getContractData().getSecurityType().equals(Types.SecType.BAG)) {
+    public void consumeMessage(PositionDataDBO message) {
+        if (message.getContractDataDBO().getSecurityType().equals(Types.SecType.BAG)) {
             log.info("Streamed Message received: " + message.getId());
-            PositionData savedPosition = streamsAggregatedPositionHandler.persistContractAndPositionData(message);
+            PositionDataDBO savedPosition = streamsAggregatedPositionHandler.persistContractAndPositionData(message);
             messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getPOSITION_TOPIC(), savedPosition);
         }else{
         log.info("Message received: " + message.getId());

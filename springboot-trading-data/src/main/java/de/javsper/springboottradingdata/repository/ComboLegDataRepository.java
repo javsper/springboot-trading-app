@@ -1,12 +1,12 @@
 package de.javsper.springboottradingdata.repository;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.model.data.entity.ComboLegData;
+import de.javsper.springboottradingdata.model.data.entity.ComboLegDataDBO;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface ComboLegDataRepository  extends CrudRepository<ComboLegData, Integer> {
+public interface ComboLegDataRepository  extends CrudRepository<ComboLegDataDBO, Integer> {
 
-    public Optional<ComboLegData> findFirstByContractIdAndActionAndRatioAndExchange(Integer contractId, Types.Action action, Integer ratio, String exchange);
+    public Optional<ComboLegDataDBO> findFirstByContractIdAndActionAndRatioAndExchange(Integer contractId, Types.Action action, Integer ratio, String exchange);
 }

@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.controller.restapicontroller;
 
 import de.javsper.springboottradingdata.model.data.StrategyOrderData;
-import de.javsper.springboottradingdata.model.data.entity.OrderData;
+import de.javsper.springboottradingdata.model.data.entity.OrderDataDBO;
 import de.javsper.springboottradingibkr.client.service.order.OrderPlacementService;
 import de.javsper.springboottradingibkr.client.service.order.openorders.OpenOrdersService;
 import de.javsper.springboottradingibkr.client.service.order.ordercancel.OrderCancelService;
@@ -32,7 +32,7 @@ public class OrderController {
 
     //    curl -i -X POST 'http://localhost:8080/login' --data 'username=john&password=john'
     @PostMapping("/place-order")
-    public void orderWithOrderObject(@RequestBody OrderData orderData) {
+    public void orderWithOrderObject(@RequestBody OrderDataDBO orderData) {
         orderPlacementService.setIdAndPlaceOrder(orderData);
     }
 

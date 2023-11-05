@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.model.data;
 
 import com.ib.client.TagValue;
-import de.javsper.springboottradingdata.model.data.entity.ContractData;
+import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
 import de.javsper.springboottradingdata.model.subtype.BarSizeSetting;
 import de.javsper.springboottradingdata.model.subtype.WhatToShowType;
 import lombok.*;
@@ -22,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 public class HistoricalDataSettings extends IBKRDataType {
 
-    private ContractData contractData;
+    private ContractDataDBO contractDataDBO;
 
     //End Date of historical Data
     private Timestamp backfillEndTime;
