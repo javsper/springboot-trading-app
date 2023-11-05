@@ -1,5 +1,6 @@
-package de.javsper.springboottradingdata.model.data;
+package de.javsper.springboottradingdata.model.data.kafka;
 
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OptionChainData  extends IBKRDataType{
+public class OptionChainData  extends IBKRDataType {
 
     private String lastTradeDate;
     private Symbol symbol;

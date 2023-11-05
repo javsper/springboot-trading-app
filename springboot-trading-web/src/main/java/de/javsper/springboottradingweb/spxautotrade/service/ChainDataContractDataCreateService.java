@@ -2,9 +2,9 @@ package de.javsper.springboottradingweb.spxautotrade.service;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.model.Leg;
-import de.javsper.springboottradingdata.model.data.OptionChainData;
 import de.javsper.springboottradingdata.model.data.StrategyContractData;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
 import de.javsper.springboottradingibkr.client.strategybuilder.StrategyBuilderService;
 import de.javsper.springboottradingweb.spxautotrade.settings.TradeRuleSettingsConfig;
 import jakarta.transaction.Transactional;

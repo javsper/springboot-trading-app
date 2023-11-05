@@ -2,9 +2,9 @@ package de.javsper.springboottradingdata.kafkastreams;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.constants.AutoDayTradeConstants;
-import de.javsper.springboottradingdata.model.data.OptionChainData;
-import de.javsper.springboottradingdata.model.data.OptionListData;
-import de.javsper.springboottradingdata.model.data.OptionMarketData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionListData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionMarketData;
 import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
-package de.javsper.springboottradingdata.model.data;
+package de.javsper.springboottradingdata.model.data.kafka;
 
 import com.ib.client.Types;
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
 import lombok.*;
 

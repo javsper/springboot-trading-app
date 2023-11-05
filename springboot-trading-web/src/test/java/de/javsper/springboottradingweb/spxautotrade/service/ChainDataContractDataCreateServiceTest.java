@@ -3,9 +3,9 @@ package de.javsper.springboottradingweb.spxautotrade.service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import de.javsper.springboottradingdata.model.data.OptionChainData;
-import de.javsper.springboottradingdata.model.data.OptionListData;
-import de.javsper.springboottradingdata.model.data.OptionMarketData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionListData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionMarketData;
 import de.javsper.springboottradingdata.model.data.entity.ContractData;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
 import de.javsper.springboottradingibkr.client.strategybuilder.StrategyBuilderService;
