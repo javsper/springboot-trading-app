@@ -5,15 +5,10 @@ import de.javsper.springboottradingdata.constants.AutoDayTradeConstants;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionListData;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionMarketData;
-import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class StreamOptionChainDataCreator {
-
-  private final OptionTickerIdResolver optionTickerIdResolver;
 
   public KafkaOptionChainData buildChain(KafkaOptionMarketData marketData, KafkaOptionChainData aggregatedChain) {
     if (aggregatedChain.getLastTradeDate() == null) {
@@ -33,7 +28,7 @@ public class StreamOptionChainDataCreator {
 
   private KafkaOptionChainData createNewChain(KafkaOptionMarketData marketData) {
     return KafkaOptionChainData.builder()
-        .lastTradeDate(marketData.getLastTradeDate())
+        .lastTradeDate(Long.parseLong(marketData.getLastTradeDate()))
         .symbol(marketData.getSymbol())
         .puts(new KafkaOptionListData())
         .calls(new KafkaOptionListData())

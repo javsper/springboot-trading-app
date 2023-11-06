@@ -8,15 +8,13 @@ import de.javsper.springboottradingdata.constants.AutoDayTradeConstants;
 import de.javsper.springboottradingdata.kafkastreams.StreamOptionChainDataCreator;
 import de.javsper.springboottradingdata.kafkastreams.StreamOptionsContractDataCombineService;
 import de.javsper.springboottradingdata.kafkastreams.util.RatioHelper;
+import de.javsper.springboottradingdata.model.data.entity.ComboLegDataDBO;
 import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.PositionDataDBO;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionListData;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionMarketData;
-import de.javsper.springboottradingdata.model.data.entity.ComboLegDataDBO;
-import de.javsper.springboottradingdata.model.data.entity.PositionDataDBO;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
-import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
-import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -195,8 +193,7 @@ class KafkaStreamsConfigTest {
   }
 
   private StreamOptionChainDataCreator mockStreamOptionChainDataCreator() {
-    return new StreamOptionChainDataCreator(
-        new OptionTickerIdResolver(new IBKRTimeStampFormatter(new PropertiesConfig()))) {
+    return new StreamOptionChainDataCreator() {
       @Override
       public KafkaOptionChainData buildChain(
               KafkaOptionMarketData marketData, KafkaOptionChainData aggregatedChain) {

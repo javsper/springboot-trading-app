@@ -1,4 +1,4 @@
-package de.javsper.springboottradingweb.spxautotrade.scheduler;
+package de.javsper.springboottradingweb.spxautotrade.service;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;

@@ -7,6 +7,7 @@ import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
 import de.javsper.springboottradingdata.repository.ComboLegDataRepository;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import de.javsper.springboottradingdata.model.Leg;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class StrategyBuilderService {
     private final UniqueContractDataProvider uniqueContractDataProvider;
     private final ComboLegDataRepository comboLegDataRepository;
 
+    @Transactional
     public Optional<ContractDataDBO> getComboLegContractData(StrategyContractData strategyContractData) {
         ContractDataDBO contractDataDBO = strategyContractData.getContractDataDBO();
         try {
@@ -51,12 +53,12 @@ public class StrategyBuilderService {
     }
 
     private ComboLegDataDBO buildComboLegData(ContractDataDBO contractDataDBOBuyPut, Leg leg) {
-        return comboLegDataRepository.save(ComboLegDataDBO.builder()
+           return     ComboLegDataDBO.builder()
                 .contractId(contractDataDBOBuyPut.getContractId())
                 .ratio(leg.getRatio())
                 .action(leg.getAction())
                 .exchange(contractDataDBOBuyPut.getExchange())
-                .build());
+                .build();
     }
 
     private ContractDataDBO singleLegBuilder(ContractDataDBO contractDataDBO, Leg leg) {
