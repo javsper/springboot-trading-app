@@ -1,6 +1,6 @@
 package de.javsper.springboottradingweb.spxautotrade;
 
-import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
 import de.javsper.springboottradingdata.modelconverter.OptionChainDataToDbo;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
@@ -19,7 +19,7 @@ public class AutoTradeOptionChainCollector {
   @KafkaListener(
       groupId = "${kafka.consumer.auto.group.id}",
       topics = "${kafka.names.topic.streams.optionChainData}")
-  public void processChainData(KafkaOptionChainData message) {
+  public void processChainData(OptionChainData message) {
     if (message.getLastTradeDate().equals(lastTradeDateBuilder.getDateLongFromToday())
         && message.getSymbol().equals(Symbol.SPX)) {
       optionChainDataToDBO.convert(message);

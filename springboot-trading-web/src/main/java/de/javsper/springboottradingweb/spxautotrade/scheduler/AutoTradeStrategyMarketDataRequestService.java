@@ -2,7 +2,7 @@ package de.javsper.springboottradingweb.spxautotrade.scheduler;
 
 import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingdata.model.data.entity.OptionChainDbo;
-import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
 import de.javsper.springboottradingdata.modelconverter.DboToOptionChainData;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
 import de.javsper.springboottradingdata.repository.OptionChainRepository;
@@ -29,7 +29,7 @@ public class AutoTradeStrategyMarketDataRequestService {
 
   @Transactional
   public void createStrategyFromOptionChain() {
-    KafkaOptionChainData chainData = dboToOptionChainData.toOptionChainData(findFromRepo());
+    OptionChainData chainData = dboToOptionChainData.toOptionChainData(findFromRepo());
 
     ContractDbo contractDBO =
         chainDataContractDataCreateService.createIronCondorContractData(chainData);

@@ -1,7 +1,7 @@
 package de.javsper.springboottradingweb.spxautotrade.service;
 
-import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
-import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionMarketData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionMarketData;
 import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdEncoder;
 import de.javsper.springboottradingdata.optionstradingservice.OptionTickerIdResolver;
 import de.javsper.springboottradingibkr.client.service.marketdata.StopMarketDataService;
@@ -14,7 +14,7 @@ public class AutoTradeChainDataStopLiveDataService {
     private final OptionTickerIdEncoder optionTickerIdEncoder;
     private final StopMarketDataService stopMarketDataService;
 
-    public void stopMarketData(KafkaOptionChainData chain){
+    public void stopMarketData(OptionChainData chain){
         chain.getCalls().getOptions().forEach((strike, data) ->{
             stopMarketDataService.stopMarketDataForTickerId(encodeId(data));
         });
@@ -24,7 +24,7 @@ public class AutoTradeChainDataStopLiveDataService {
 
         }
 
-    private int encodeId(KafkaOptionMarketData data) {
+    private int encodeId(OptionMarketData data) {
         OptionTickerIdResolver.OptionDetails detail =
                 new OptionTickerIdResolver.OptionDetails(data.getLastTradeDate(), data.getSymbol(),
                         data.getStrike(), data.getRight());

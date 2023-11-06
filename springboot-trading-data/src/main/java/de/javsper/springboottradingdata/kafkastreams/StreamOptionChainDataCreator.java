@@ -2,15 +2,15 @@ package de.javsper.springboottradingdata.kafkastreams;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.constants.AutoDayTradeConstants;
-import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
-import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionListData;
-import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionMarketData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionListData;
+import de.javsper.springboottradingdata.model.data.kafka.OptionMarketData;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StreamOptionChainDataCreator {
 
-  public KafkaOptionChainData buildChain(KafkaOptionMarketData marketData, KafkaOptionChainData aggregatedChain) {
+  public OptionChainData buildChain(OptionMarketData marketData, OptionChainData aggregatedChain) {
     if (aggregatedChain.getLastTradeDate() == null) {
       aggregatedChain = createNewChain(marketData);
     }
@@ -26,12 +26,12 @@ public class StreamOptionChainDataCreator {
     return aggregatedChain;
   }
 
-  private KafkaOptionChainData createNewChain(KafkaOptionMarketData marketData) {
-    return KafkaOptionChainData.builder()
+  private OptionChainData createNewChain(OptionMarketData marketData) {
+    return OptionChainData.builder()
         .lastTradeDate(Long.parseLong(marketData.getLastTradeDate()))
         .symbol(marketData.getSymbol())
-        .puts(new KafkaOptionListData())
-        .calls(new KafkaOptionListData())
+        .puts(new OptionListData())
+        .calls(new OptionListData())
         .build();
   }
 }
