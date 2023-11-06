@@ -2,7 +2,7 @@ package de.javsper.springboottradingweb.spxautotrade;
 
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
-import de.javsper.springboottradingdata.modelconverter.OptionChainDataToDBO;
+import de.javsper.springboottradingdata.modelconverter.OptionChainDataToDbo;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class AutoTradeOptionChainCollector {
   private final LastTradeDateBuilder lastTradeDateBuilder;
-  private final OptionChainDataToDBO optionChainDataToDBO;
+  private final OptionChainDataToDbo optionChainDataToDBO;
 
   @KafkaListener(
       groupId = "${kafka.consumer.auto.group.id}",

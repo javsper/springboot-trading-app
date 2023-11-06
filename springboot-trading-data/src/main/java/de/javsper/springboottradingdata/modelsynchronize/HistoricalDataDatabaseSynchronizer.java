@@ -1,9 +1,9 @@
 package de.javsper.springboottradingdata.modelsynchronize;
 
 import com.ib.client.Bar;
-import de.javsper.springboottradingdata.model.data.entity.HistoricalDataDBO;
-import de.javsper.springboottradingdata.modelconverter.BarToHistoricalData;
-import de.javsper.springboottradingdata.repository.HistoricalDataRepository;
+import de.javsper.springboottradingdata.model.data.entity.HistoricalDbo;
+import de.javsper.springboottradingdata.modelconverter.BarToHistoricalDataDbo;
+import de.javsper.springboottradingdata.repository.HistoricalRepository;
 import de.javsper.springboottradingdata.service.IBKRTimeStampFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class HistoricalDataDatabaseSynchronizer {
 
-    private final HistoricalDataRepository historicalDataRepository;
-    private final BarToHistoricalData barToHistoricalData;
+    private final HistoricalRepository historicalRepository;
+    private final BarToHistoricalDataDbo barToHistoricalDataDbo;
     private final IBKRTimeStampFormatter ibkrTimeStampFormatter;
 
-    public HistoricalDataDBO findInDbOrSave(int id, Bar bar) {
-        return historicalDataRepository.findFirstByContractIdAndTimeAndCount(id, ibkrTimeStampFormatter.formatStringToTimeStamp(bar.time()), bar.count())
+    public HistoricalDbo findInDbOrSave(int id, Bar bar) {
+        return historicalRepository.findFirstByContractIdAndTimeAndCount(id, ibkrTimeStampFormatter.formatStringToTimeStamp(bar.time()), bar.count())
                 .orElseGet(() -> {
-                    HistoricalDataDBO newHistoricalDataDBO = barToHistoricalData.convert(bar);
-                    newHistoricalDataDBO.setContractId(id);
-                    return historicalDataRepository.save(newHistoricalDataDBO);
+                    HistoricalDbo newHistoricalDbo = barToHistoricalDataDbo.convert(bar);
+                    newHistoricalDbo.setContractId(id);
+                    return historicalRepository.save(newHistoricalDbo);
                 });
     }
 }

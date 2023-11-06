@@ -1,0 +1,23 @@
+package de.javsper.springboottradingdata.model.data.entity;
+
+import de.javsper.springboottradingdata.model.data.IBKRDataType;
+import de.javsper.springboottradingdata.model.subtype.Symbol;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class OptionChainDbo extends IBKRDataType {
+
+  @Id private Long lastTradeDate;
+  @NotNull private Symbol symbol;
+  @OneToOne private OptionListDbo calls;
+  @OneToOne private OptionListDbo puts;
+}

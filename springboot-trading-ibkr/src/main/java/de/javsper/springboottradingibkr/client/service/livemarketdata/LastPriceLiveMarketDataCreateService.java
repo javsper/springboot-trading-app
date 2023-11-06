@@ -3,10 +3,10 @@ package de.javsper.springboottradingibkr.client.service.livemarketdata;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
-import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
-import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
+import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
-import de.javsper.springboottradingdata.repository.ContractDataRepository;
+import de.javsper.springboottradingdata.repository.ContractRepository;
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,22 +21,22 @@ public class LastPriceLiveMarketDataCreateService {
 
   private final PropertiesConfig propertiesConfig;
   private final LastPriceLiveMarketDataRepository lastPriceLiveMarketDataRepository;
-  private final ContractDataRepository contractDataRepository;
+  private final ContractRepository contractRepository;
 
   @Transactional
-  public LastPriceLiveMarketDataDBO createLiveData(int tickerId, double price) {
-    ContractDataDBO contractDataDBO;
-      contractDataDBO =
-          contractDataRepository
+  public LastPriceLiveMarketDataDbo createLiveData(int tickerId, double price) {
+    ContractDbo contractDBO;
+      contractDBO =
+          contractRepository
               .findFirstBySymbolAndSecurityTypeAndCurrency(Symbol.SPX, Types.SecType.IND, "USD")
-              .orElseGet(() -> contractDataRepository.save(ContractDataTemplates.SpxOptionData()));
-    LastPriceLiveMarketDataDBO lastPriceLiveMarketDataDBO =
-        LastPriceLiveMarketDataDBO.builder()
+              .orElseGet(() -> contractRepository.save(ContractDataTemplates.SpxOptionData()));
+    LastPriceLiveMarketDataDbo lastPriceLiveMarketDataDbo =
+        LastPriceLiveMarketDataDbo.builder()
             .tickerId((long) tickerId)
             .lastPrice(price)
-            .contractDataDBO(contractDataDBO)
+            .contractDBO(contractDBO)
             .createDate(new Date(Instant.now().toEpochMilli()))
             .build();
-    return lastPriceLiveMarketDataRepository.save(lastPriceLiveMarketDataDBO);
+    return lastPriceLiveMarketDataRepository.save(lastPriceLiveMarketDataDbo);
   }
 }

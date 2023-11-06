@@ -1,6 +1,6 @@
 package de.javsper.springboottradingweb.controller.restapicontroller.marketdatacontroller;
 
-import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingibkr.client.service.marketdata.StartMarketDataService;
 import de.javsper.springboottradingibkr.client.service.marketdata.StopMarketDataService;
 import de.javsper.springboottradingweb.service.ResponseMapper;
@@ -18,8 +18,8 @@ public class LiveMarketDataController {
     private final ResponseMapper responseMapper;
 
     @PostMapping("/start")
-    public ResponseEntity<ContractDataDBO> startMarketData(@RequestBody ContractDataDBO contractDataDBO){
-        return responseMapper.mapResponse(startMarketDataService.requestLiveMarketDataForContractData(contractDataDBO));
+    public ResponseEntity<ContractDbo> startMarketData(@RequestBody ContractDbo contractDBO){
+        return responseMapper.mapResponse(startMarketDataService.requestLiveMarketDataForContractData(contractDBO));
     }
 
     @GetMapping("/stopAll")

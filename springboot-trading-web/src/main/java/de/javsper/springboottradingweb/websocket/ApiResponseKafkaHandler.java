@@ -6,8 +6,8 @@ import de.javsper.springboottradingdata.model.data.kafka.KafkaAccountSummaryData
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionMarketData;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaProfitAndLossData;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaStandardMarketData;
-import de.javsper.springboottradingdata.model.data.entity.OrderDataDBO;
-import de.javsper.springboottradingdata.model.data.entity.PositionDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
+import de.javsper.springboottradingdata.model.data.entity.PositionDbo;
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import de.javsper.springboottradingibkr.client.errorhandling.ErrorCodeMapper;
 import de.javsper.springboottradingibkr.client.responsehandler.StreamsAggregatedPositionHandler;
@@ -68,17 +68,17 @@ public class ApiResponseKafkaHandler {
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.orderData}")
-    public void consumeMessage(OrderDataDBO message) {
+    public void consumeMessage(OrderDbo message) {
         log.info("Order received: " + message.getId());
         messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getORDER_TOPIC(), message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.positions}")
     @Transactional
-    public void consumeMessage(PositionDataDBO message) {
-        if (message.getContractDataDBO().getSecurityType().equals(Types.SecType.BAG)) {
+    public void consumeMessage(PositionDbo message) {
+        if (message.getContractDBO().getSecurityType().equals(Types.SecType.BAG)) {
             log.info("Streamed Message received: " + message.getId());
-            PositionDataDBO savedPosition = streamsAggregatedPositionHandler.persistContractAndPositionData(message);
+            PositionDbo savedPosition = streamsAggregatedPositionHandler.persistContractAndPositionData(message);
             messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getPOSITION_TOPIC(), savedPosition);
         }else{
         log.info("Message received: " + message.getId());

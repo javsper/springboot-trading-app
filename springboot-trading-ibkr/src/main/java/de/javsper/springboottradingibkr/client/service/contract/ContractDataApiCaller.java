@@ -1,8 +1,8 @@
 package de.javsper.springboottradingibkr.client.service.contract;
 
 import com.ib.client.EClientSocket;
-import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
-import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
+import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
+import de.javsper.springboottradingdata.modelconverter.ContractDboToIBKRContract;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,20 +15,20 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-class ContractDataApiCaller implements ApiCaller<ContractDataDBO> {
+class ContractDataApiCaller implements ApiCaller<ContractDbo> {
 
-    private final ContractDataToIBKRContract contractDataToIBKRContract;
+    private final ContractDboToIBKRContract contractDboToIBKRContract;
     private final EClientSocket client;
 
 
     /**
      * Sets Active Api Call Flag for Id and calls the IBKR Api.
      *
-     * @param contractDataDBO DB object to be converted to ib.Contract to call API
+     * @param contractDBO DB object to be converted to ib.Contract to call API
      */
     @Override
-    public void callApi(ContractDataDBO contractDataDBO) {
+    public void callApi(ContractDbo contractDBO) {
         client.reqContractDetails(
-                contractDataDBO.getId().intValue(), contractDataToIBKRContract.convertContractData(contractDataDBO));
+                contractDBO.getId().intValue(), contractDboToIBKRContract.convertContractData(contractDBO));
     }
 }

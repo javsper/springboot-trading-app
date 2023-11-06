@@ -1,8 +1,8 @@
 package de.javsper.springboottradingibkr.client.responsehandler;
 
 import com.ib.client.Contract;
-import de.javsper.springboottradingdata.model.data.entity.PositionDataDBO;
-import de.javsper.springboottradingdata.modelconverter.IBKRResponseToPositionData;
+import de.javsper.springboottradingdata.model.data.entity.PositionDbo;
+import de.javsper.springboottradingdata.modelconverter.IBKRToPositionDbo;
 import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class PositionResponseHandlerTest {
 
     @Mock
-    private IBKRResponseToPositionData ibkrResponseToPositionData;
+    private IBKRToPositionDbo ibkrToPositionDbo;
     @Mock
     private PositionDataDatabaseSynchronizer positionDataDatabaseSynchronizer;
     @InjectMocks
@@ -28,12 +28,12 @@ class PositionResponseHandlerTest {
     @Test
     void transformAndSynch(){
         Contract contract = new Contract();
-        PositionDataDBO data = PositionDataDBO.builder().build();
-        when(ibkrResponseToPositionData.convertAndPersistContract("A1", contract, BigDecimal.ONE, 1.1))
+        PositionDbo data = PositionDbo.builder().build();
+        when(ibkrToPositionDbo.convertAndPersistContract("A1", contract, BigDecimal.ONE, 1.1))
                 .thenReturn(data);
         when(positionDataDatabaseSynchronizer.updateInDbOrSave(data)).thenReturn(data);
 
-        PositionDataDBO result =
+        PositionDbo result =
                 positionResponseHandler
                         .transformResponseAndSynchronizeDB("A1",contract,BigDecimal.ONE, 1.1);
 

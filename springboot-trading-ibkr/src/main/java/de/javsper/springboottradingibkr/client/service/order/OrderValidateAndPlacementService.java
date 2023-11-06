@@ -1,6 +1,6 @@
 package de.javsper.springboottradingibkr.client.service.order;
 
-import de.javsper.springboottradingdata.model.data.entity.OrderDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 public class OrderValidateAndPlacementService {
 
     private final UniqueContractDataProvider uniqueContractDataProvider;
-    private final @Qualifier("OrderPlacementApiCaller")ApiCaller<OrderDataDBO> orderPlacementApiCaller;
+    private final @Qualifier("OrderPlacementApiCaller")ApiCaller<OrderDbo> orderPlacementApiCaller;
 
-    public  void validateAndPlaceOrder(OrderDataDBO orderData) {
-        uniqueContractDataProvider.getExistingContractDataOrCallApi(orderData.getContractDataDBO()).ifPresent(
+    public  void validateAndPlaceOrder(OrderDbo orderData) {
+        uniqueContractDataProvider.getExistingContractDataOrCallApi(orderData.getContractDBO()).ifPresent(
                 (contractData) -> {
-                    orderData.setContractDataDBO(contractData);
+                    orderData.setContractDBO(contractData);
                     orderPlacementApiCaller.callApi(orderData);
                 });
 

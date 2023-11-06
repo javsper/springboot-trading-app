@@ -1,5 +1,5 @@
 package de.javsper.springboottradingdata.repository;
 
-import de.javsper.springboottradingdata.model.data.entity.OptionMarketDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.OptionMarketDataDbo;
 
-public interface OptionMarketDataRepository extends IBKRDataTypeRepository<OptionMarketDataDBO>{}
+public interface OptionMarketDataRepository extends IBKRDataTypeRepository<OptionMarketDataDbo>{}

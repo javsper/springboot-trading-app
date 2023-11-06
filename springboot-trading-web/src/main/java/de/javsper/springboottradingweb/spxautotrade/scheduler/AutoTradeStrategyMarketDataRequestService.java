@@ -1,11 +1,11 @@
 package de.javsper.springboottradingweb.spxautotrade.scheduler;
 
-import de.javsper.springboottradingdata.model.data.entity.ContractDataDBO;
-import de.javsper.springboottradingdata.model.data.entity.OptionChainDataDBO;
+import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
+import de.javsper.springboottradingdata.model.data.entity.OptionChainDbo;
 import de.javsper.springboottradingdata.model.data.kafka.KafkaOptionChainData;
-import de.javsper.springboottradingdata.modelconverter.DBOToOptionChainData;
+import de.javsper.springboottradingdata.modelconverter.DboToOptionChainData;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
-import de.javsper.springboottradingdata.repository.OptionChainDataRepository;
+import de.javsper.springboottradingdata.repository.OptionChainRepository;
 import de.javsper.springboottradingibkr.client.service.marketdata.AutoTradeMarketDataService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeChainDataStopLiveDataService;
 import de.javsper.springboottradingweb.spxautotrade.service.ChainDataContractDataCreateService;
@@ -23,24 +23,24 @@ public class AutoTradeStrategyMarketDataRequestService {
   private final ChainDataContractDataCreateService chainDataContractDataCreateService;
   private final AutoTradeMarketDataService autoTradeMarketDataService;
   private final AutoTradeChainDataStopLiveDataService autoTradeChainDataStopLiveDataService;
-  private final OptionChainDataRepository optionChainDataRepository;
-  private final DBOToOptionChainData dboToOptionChainData;
+  private final OptionChainRepository optionChainRepository;
+  private final DboToOptionChainData dboToOptionChainData;
 
 
   @Transactional
   public void createStrategyFromOptionChain() {
     KafkaOptionChainData chainData = dboToOptionChainData.toOptionChainData(findFromRepo());
 
-    ContractDataDBO contractDataDBO =
+    ContractDbo contractDBO =
         chainDataContractDataCreateService.createIronCondorContractData(chainData);
     autoTradeMarketDataService.requestLiveMarketDataForContractData(
-        Integer.parseInt(contractDataDBO.getLastTradeDate()), contractDataDBO);
-    log.info("Requested MarketData for: " + contractDataDBO.getComboLegsDescription());
+        Integer.parseInt(contractDBO.getLastTradeDate()), contractDBO);
+    log.info("Requested MarketData for: " + contractDBO.getComboLegsDescription());
     autoTradeChainDataStopLiveDataService.stopMarketData(chainData);
   }
 
-  private OptionChainDataDBO findFromRepo() {
-    return optionChainDataRepository
+  private OptionChainDbo findFromRepo() {
+    return optionChainRepository
         .findById(lastTradeDateBuilder.getDateLongFromToday())
         .orElseGet(
             () -> {

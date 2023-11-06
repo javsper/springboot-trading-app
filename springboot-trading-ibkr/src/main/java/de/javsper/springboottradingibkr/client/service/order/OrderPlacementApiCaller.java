@@ -3,24 +3,24 @@ package de.javsper.springboottradingibkr.client.service.order;
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.Order;
-import de.javsper.springboottradingdata.model.data.entity.OrderDataDBO;
-import de.javsper.springboottradingdata.modelconverter.ContractDataToIBKRContract;
-import de.javsper.springboottradingdata.modelconverter.OrderDataToIBKROrder;
+import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
+import de.javsper.springboottradingdata.modelconverter.ContractDboToIBKRContract;
+import de.javsper.springboottradingdata.modelconverter.OrderDboToIBKR;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service("OrderPlacementApiCaller")
 @RequiredArgsConstructor
-class OrderPlacementApiCaller implements ApiCaller<OrderDataDBO> {
+class OrderPlacementApiCaller implements ApiCaller<OrderDbo> {
 
-    private final ContractDataToIBKRContract contractDataToIBKRContract;
-    private final OrderDataToIBKROrder orderDatatoIBKROrder;
+    private final ContractDboToIBKRContract contractDboToIBKRContract;
+    private final OrderDboToIBKR orderDatatoIBKROrderDboToIBKR;
     private final EClientSocket client;
 
-    public void callApi(OrderDataDBO orderData) {
-        Contract contract = contractDataToIBKRContract.convertContractData(orderData.getContractDataDBO());
-        Order order = orderDatatoIBKROrder.convertOrderData(orderData);
+    public void callApi(OrderDbo orderData) {
+        Contract contract = contractDboToIBKRContract.convertContractData(orderData.getContractDBO());
+        Order order = orderDatatoIBKROrderDboToIBKR.convertOrderData(orderData);
 
         client.placeOrder(orderData.getId().intValue(), contract, order);
     }

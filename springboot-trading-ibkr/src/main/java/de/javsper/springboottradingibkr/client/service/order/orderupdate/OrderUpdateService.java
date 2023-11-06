@@ -1,7 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.order.orderupdate;
 
-import de.javsper.springboottradingdata.model.data.entity.OrderDataDBO;
-import de.javsper.springboottradingdata.repository.OrderDataRepository;
+import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
+import de.javsper.springboottradingdata.repository.OrderRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,25 +13,25 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class OrderUpdateService {
 
-    private final OrderDataRepository orderDataRepository;
-    private final @Qualifier("OrderPlacementApiCaller") ApiCaller<OrderDataDBO> orderPlacementApiCaller;
+    private final OrderRepository orderRepository;
+    private final @Qualifier("OrderPlacementApiCaller") ApiCaller<OrderDbo> orderPlacementApiCaller;
 
     public void updateOrderLimitPrice(Long id, BigDecimal price) {
-        callApiAndGetResponse(orderDataRepository.findById(id).map((orderData) -> {
+        callApiAndGetResponse(orderRepository.findById(id).map((orderData) -> {
             orderData.setLimitPrice(price);
             return orderData;
         }).orElseThrow());
     }
 
     public void updateOrderQuantity(Long id, BigDecimal quantity) {
-        callApiAndGetResponse(orderDataRepository.findById(id).map((orderData) -> {
+        callApiAndGetResponse(orderRepository.findById(id).map((orderData) -> {
             orderData.setTotalQuantity(quantity);
             return orderData;
         }).orElseThrow());
     }
 
 
-    private void callApiAndGetResponse(OrderDataDBO updatedOrderData) {
+    private void callApiAndGetResponse(OrderDbo updatedOrderData) {
         orderPlacementApiCaller.callApi(updatedOrderData);
     }
 }

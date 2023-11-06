@@ -1,7 +1,7 @@
 package de.javsper.springboottradingdata.service;
 
-import de.javsper.springboottradingdata.model.data.entity.ComboLegDataDBO;
-import de.javsper.springboottradingdata.repository.ContractDataRepository;
+import de.javsper.springboottradingdata.model.data.entity.ComboLegDbo;
+import de.javsper.springboottradingdata.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +13,14 @@ import java.util.OptionalLong;
 @RequiredArgsConstructor
 public class ComboContractDataFinder {
 
-    private final ContractDataRepository contractDataRepository;
+    private final ContractRepository contractRepository;
 
 
-    public OptionalLong checkContractWithComboLegs(List<ComboLegDataDBO> comboLegs){
+    public OptionalLong checkContractWithComboLegs(List<ComboLegDbo> comboLegs){
         final List<Long> oldContracts= new ArrayList<>();
-        for(ComboLegDataDBO comboLeg : comboLegs){
+        for(ComboLegDbo comboLeg : comboLegs){
             List<Long> contracts = new ArrayList<>();
-            contractDataRepository.findByComboLegsDescriptionContains(comboLeg.getContractId().toString()).forEach((contractData)->{
+            contractRepository.findByComboLegsDescriptionContains(comboLeg.getContractId().toString()).forEach((contractData)->{
                 contracts.add(contractData.getId());
             });
             if(contracts.isEmpty()){
