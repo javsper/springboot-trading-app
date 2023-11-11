@@ -1,4 +1,4 @@
-package de.javsper.springboottradingweb.spxautotrade.scheduler;
+package de.javsper.springboottradingweb.spxautotrade.service;
 
 import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingdata.model.data.entity.OptionChainDbo;
@@ -7,8 +7,6 @@ import de.javsper.springboottradingdata.modelconverter.DboToOptionChainData;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
 import de.javsper.springboottradingdata.repository.OptionChainRepository;
 import de.javsper.springboottradingibkr.client.service.marketdata.AutoTradeMarketDataService;
-import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeChainDataStopLiveDataService;
-import de.javsper.springboottradingweb.spxautotrade.service.ChainDataContractDataCreateService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

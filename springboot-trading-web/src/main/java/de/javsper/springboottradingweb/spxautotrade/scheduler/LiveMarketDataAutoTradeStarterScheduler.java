@@ -5,6 +5,7 @@ import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDat
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeCallAndPutDataRequestService;
+import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeStrategyMarketDataRequestService;
 import de.javsper.springboottradingweb.spxautotrade.service.SpxLiveDataActivator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
