@@ -9,7 +9,7 @@ import de.javsper.springboottradingdata.model.data.kafka.OptionListData;
 import de.javsper.springboottradingdata.model.data.kafka.OptionMarketData;
 import de.javsper.springboottradingdata.model.subtype.Symbol;
 import de.javsper.springboottradingibkr.client.strategybuilder.StrategyBuilderService;
-import de.javsper.springboottradingweb.spxautotrade.settings.TradeRuleSettingsConfig;
+import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

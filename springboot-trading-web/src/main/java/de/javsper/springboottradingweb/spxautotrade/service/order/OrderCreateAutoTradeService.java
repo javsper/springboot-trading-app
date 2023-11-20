@@ -2,10 +2,10 @@ package de.javsper.springboottradingweb.spxautotrade.service.order;
 
 import com.ib.client.OrderType;
 import com.ib.client.Types;
+import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
 import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
-import de.javsper.springboottradingweb.spxautotrade.settings.TradeRuleSettingsConfig;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

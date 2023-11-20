@@ -8,7 +8,7 @@ import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingibkr.client.service.order.OrderPlacementService;
 import de.javsper.springboottradingweb.spxautotrade.service.StrategyStrikesUpdateService;
 import de.javsper.springboottradingweb.spxautotrade.service.UpdatedStrategyMarketDataRequestService;
-import de.javsper.springboottradingweb.spxautotrade.settings.TradeRuleSettingsConfig;
+import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

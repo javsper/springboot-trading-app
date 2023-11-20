@@ -1,9 +1,9 @@
 package de.javsper.springboottradingibkr.client.responsehandler;
 
+import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingdata.model.data.entity.PositionDbo;
 import de.javsper.springboottradingdata.model.data.kafka.PositionData;
-import de.javsper.springboottradingdata.model.subtype.Symbol;
 import de.javsper.springboottradingdata.modelconverter.PositionDataToDbo;
 import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
@@ -19,6 +19,7 @@ public class StreamsAggregatedPositionHandler {
   private final PositionDataDatabaseSynchronizer positionDataDatabaseSynchronizer;
   private final PositionDataToDbo positionDataToDbo;
   private final LastTradeDateBuilder lastTradeDateBuilder;
+  private final TradeRuleSettingsConfig tradeRuleSettingsConfig;
 
   public PositionData persistContractAndPositionData(PositionData positionData) {
     PositionDbo positionDbo = positionDataToDbo.convert(positionData);
@@ -35,7 +36,7 @@ public class StreamsAggregatedPositionHandler {
    */
   private void setIdIfAutoTrade(ContractDbo contractDbo, PositionDbo positionDbo) {
     if (contractDbo.getLastTradeDate().equals(lastTradeDateBuilder.getDateStringFromToday())
-        && contractDbo.getSymbol().equals(Symbol.SPX)) {
+        && contractDbo.getSymbol().equals(tradeRuleSettingsConfig.getTradeSymbol())) {
       positionDbo.setId(lastTradeDateBuilder.getDateLongFromToday());
     }
   }
