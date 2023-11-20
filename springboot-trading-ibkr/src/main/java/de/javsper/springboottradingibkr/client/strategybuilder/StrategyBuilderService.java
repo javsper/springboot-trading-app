@@ -1,11 +1,11 @@
 package de.javsper.springboottradingibkr.client.strategybuilder;
 
 import com.ib.client.Types;
-import de.javsper.springboottradingdata.constants.AutoDayTradeConstants;
 import de.javsper.springboottradingdata.model.Leg;
 import de.javsper.springboottradingdata.model.data.StrategyContractData;
 import de.javsper.springboottradingdata.model.data.entity.ComboLegDbo;
 import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
+import de.javsper.springboottradingdata.service.StrategyComboLegsDescriptionCreator;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
@@ -18,30 +18,25 @@ import org.springframework.stereotype.Service;
 public class StrategyBuilderService {
 
   private final UniqueContractDataProvider uniqueContractDataProvider;
+  private final StrategyComboLegsDescriptionCreator strategyComboLegsDescriptionCreator;
 
   @Transactional
   public Optional<ContractDbo> getComboLegContractData(StrategyContractData strategyContractData) {
     ContractDbo contractDBO = strategyContractData.getContractDBO();
     try {
       contractDBO.setComboLegs(legListBuilder(contractDBO, strategyContractData.getStrategyLegs()));
-      setComboLegsDescription(contractDBO);
+
+      contractDBO.setComboLegsDescription(
+          strategyComboLegsDescriptionCreator.generateComboLegsDescription(
+              StrategyComboLegsDescriptionCreator.StrategyDetails.builder()
+                  .comboLegs(contractDBO.getComboLegs())
+                  .lastTradeDate(contractDBO.getLastTradeDate())
+                  .symbol(contractDBO.getSymbol())
+                  .build()));
       return uniqueContractDataProvider.getExistingContractDataOrCallApi(contractDBO);
     } catch (NoSuchElementException e) {
       return Optional.empty();
     }
-  }
-
-  private void setComboLegsDescription(ContractDbo contractDBO) {
-    StringBuilder description = new StringBuilder();
-    description
-        .append(contractDBO.getLastTradeDate())
-        .append(AutoDayTradeConstants.DELIMITER)
-        .append(contractDBO.getSymbol().name())
-        .append(" | ");
-    for (ComboLegDbo leg : contractDBO.getComboLegs()) {
-      description.append(leg.getContractId()).append(" | ");
-    }
-    contractDBO.setComboLegsDescription(description.toString());
   }
 
   private List<ComboLegDbo> legListBuilder(ContractDbo contractDBO, List<Leg> legs) {
