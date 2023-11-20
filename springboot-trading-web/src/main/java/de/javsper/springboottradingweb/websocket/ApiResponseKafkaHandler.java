@@ -2,12 +2,7 @@ package de.javsper.springboottradingweb.websocket;
 
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.config.KafkaConstantsConfig;
-import de.javsper.springboottradingdata.model.data.kafka.AccountSummaryData;
-import de.javsper.springboottradingdata.model.data.kafka.OptionMarketData;
-import de.javsper.springboottradingdata.model.data.kafka.ProfitAndLossData;
-import de.javsper.springboottradingdata.model.data.kafka.StandardMarketData;
-import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
-import de.javsper.springboottradingdata.model.data.entity.PositionDbo;
+import de.javsper.springboottradingdata.model.data.kafka.*;
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
 import de.javsper.springboottradingibkr.client.errorhandling.ErrorCodeMapper;
 import de.javsper.springboottradingibkr.client.responsehandler.StreamsAggregatedPositionHandler;
@@ -68,20 +63,20 @@ public class ApiResponseKafkaHandler {
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.orderData}")
-    public void consumeMessage(OrderDbo message) {
+    public void consumeMessage(OrderData message) {
         log.info("Order received: " + message.getId());
         messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getORDER_TOPIC(), message);
     }
 
     @KafkaListener(groupId = "${kafka.consumer.group.id}", topics = "${kafka.names.topic.positions}")
     @Transactional
-    public void consumeMessage(PositionDbo message) {
-        if (message.getContractDBO().getSecurityType().equals(Types.SecType.BAG)) {
-            log.info("Streamed Message received: " + message.getId());
-            PositionDbo savedPosition = streamsAggregatedPositionHandler.persistContractAndPositionData(message);
-            messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getPOSITION_TOPIC(), savedPosition);
+    public void consumeMessage(PositionData message) {
+        if (message.getContractData().getSecurityType().equals(Types.SecType.BAG)) {
+            log.info("Streamed Message received: " + message);
+            PositionData updatedPosition = streamsAggregatedPositionHandler.persistContractAndPositionData(message);
+            messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getPOSITION_TOPIC(), updatedPosition);
         }else{
-        log.info("Message received: " + message.getId());
+        log.info("Message received: " + message);
         messagingTemplate.convertAndSend("/topic/" + kafkaConstantsConfig.getPOSITION_TOPIC(), message);
         }
     }
