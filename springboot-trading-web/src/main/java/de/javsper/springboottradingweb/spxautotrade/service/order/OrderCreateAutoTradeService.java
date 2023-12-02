@@ -5,7 +5,8 @@ import com.ib.client.Types;
 import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
 import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
-import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
+import de.javsper.springboottradingdata.model.subtype.Strategy;
+import de.javsper.springboottradingdata.optionstradingservice.AutotradeDbAndTickerIdEncoder;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,17 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderCreateAutoTradeService {
   private final TradeRuleSettingsConfig tradeRuleSettingsConfig;
-  private final LastTradeDateBuilder lastTradeDateBuilder;
+  private final AutotradeDbAndTickerIdEncoder autotradeDbAndTickerIdEncoder;
 
   public OrderDbo setupOrderWithLmtPriceEqualToBidPricePlusTolerance(
-      LastPriceLiveMarketDataDbo lastPriceLiveMarketDataDbo) {
+      LastPriceLiveMarketDataDbo lastPriceLiveMarketDataDbo, Strategy strategy) {
     double limitPrice =
         lastPriceLiveMarketDataDbo.getBidPrice()
             + tradeRuleSettingsConfig.getToleranceForOrderFill();
     return OrderDbo.builder()
-        .id(lastTradeDateBuilder.getDateLongFromToday())
+        .id(
+            autotradeDbAndTickerIdEncoder.generateLongForTodayBySymbolAndStrategy(
+                lastPriceLiveMarketDataDbo.getContractDBO().getSymbol(), strategy))
         .contractDBO(lastPriceLiveMarketDataDbo.getContractDBO())
         .action(Types.Action.BUY)
         .totalQuantity(BigDecimal.valueOf(tradeRuleSettingsConfig.getQuantity()))

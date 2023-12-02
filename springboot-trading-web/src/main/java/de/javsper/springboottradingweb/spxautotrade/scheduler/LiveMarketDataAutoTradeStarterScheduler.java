@@ -2,6 +2,7 @@ package de.javsper.springboottradingweb.spxautotrade.scheduler;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
+import de.javsper.springboottradingdata.model.subtype.Strategy;
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeCallAndPutDataRequestService;
@@ -31,8 +32,9 @@ public class LiveMarketDataAutoTradeStarterScheduler {
   public void getOptionDataForDayTradeStrategy() {
     LastPriceLiveMarketDataDbo liveData = getLiveData();
     autoTradeOptionDataService.getOptionContractsAndCallAPI(liveData.getLastPrice());
-    autoTradeStrategyMarketDataRequestService.createStrategyFromOptionChain();
-    orderSubmitAutoTradeService.placeOrderAndIfNecessaryUpdateStrategy();
+    Strategy strategy = Strategy.IRON_CONDOR;
+    autoTradeStrategyMarketDataRequestService.createStrategyFromOptionChain(strategy);
+    orderSubmitAutoTradeService.placeOrderAndIfNecessaryUpdateStrategy(strategy);
   }
 
   private LastPriceLiveMarketDataDbo getLiveData() {

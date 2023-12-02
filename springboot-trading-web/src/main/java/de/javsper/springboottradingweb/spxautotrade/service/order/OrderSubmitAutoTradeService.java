@@ -1,14 +1,15 @@
 package de.javsper.springboottradingweb.spxautotrade.service.order;
 
+import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
 import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
-import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
+import de.javsper.springboottradingdata.model.subtype.Strategy;
+import de.javsper.springboottradingdata.optionstradingservice.AutotradeDbAndTickerIdEncoder;
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingibkr.client.service.order.OrderPlacementService;
 import de.javsper.springboottradingweb.spxautotrade.service.StrategyStrikesUpdateService;
 import de.javsper.springboottradingweb.spxautotrade.service.UpdatedStrategyMarketDataRequestService;
-import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderSubmitAutoTradeService {
   private final LastPriceLiveMarketDataRepository lastPriceLiveMarketDataRepository;
-  private final LastTradeDateBuilder lastTradeDateBuilder;
+  private final AutotradeDbAndTickerIdEncoder autotradeDbAndTickerIdEncoder;
   private final RepositoryRefreshService repositoryRefreshService;
   private final OrderPlacementService orderPlacementService;
   private final OrderCreateAutoTradeService orderCreateAutoTradeService;
@@ -26,25 +27,28 @@ public class OrderSubmitAutoTradeService {
   private final UpdatedStrategyMarketDataRequestService updatedStrategyMarketDataRequestService;
 
   @Transactional
-  public void placeOrderAndIfNecessaryUpdateStrategy() {
-    final long id = lastTradeDateBuilder.getDateLongFromToday();
-    OrderDbo order = createOrderAndIfNecessaryUpdateStrategy(id);
+  public void placeOrderAndIfNecessaryUpdateStrategy(Strategy strategy) {
+    final long id =
+        autotradeDbAndTickerIdEncoder.generateLongForTodayBySymbolAndStrategy(
+            tradeRuleSettingsConfig.getTradeSymbol(), strategy);
+    OrderDbo order = createOrderAndIfNecessaryUpdateStrategy(id, strategy);
     orderPlacementService.placeOrderWithAutoIdIfNotSet(order);
   }
 
-  private OrderDbo createOrderAndIfNecessaryUpdateStrategy(long id) {
+  private OrderDbo createOrderAndIfNecessaryUpdateStrategy(long id, Strategy strategy) {
     LastPriceLiveMarketDataDbo liveData = getLiveDataOrRefresh(id);
     final double limitMinusTolerance =
         tradeRuleSettingsConfig.getLimitValue()
             - tradeRuleSettingsConfig.getToleranceForOrderFill();
 
     if (Math.abs(liveData.getBidPrice()) <= limitMinusTolerance) {
-      return orderCreateAutoTradeService.setupOrderWithLmtPriceEqualToBidPricePlusTolerance(liveData);
+      return orderCreateAutoTradeService.setupOrderWithLmtPriceEqualToBidPricePlusTolerance(
+          liveData, strategy);
     } else {
       // build new Strategy and get live Data from it then make order
       updatedStrategyMarketDataRequestService.stopOldAndRequestNewLiveData(
           strategyStrikesUpdateService.updateStrategyStrikes(liveData.getContractDBO()));
-      return createOrderAndIfNecessaryUpdateStrategy(id);
+      return createOrderAndIfNecessaryUpdateStrategy(id, strategy);
     }
   }
 
@@ -57,7 +61,7 @@ public class OrderSubmitAutoTradeService {
                   repositoryRefreshService.clearCacheAndWait(lastPriceLiveMarketDataRepository);
                   return getLiveDataOrRefresh(id);
                 });
-    //Ensure Bid Price is not null
+    // Ensure Bid Price is not null
     if (liveData.getBidPrice() == null) {
       return getLiveDataOrRefresh(id);
     } else {
