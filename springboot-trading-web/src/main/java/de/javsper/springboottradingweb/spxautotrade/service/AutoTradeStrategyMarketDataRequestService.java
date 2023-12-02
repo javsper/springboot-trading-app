@@ -1,10 +1,11 @@
 package de.javsper.springboottradingweb.spxautotrade.service;
 
+import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
 import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingdata.model.data.entity.OptionChainDbo;
 import de.javsper.springboottradingdata.model.data.kafka.OptionChainData;
 import de.javsper.springboottradingdata.modelconverter.DboToOptionChainData;
-import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
+import de.javsper.springboottradingdata.optionstradingservice.AutotradeDbAndTickerIdEncoder;
 import de.javsper.springboottradingdata.repository.OptionChainRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingibkr.client.service.marketdata.AutoTradeMarketDataService;
@@ -18,13 +19,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class AutoTradeStrategyMarketDataRequestService {
 
-  private final LastTradeDateBuilder lastTradeDateBuilder;
+  private final TradeRuleSettingsConfig tradeRuleSettingsConfig;
   private final StrategyFromChainDataCreator strategyFromChainDataCreator;
   private final AutoTradeMarketDataService autoTradeMarketDataService;
   private final AutoTradeChainDataStopLiveDataService autoTradeChainDataStopLiveDataService;
   private final OptionChainRepository optionChainRepository;
   private final DboToOptionChainData dboToOptionChainData;
   private final RepositoryRefreshService repositoryRefreshService;
+  private final AutotradeDbAndTickerIdEncoder autotradeDbAndTickerIdEncoder;
 
   @Transactional
   public void createStrategyFromOptionChain() {
@@ -39,7 +41,9 @@ public class AutoTradeStrategyMarketDataRequestService {
 
   private OptionChainDbo findFromRepo() {
     return optionChainRepository
-        .findById(lastTradeDateBuilder.getDateLongFromToday())
+        .findById(
+            autotradeDbAndTickerIdEncoder.generateLongIdIdForTodayBySymbol(
+                tradeRuleSettingsConfig.getTradeSymbol()))
         .orElseGet(
             () -> {
               repositoryRefreshService.clearCacheAndWait(optionChainRepository);
