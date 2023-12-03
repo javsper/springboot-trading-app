@@ -1,10 +1,11 @@
 package de.javsper.springboottradingweb.spxautotrade.scheduler;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
+import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
-import de.javsper.springboottradingdata.model.subtype.Strategy;
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
+import de.javsper.springboottradingdata.service.StrategyNameService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeCallAndPutDataRequestService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeStrategyMarketDataRequestService;
 import de.javsper.springboottradingweb.spxautotrade.service.SpxLiveDataActivator;
@@ -26,15 +27,17 @@ public class LiveMarketDataAutoTradeStarterScheduler {
   private final RepositoryRefreshService repositoryRefreshService;
   private final AutoTradeStrategyMarketDataRequestService autoTradeStrategyMarketDataRequestService;
   private final OrderSubmitAutoTradeService orderSubmitAutoTradeService;
+  private final StrategyNameService strategyNameService;
 
   @Scheduled(cron = "0 30 15 * * 1-5")
   //  @Scheduled(cron = "*/30 * * * * *")
   public void getOptionDataForDayTradeStrategy() {
     LastPriceLiveMarketDataDbo liveData = getLiveData();
     autoTradeOptionDataService.getOptionContractsAndCallAPI(liveData.getLastPrice());
-    Strategy strategy = Strategy.IRON_CONDOR;
-    autoTradeStrategyMarketDataRequestService.createStrategyFromOptionChain(strategy);
-    orderSubmitAutoTradeService.placeOrderAndIfNecessaryUpdateStrategy(strategy);
+    ContractDbo strategyContract =
+        autoTradeStrategyMarketDataRequestService.createStrategyFromOptionChain();
+    orderSubmitAutoTradeService.placeOrderAndIfNecessaryUpdateStrategy(
+        strategyNameService.resolveStrategyFromComboLegs(strategyContract.getComboLegs()));
   }
 
   private LastPriceLiveMarketDataDbo getLiveData() {

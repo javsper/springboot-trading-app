@@ -9,6 +9,7 @@ import de.javsper.springboottradingdata.modelconverter.DboToOptionChainData;
 import de.javsper.springboottradingdata.optionstradingservice.AutotradeDbAndTickerIdEncoder;
 import de.javsper.springboottradingdata.repository.OptionChainRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
+import de.javsper.springboottradingdata.service.StrategyNameService;
 import de.javsper.springboottradingibkr.client.service.marketdata.AutoTradeMarketDataService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +29,18 @@ public class AutoTradeStrategyMarketDataRequestService {
   private final DboToOptionChainData dboToOptionChainData;
   private final RepositoryRefreshService repositoryRefreshService;
   private final AutotradeDbAndTickerIdEncoder autotradeDbAndTickerIdEncoder;
+  private final StrategyNameService strategyNameService;
 
   @Transactional
-  public void createStrategyFromOptionChain(Strategy strategy) {
+  public ContractDbo createStrategyFromOptionChain() {
     OptionChainData chainData = dboToOptionChainData.toOptionChainData(findFromRepo());
 
     ContractDbo contractDBO = strategyFromChainDataCreator.createIronCondorContractData(chainData);
     autoTradeMarketDataService.requestLiveMarketDataForContractData(
-        createIdForContractWithIronCondor(contractDBO, strategy), contractDBO);
+        createIdForContractWithIronCondor(contractDBO, strategyNameService.resolveStrategyFromComboLegs(contractDBO.getComboLegs())), contractDBO);
     log.info("Requested MarketData for: " + contractDBO.getComboLegsDescription());
     autoTradeChainDataStopLiveDataService.stopMarketData(chainData);
+    return contractDBO;
   }
 
   private OptionChainDbo findFromRepo() {

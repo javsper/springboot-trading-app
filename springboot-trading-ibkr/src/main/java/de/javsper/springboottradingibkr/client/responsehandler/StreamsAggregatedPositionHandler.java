@@ -6,7 +6,9 @@ import de.javsper.springboottradingdata.model.data.entity.PositionDbo;
 import de.javsper.springboottradingdata.model.data.kafka.PositionData;
 import de.javsper.springboottradingdata.modelconverter.PositionDataToDbo;
 import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;
+import de.javsper.springboottradingdata.optionstradingservice.AutotradeDbAndTickerIdEncoder;
 import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
+import de.javsper.springboottradingdata.service.StrategyNameService;
 import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,9 @@ public class StreamsAggregatedPositionHandler {
   private final PositionDataDatabaseSynchronizer positionDataDatabaseSynchronizer;
   private final PositionDataToDbo positionDataToDbo;
   private final LastTradeDateBuilder lastTradeDateBuilder;
+  private final AutotradeDbAndTickerIdEncoder autotradeDbAndTickerIdEncoder;
   private final TradeRuleSettingsConfig tradeRuleSettingsConfig;
+  private final StrategyNameService strategyNameService;
 
   public PositionData persistContractAndPositionData(PositionData positionData) {
     PositionDbo positionDbo = positionDataToDbo.convert(positionData);
@@ -32,13 +36,14 @@ public class StreamsAggregatedPositionHandler {
     return positionDataDatabaseSynchronizer.updateInDbOrSave(positionDbo).toKafkaPositionData();
   }
 
-  /**
-   * if LastTradeDate is today and Symbol is SPX it is Auto Trade
-   */
+  /** if LastTradeDate is today and Symbol is SPX it is Auto Trade */
   private void setIdIfAutoTrade(ContractDbo contractDbo, PositionDbo positionDbo) {
     if (contractDbo.getLastTradeDate().equals(lastTradeDateBuilder.getDateStringFromToday())
         && contractDbo.getSymbol().equals(tradeRuleSettingsConfig.getTradeSymbol())) {
-      positionDbo.setId(lastTradeDateBuilder.getDateLongFromToday());
+      positionDbo.setId(
+          autotradeDbAndTickerIdEncoder.generateLongForTodayBySymbolAndStrategy(
+              contractDbo.getSymbol(),
+              strategyNameService.resolveStrategyFromComboLegs(contractDbo.getComboLegs())));
     }
   }
 }
