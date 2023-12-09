@@ -3,9 +3,11 @@ package de.javsper.springboottradingweb.spxautotrade.service.order;
 import com.ib.client.OrderType;
 import com.ib.client.Types;
 import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
+import de.javsper.springboottradingdata.constants.AutoDayTradeConstants;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
 import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
 import de.javsper.springboottradingdata.model.subtype.Strategy;
+import de.javsper.springboottradingdata.model.subtype.Symbol;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,7 @@ public class OrderCreateAutoTradeService {
 
   public OrderDbo setupOrderWithLmtPriceHalfwayBetweenBidAndAsk(
       LastPriceLiveMarketDataDbo lastPriceLiveMarketDataDbo, Strategy strategy) {
-    double limitPrice =
-            (lastPriceLiveMarketDataDbo.getBidPrice()
-            + lastPriceLiveMarketDataDbo.getAskPrice()) / 2;
+    double limitPrice = getLimitPriceForSecurity(lastPriceLiveMarketDataDbo);
     return OrderDbo.builder()
         .contractDBO(lastPriceLiveMarketDataDbo.getContractDBO())
         .action(Types.Action.BUY)
@@ -29,5 +29,16 @@ public class OrderCreateAutoTradeService {
         .usePriceManagementAlgorithm(false)
         .timeInForce(Types.TimeInForce.DAY)
         .build();
+  }
+
+  private double getLimitPriceForSecurity(LastPriceLiveMarketDataDbo dbo) {
+    double multi;
+    double limit = (dbo.getBidPrice() + dbo.getAskPrice()) / 2;
+    if (dbo.getContractDBO().getSymbol().equals(Symbol.SPX)) {
+      multi = AutoDayTradeConstants.SPX_OPTION_PRICE_MULTIPLIER;
+    } else {
+      multi = AutoDayTradeConstants.STOCK_OPTION_PRICE_MULTIPLIER;
+    }
+    return Math.ceil(limit / multi) * multi;
   }
 }
