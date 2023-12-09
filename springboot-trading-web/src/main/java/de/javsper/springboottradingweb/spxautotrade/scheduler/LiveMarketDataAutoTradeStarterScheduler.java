@@ -1,11 +1,13 @@
 package de.javsper.springboottradingweb.spxautotrade.scheduler;
 
 import de.javsper.springboottradingdata.config.PropertiesConfig;
+import de.javsper.springboottradingdata.dataobject.ContractDataTemplates;
 import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingdata.model.data.entity.LastPriceLiveMarketDataDbo;
 import de.javsper.springboottradingdata.repository.LastPriceLiveMarketDataRepository;
 import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingdata.service.StrategyNameService;
+import de.javsper.springboottradingibkr.client.service.tradinghours.TradingHoursService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeCallAndPutDataRequestService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeStrategyMarketDataRequestService;
 import de.javsper.springboottradingweb.spxautotrade.service.SpxLiveDataActivator;
@@ -28,15 +30,18 @@ public class LiveMarketDataAutoTradeStarterScheduler {
   private final AutoTradeStrategyMarketDataRequestService autoTradeStrategyMarketDataRequestService;
   private final OrderSubmitAutoTradeService orderSubmitAutoTradeService;
   private final StrategyNameService strategyNameService;
+  private final TradingHoursService tradingHoursService;
 
   @Scheduled(cron = "5 30 15 * * 1-5")
   public void getOptionDataForDayTradeStrategy() {
-    LastPriceLiveMarketDataDbo liveData = getLiveData(true);
-    autoTradeOptionDataService.getOptionContractsAndCallAPI(liveData.getLastPrice());
-    ContractDbo strategyContract =
-        autoTradeStrategyMarketDataRequestService.createStrategyFromOptionChain();
-    orderSubmitAutoTradeService.placeOrderAndIfNecessaryUpdateStrategy(
-        strategyNameService.resolveStrategyFromComboLegs(strategyContract.getComboLegs()));
+    if (tradingHoursService.isOpenToday(ContractDataTemplates.SpxData())) {
+      LastPriceLiveMarketDataDbo liveData = getLiveData(true);
+      autoTradeOptionDataService.getOptionContractsAndCallAPI(liveData.getLastPrice());
+      ContractDbo strategyContract =
+          autoTradeStrategyMarketDataRequestService.createStrategyFromOptionChain();
+      orderSubmitAutoTradeService.placeOrderAndIfNecessaryUpdateStrategy(
+          strategyNameService.resolveStrategyFromComboLegs(strategyContract.getComboLegs()));
+    }
   }
 
   private LastPriceLiveMarketDataDbo getLiveData(boolean isFirst) {

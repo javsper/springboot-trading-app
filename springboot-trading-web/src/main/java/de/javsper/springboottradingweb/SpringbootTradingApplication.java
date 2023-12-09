@@ -1,7 +1,5 @@
 package de.javsper.springboottradingweb;
 
-import de.javsper.springboottradingdata.config.PropertiesConfig;
-import de.javsper.springboottradingibkr.client.service.position.PositionService;
 import de.javsper.springboottradingweb.spxautotrade.scheduler.LiveMarketDataAutoTradeStarterScheduler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,12 +23,8 @@ public class SpringbootTradingApplication {
   public static void main(String[] args) {
     ApplicationContext context = SpringApplication.run(SpringbootTradingApplication.class, args);
 
-    PropertiesConfig propertiesConfig = context.getBean(PropertiesConfig.class);
-    ConnectionInitiator connection = context.getBean(ConnectionInitiator.class);
-    connection.connect(propertiesConfig.getTradingPort());
-
-    PositionService positionService = context.getBean(PositionService.class);
-    positionService.callPortfolio();
+    ApplicationStartupProcedureService applicationStartupProcedureService = context.getBean(ApplicationStartupProcedureService.class);
+    applicationStartupProcedureService.onStartUp();
 
     // Test only
     LiveMarketDataAutoTradeStarterScheduler liveMarketDataAutoTradeStarterScheduler =
