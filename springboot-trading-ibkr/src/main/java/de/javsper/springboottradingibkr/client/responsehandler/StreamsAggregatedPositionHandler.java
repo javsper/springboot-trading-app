@@ -1,54 +1,43 @@
 package de.javsper.springboottradingibkr.client.responsehandler;
 
-import de.javsper.springboottradingdata.config.TradeRuleSettingsConfig;
-import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
+import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
 import de.javsper.springboottradingdata.model.data.entity.PositionDbo;
 import de.javsper.springboottradingdata.model.data.kafka.PositionData;
 import de.javsper.springboottradingdata.modelconverter.PositionDataToDbo;
-import de.javsper.springboottradingdata.modelsynchronize.PositionDataDatabaseSynchronizer;
-import de.javsper.springboottradingdata.optionstradingservice.AutotradeDbAndTickerIdEncoder;
-import de.javsper.springboottradingdata.optionstradingservice.LastTradeDateBuilder;
-import de.javsper.springboottradingdata.service.StrategyNameService;
-import de.javsper.springboottradingibkr.client.service.contract.UniqueContractDataProvider;
+import de.javsper.springboottradingdata.service.PartialComboOrderFinder;
+import de.javsper.springboottradingdata.service.PositionSplitService;
+import de.javsper.springboottradingibkr.client.service.marketdata.AutoTradeMarketDataService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
 public class StreamsAggregatedPositionHandler {
 
-  private final UniqueContractDataProvider uniqueContractDataProvider;
-  private final PositionDataDatabaseSynchronizer positionDataDatabaseSynchronizer;
   private final PositionDataToDbo positionDataToDbo;
-  private final LastTradeDateBuilder lastTradeDateBuilder;
-  private final AutotradeDbAndTickerIdEncoder autotradeDbAndTickerIdEncoder;
-  private final TradeRuleSettingsConfig tradeRuleSettingsConfig;
-  private final StrategyNameService strategyNameService;
+  private final PartialComboOrderFinder partialComboOrderFinder;
+  private final PositionSplitService positionSplitService;
+  private final AutoTradeMarketDataService autoTradeMarketDataService;
 
-  public Optional<PositionData> persistContractAndPositionData(PositionData positionData) {
+  @Transactional
+  public List<PositionData> persistPositionsAccordingToExistingOrders(PositionData positionData) {
     PositionDbo positionDbo = positionDataToDbo.convert(positionData);
-    ContractDbo persistedContract =
-        uniqueContractDataProvider
-            .getExistingContractDataOrCallApi(positionDbo.getContractDBO())
-            .orElseThrow();
-    positionDbo.setContractDBO(persistedContract);
-    setIdIfAutoTrade(persistedContract, positionDbo);
-    return positionDataDatabaseSynchronizer
-        .updateInDbOrSave(positionDbo)
-        .map(PositionDbo::toKafkaPositionData)
-        .or(Optional::empty);
-  }
+    List<OrderDbo> filledStrategyOrders =
+        partialComboOrderFinder.findExistingStrategyContractsInCombo(positionDbo.getContractDBO());
 
-  /** if LastTradeDate is today and Symbol is SPX it is Auto Trade */
-  private void setIdIfAutoTrade(ContractDbo contractDbo, PositionDbo positionDbo) {
-    if (contractDbo.getLastTradeDate().equals(lastTradeDateBuilder.getDateStringFromToday())
-        && contractDbo.getSymbol().equals(tradeRuleSettingsConfig.getTradeSymbol())) {
-      positionDbo.setId(
-          autotradeDbAndTickerIdEncoder.generateLongForTodayBySymbolAndStrategy(
-              contractDbo.getSymbol(),
-              strategyNameService.resolveStrategyFromComboLegs(contractDbo.getComboLegs())));
-    }
+    List<PositionDbo> splitPositions =
+        positionSplitService.splitGivenContractsFromPosition(filledStrategyOrders, positionDbo);
+
+    splitPositions.forEach(
+        (position) -> {
+          if (position.getId() != null) {
+            autoTradeMarketDataService.requestLiveMarketDataForContractData(
+                position.getId().intValue(), position.getContractDBO());
+          }
+        });
+
+    return splitPositions.stream().map(PositionDbo::toKafkaPositionData).toList();
   }
 }
