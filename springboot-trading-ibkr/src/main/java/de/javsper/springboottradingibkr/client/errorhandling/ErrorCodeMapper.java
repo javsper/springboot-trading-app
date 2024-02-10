@@ -1,6 +1,7 @@
 package de.javsper.springboottradingibkr.client.errorhandling;
 
 import de.javsper.springboottradingdata.model.data.message.ErrorMessage;
+import de.javsper.springboottradingibkr.client.exception.TWSConnectionException;
 import de.javsper.springboottradingibkr.client.service.marketdata.StopAndStartMarketDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,8 @@ public class ErrorCodeMapper {
                 stopAndStartMarketDataService.reinitiateApiCall(errorMessage.getMessageId());
                 break;
             case 502:
-                log.warn(errorMessage.getMessage());
-                break;
+                log.error(errorMessage.getMessage());
+                throw new TWSConnectionException("TWS Connection error");
             case 399:
                 log.warn("399:" + errorMessage.getMessage());
                 break;
