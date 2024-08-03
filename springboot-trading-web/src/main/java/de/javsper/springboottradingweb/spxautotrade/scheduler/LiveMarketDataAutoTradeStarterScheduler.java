@@ -9,6 +9,7 @@ import de.javsper.springboottradingdata.service.RepositoryRefreshService;
 import de.javsper.springboottradingdata.service.StrategyNameService;
 import de.javsper.springboottradingibkr.client.service.tradinghours.TradingHoursService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeCallAndPutDataRequestService;
+import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeStaleOptionChainDataClearService;
 import de.javsper.springboottradingweb.spxautotrade.service.AutoTradeStrategyMarketDataRequestService;
 import de.javsper.springboottradingweb.spxautotrade.service.SpxLiveDataActivator;
 import de.javsper.springboottradingweb.spxautotrade.service.order.OrderSubmitAutoTradeService;
@@ -31,14 +32,20 @@ public class LiveMarketDataAutoTradeStarterScheduler {
   private final OrderSubmitAutoTradeService orderSubmitAutoTradeService;
   private final StrategyNameService strategyNameService;
   private final TradingHoursService tradingHoursService;
+  private final AutoTradeStaleOptionChainDataClearService autoTradeStaleOptionChainDataClearService;
 
   @Scheduled(cron = "5 30 15 * * 1-5")
   public void getOptionDataForDayTradeStrategy() {
     if (tradingHoursService.isOpenToday(ContractDataTemplates.SpxData())) {
+
+      autoTradeStaleOptionChainDataClearService.clearStaleOptionMarketData();
+
       LastPriceLiveMarketDataDbo liveData = getLiveData(true);
       autoTradeOptionDataService.getOptionContractsAndCallAPI(liveData.getLastPrice());
+
       ContractDbo strategyContract =
           autoTradeStrategyMarketDataRequestService.createStrategyFromOptionChain();
+
       orderSubmitAutoTradeService.placeOrderAndIfNecessaryUpdateStrategy(
           strategyNameService.resolveStrategyFromComboLegs(strategyContract.getComboLegs()));
       log.info("Strategy successfully ordered: {}", strategyContract.getComboLegsDescription());
@@ -50,6 +57,9 @@ public class LiveMarketDataAutoTradeStarterScheduler {
         lastPriceLiveMarketDataRepository
             .findById((long) propertiesConfig.getSpxTickerId())
             .orElseGet(() -> repeatWithRefresh(isFirst));
+    if(liveData.getLastModifiedDate().isBefore(propertiesConfig.getFiveSecondsAgo())){
+      liveData = repeatWithRefresh(isFirst);
+    }
     return liveData.getLastPrice() != null ? liveData : repeatWithRefresh(false);
   }
 

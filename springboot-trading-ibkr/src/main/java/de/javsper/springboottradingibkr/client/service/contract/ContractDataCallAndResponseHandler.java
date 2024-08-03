@@ -2,13 +2,11 @@ package de.javsper.springboottradingibkr.client.service.contract;
 
 import de.javsper.springboottradingdata.model.data.entity.ContractDbo;
 import de.javsper.springboottradingdata.repository.ContractRepository;
-import de.javsper.springboottradingibkr.client.service.OptionalApiResponseChecker;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
+import de.javsper.springboottradingibkr.client.service.OptionalApiResponseChecker;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
-
 
 @Component
 @RequiredArgsConstructor
