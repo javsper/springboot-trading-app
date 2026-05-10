@@ -1,4 +1,9 @@
 HELP.md
+# IB Java API (copy locally; see lib/README.txt)
+lib/tws-api.jar
+# Runtime / local state (do not commit)
+logs/
+tmp/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

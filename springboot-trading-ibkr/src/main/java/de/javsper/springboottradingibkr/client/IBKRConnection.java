@@ -41,7 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class IBKRConnection implements EWrapper {
+public class IBKRConnection extends DefaultEWrapper {
 
   private final PropertiesConfig propertiesConfig;
   private final KafkaConstantsConfig kafkaConstantsConfig;
@@ -178,7 +178,7 @@ public class IBKRConnection implements EWrapper {
       Decimal filled,
       Decimal remaining,
       double avgFillPrice,
-      int permId,
+      long permId,
       int parentId,
       double lastFillPrice,
       int clientId,
@@ -325,7 +325,7 @@ public class IBKRConnection implements EWrapper {
   }
 
   @Override
-  public void error(int id, int errorCode, String errorMsg, String advancedOrderRejectJson) {
+  public void error(int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson) {
     kafkaEntityTemplate.send(
         kafkaConstantsConfig.getERROR_MESSAGE_TOPIC(),
         Integer.toString(id),
@@ -459,7 +459,7 @@ public class IBKRConnection implements EWrapper {
   @Override
   public void receiveFA(int faDataType, String xml) {
     displayXML(
-        EWrapperMsgGenerator.FINANCIAL_ADVISOR + " " + EClientSocket.faMsgTypeName(faDataType),
+        EWrapperMsgGenerator.FINANCIAL_ADVISOR + " faDataType=" + faDataType,
         xml);
     //        faDataTypeHandler.handleFaDataType(faDataType, xml, faMap, faError);
   }
@@ -470,8 +470,8 @@ public class IBKRConnection implements EWrapper {
   }
 
   @Override
-  public void commissionReport(CommissionReport commissionReport) {
-    log.info(EWrapperMsgGenerator.commissionReport(commissionReport));
+  public void commissionAndFeesReport(CommissionAndFeesReport commissionAndFeesReport) {
+    log.info(EWrapperMsgGenerator.commissionAndFeesReport(commissionAndFeesReport));
   }
 
   @Override

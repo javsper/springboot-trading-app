@@ -90,6 +90,8 @@ spring:
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10  # You can adjust the pool size as per your requirements
+      # JPA maps entities to schema "trading"; ensure it exists before Hibernate DDL.
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS trading
   jpa:
     defer-datasource-initialization: 'true'
     hibernate:
@@ -119,5 +121,21 @@ spring:
 app:
   ibkr:
     tradingPort: 7496
+
+---
+# Minimal local run: Postgres + env vars only; no TWS, no Kafka broker required.
+spring:
+  config:
+    activate:
+      on-profile: local
+  kafka:
+    listener:
+      auto-startup: false
+    admin:
+      fail-fast: false
+
+app:
+  startup:
+    connect-tws: false
 
 

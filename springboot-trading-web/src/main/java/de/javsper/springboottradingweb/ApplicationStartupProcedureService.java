@@ -8,10 +8,13 @@ import de.javsper.springboottradingdata.repository.ContractRepository;
 import de.javsper.springboottradingibkr.client.service.contract.ContractDataCallAndResponseHandler;
 import de.javsper.springboottradingibkr.client.service.position.PositionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ApplicationStartupProcedureService {
 
   private final PropertiesConfig propertiesConfig;
@@ -20,7 +23,14 @@ public class ApplicationStartupProcedureService {
   private final ContractDataCallAndResponseHandler contractDataCallAndResponseHandler;
   private final ContractRepository contractRepository;
 
+  @Value("${app.startup.connect-tws:true}")
+  private boolean connectTws;
+
   public void onStartUp() {
+    if (!connectTws) {
+      log.warn("Skipping IBKR TWS startup (app.startup.connect-tws=false).");
+      return;
+    }
 
     connectionInitiator.connect(propertiesConfig.getTradingPort());
     try {

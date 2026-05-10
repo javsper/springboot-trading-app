@@ -1,4 +1,4 @@
-import Stomp from 'stompjs';
+import { Stomp } from './stomp-browser';
 import SockJS from 'sockjs-client';
 import {BehaviorSubject} from "rxjs";
 import {environment} from "../../environments/environment";

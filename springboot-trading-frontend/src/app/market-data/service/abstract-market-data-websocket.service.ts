@@ -1,6 +1,6 @@
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
-import Stomp from 'stompjs';
+import { Stomp } from '../../shared/stomp-browser';
 import SockJS from 'sockjs-client';
 import {BaseTicker} from "../../model/market-data/base-ticker.model";
 import {BaseMarketData} from "../../model/market-data/base-market-data.model";

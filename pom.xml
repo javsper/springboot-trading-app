@@ -21,6 +21,8 @@
     </modules>
     <properties>
         <java.version>17</java.version>
+        <!-- Skip spring-boot:run on this aggregator and on library modules; springboot-trading-web sets false. -->
+        <spring-boot.run.skip>true</spring-boot.run.skip>
     </properties>
     <dependencies>
         <dependency>
@@ -41,6 +43,31 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>require-tws-api-jar</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <rules>
+                                <requireFilesExist>
+                                    <files>
+                                        <file>${project.basedir}/lib/tws-api.jar</file>
+                                    </files>
+                                    <message>Missing lib/tws-api.jar - copy TwsApi.jar from the IB TWS API (Java) install into repo root lib/tws-api.jar. See lib/README.txt</message>
+                                </requireFilesExist>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

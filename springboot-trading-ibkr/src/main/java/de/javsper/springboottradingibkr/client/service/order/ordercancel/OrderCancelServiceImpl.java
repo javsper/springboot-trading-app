@@ -1,6 +1,7 @@
 package de.javsper.springboottradingibkr.client.service.order.ordercancel;
 
 import com.ib.client.EClientSocket;
+import com.ib.client.OrderCancel;
 import de.javsper.springboottradingdata.model.data.entity.OrderDbo;
 import de.javsper.springboottradingdata.repository.OrderRepository;
 import de.javsper.springboottradingibkr.client.service.ApiCaller;
@@ -25,6 +26,6 @@ class OrderCancelServiceImpl implements OrderCancelService {
 
     @Override
     public void cancelAllOpenOrders() {
-        client.reqGlobalCancel();
+        client.reqGlobalCancel(new OrderCancel());
     }
 }

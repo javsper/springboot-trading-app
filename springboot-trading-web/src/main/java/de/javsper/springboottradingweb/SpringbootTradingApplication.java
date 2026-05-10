@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -24,15 +25,19 @@ public class SpringbootTradingApplication {
   public static void main(String[] args) {
     ApplicationContext context = SpringApplication.run(SpringbootTradingApplication.class, args);
 
-    ApplicationStartupProcedureService applicationStartupProcedureService = context.getBean(ApplicationStartupProcedureService.class);
-    try{
+    ApplicationStartupProcedureService applicationStartupProcedureService =
+        context.getBean(ApplicationStartupProcedureService.class);
+    Environment env = context.getEnvironment();
+    boolean connectTws = Boolean.parseBoolean(env.getProperty("app.startup.connect-tws", "true"));
+    try {
       applicationStartupProcedureService.onStartUp();
 
-      // Test only
-    LiveMarketDataAutoTradeStarterScheduler liveMarketDataAutoTradeStarterScheduler =
-        context.getBean(LiveMarketDataAutoTradeStarterScheduler.class);
-    liveMarketDataAutoTradeStarterScheduler.getOptionDataForDayTradeStrategy();
-    }catch(TWSConnectionException e){
+      if (connectTws) {
+        LiveMarketDataAutoTradeStarterScheduler liveMarketDataAutoTradeStarterScheduler =
+            context.getBean(LiveMarketDataAutoTradeStarterScheduler.class);
+        liveMarketDataAutoTradeStarterScheduler.getOptionDataForDayTradeStrategy();
+      }
+    } catch (TWSConnectionException e) {
       System.err.println("Application failed to start: " + e.getMessage());
       e.printStackTrace();
 
