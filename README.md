@@ -73,6 +73,30 @@ docker compose down
 
 ---
 
+## Screenshots
+
+Angular UI (with a working API and data, or **`npm run start:screenshot-mocks`** in **`springboot-trading-frontend`** for static demo data):
+
+### Orders
+
+Compose and submit orders, combo legs, and open market data for the contract.
+
+![Orders — order form](screenshots/orders_new.png)
+
+### Portfolio
+
+Account summary, positions, P&L, and per-contract drill-down.
+
+![Portfolio — positions and account panels](screenshots/portfolio.png)
+
+### Market data
+
+Streaming-style ticker cards (bid / ask / last) per subscribed contract.
+
+![Market data — ticker cards](screenshots/market_data.png)
+
+---
+
 ## Run manually (without `run-all`)
 
 ### Backend only (easiest dev stack — no Kafka / no TWS)
