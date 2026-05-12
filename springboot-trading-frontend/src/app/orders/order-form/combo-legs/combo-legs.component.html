@@ -1,41 +1,47 @@
-
-<div class="row" [formGroup]="getOrderForm()" >
-  <div class="col-xs-10 pull-right" formGroupName="contractDBO">
+<div class="combo-legs" [formGroup]="getOrderForm()">
+  <div formGroupName="contractDBO" class="combo-legs__inner">
     <div formArrayName="comboLegs">
-    <div
-      class="row combo-legs__row"
-      *ngFor="let comboLegControl of getComboLegControls(); let i = index"
-      [formGroupName]="i">
-      <div class="col-xs-3">
-        <label *ngIf="i===0" for="{{i}}comboContractId">ContractId</label>
-        <input
-          id="{{i}}comboContractId"
-          type="number"
-          class="form-control"
-          formControlName="contractId">
+      <div
+        class="combo-legs__leg"
+        *ngFor="let comboLegControl of getComboLegControls(); let i = index"
+        [formGroupName]="i">
+        <div class="combo-legs__grid">
+          <div class="combo-legs__cell combo-legs__cell--3">
+            <label [attr.for]="i + 'comboContractId'">Contract ID</label>
+            <input
+              [attr.id]="i + 'comboContractId'"
+              type="number"
+              class="form-control"
+              formControlName="contractId" />
+          </div>
+          <div class="combo-legs__cell combo-legs__cell--2">
+            <label [attr.for]="i + 'ratio'">Ratio</label>
+            <input [attr.id]="i + 'ratio'" type="number" class="form-control" formControlName="ratio" />
+          </div>
+          <div class="combo-legs__cell combo-legs__cell--2">
+            <label [attr.for]="i + 'action'">Buy / sell</label>
+            <input [attr.id]="i + 'action'" type="text" class="form-control" formControlName="action" />
+          </div>
+          <div class="combo-legs__cell combo-legs__cell--3">
+            <label [attr.for]="i + 'comboExchange'">Exchange</label>
+            <input [attr.id]="i + 'comboExchange'" type="text" class="form-control" formControlName="exchange" />
+          </div>
+          <div class="combo-legs__cell combo-legs__cell--2 combo-legs__cell--actions">
+            <label class="combo-legs__label-spacer" aria-hidden="true">&nbsp;</label>
+            <button
+              class="btn btn-danger btn-block"
+              type="button"
+              [attr.aria-label]="'Cancel and remove combo leg ' + (i + 1)"
+              (click)="onDeleteComboLeg(i)"
+              title="Remove this combo leg from the order">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-2">
-        <label *ngIf="i===0" for="{{i}}ratio">Ratio</label>
-        <input id="{{i}}ratio" type="number" class="form-control" formControlName="ratio">
+      <div class="combo-legs__footer">
+        <button type="button" class="btn btn-default" (click)="onAddComboLeg()">+ Add combo leg</button>
       </div>
-      <div class="col-xs-2">
-        <label *ngIf="i===0" for="{{i}}action">Buy/Sell</label>
-        <input id="{{i}}action" type="text" class="form-control" formControlName="action">
-      </div>
-      <div class="col-xs-3">
-        <label *ngIf="i===0" for="{{i}}comboExchange">Exchange</label>
-        <input id="{{i}}comboExchange" type="text" class="form-control" formControlName="exchange">
-      </div>
-      <div class="col-xs-2">
-        <br *ngIf="i===0" style="padding-top: 5px">
-        <button class="btn btn-danger" type="button" (click)="onDeleteComboLeg(i)">X</button>
-      </div>
-    </div>
-    <div class="row combo-legs__footer">
-      <div class="col-xs-12">
-        <button class="btn btn-default pull-right" type="button" (click)="onAddComboLeg()">+ Add combo leg</button>
-      </div>
-    </div>
     </div>
   </div>
 </div>

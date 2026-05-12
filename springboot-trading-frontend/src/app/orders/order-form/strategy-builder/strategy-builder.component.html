@@ -33,7 +33,14 @@
         </div>
         <div class="col-xs-2">
           <br *ngIf="i===0" style="padding-top: 5px">
-          <button class="btn btn-danger" type="button" (click)="onDeleteStrategyLeg(i)">X</button>
+          <button
+            class="btn btn-danger btn-block"
+            type="button"
+            [attr.aria-label]="'Cancel and remove strategy leg ' + (i + 1)"
+            title="Remove this strategy leg from the order"
+            (click)="onDeleteStrategyLeg(i)">
+            Cancel
+          </button>
         </div>
       </div>
       <div class="row">

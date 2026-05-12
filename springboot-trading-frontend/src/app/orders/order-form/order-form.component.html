@@ -112,7 +112,13 @@
           <button type="button" class="btn btn-default" *ngIf="strategyMode$ | async" (click)="onStandardOrder()">
             Standard Order
           </button>
-          <button type="button" class="btn btn-danger" (click)="onCancel()">Reset</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="onCancel()"
+            title="Clear all fields in this form and start over">
+            Clear form
+          </button>
           <button type="button" class="btn btn-default order-form__actions-spacer-before" (click)="onMarketData()">
             Market Data for Contract
           </button>
