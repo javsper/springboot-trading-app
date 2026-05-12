@@ -6,6 +6,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 From the **repository root** (parent folder), use **`run-all.bat`** / **`run-all.ps1`** so the Spring Boot backend and this Angular app start together. See the main **[README.md](../README.md)** section **“Run everything (recommended)”** for prerequisites, PowerShell vs CMD, **`local`** vs **`full`** modes, and URLs.
 
+## Screenshots
+
+### Orders
+
+The **Orders** screen is where you define contracts, order side and size, order type and time-in-force, and optional **combo legs** for multi-leg instruments. From the action row you can **place** or **update** an order, switch between **standard** and **strategy builder** flows when not editing an existing order, **clear** the form, or open **market data** for the current contract.
+
+![Orders — order form with contract fields, combo legs, and action buttons](../screenshots/orders_new.png)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
