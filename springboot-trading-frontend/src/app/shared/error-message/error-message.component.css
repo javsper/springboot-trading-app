@@ -1,4 +1,59 @@
-.error-message{
-  background-color: darkred;
-  padding-top: 5px;
+.error-message {
+  background: linear-gradient(90deg, #7f1d1d 0%, #991b1b 48%, #b91c1c 100%);
+  color: #fef2f2;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid rgba(254, 242, 242, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.error-message__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.error-message__text {
+  margin: 0;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.error-message__dismiss {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.error-message__dismiss:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.error-message__dismiss:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error-message__dismiss {
+    transition: none;
+  }
+
+  .error-message__dismiss:active {
+    transform: none;
+  }
 }

@@ -1,0 +1,13 @@
+.login-loading {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.login-error {
+  margin: 0;
+}
+
+.btn-block {
+  margin-top: 0.5rem;
+}

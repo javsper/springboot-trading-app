@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-xs-12">
     <form [formGroup]="getOrderForm()">
-      <div class="col-xs-12" style="margin-bottom: 20px">
+      <div class="col-xs-12 order-form__block">
         <div class="row">
           <div class="col-xs-2">
             <label for="id">ID</label>
@@ -59,10 +59,10 @@
       </div>
 
       <!--        CONTRACT DATA -->
-      <h4> Contract Data</h4>
+      <h4 class="order-form__section-title">Contract data</h4>
       <div formGroupName="contractDBO" class="row">
         <div class="row">
-          <div class="col-xs-12" style="margin-bottom: 10px">
+          <div class="col-xs-12 order-form__block">
             <div class="col-xs-3">
               <label for="contractId">Contract Id</label>
               <input
@@ -108,7 +108,7 @@
 
         <div class="row">
           <div class="col-xs-12 col-sm-offset-1 col-md-offset-1">
-            <h5>For Derivatives: </h5>
+            <h5 class="order-form__deriv-title">For derivatives</h5>
             <div class="col-xs-3">
               <label for="lastTradeDate">Last Trade Date</label>
               <input
@@ -157,32 +157,27 @@
 
         <router-outlet></router-outlet>
 
-        <hr>
-        <div class="row">
-          <div class="form-group col-xs-2">
+        <hr class="order-form__hr">
+        <div class="order-form__actions">
             <button
               type="submit"
               class="btn btn-primary"
               [disabled]="!isFormValid() || !isFormTouched()"
               (click)="onSubmit()">{{(editMode$ | async) ? 'Update Order' : 'Place Order'}}</button>
-          </div>
-          <div class="form-group col-xs-2" *ngIf="!(editMode$ |async) && !(strategyMode$ | async)">
-            <button type="button" class="btn btn-default" (click)="onStrategyBuilder()">Strategy Builder</button>
-          </div>
-          <div class="form-group col-xs-2" *ngIf="strategyMode$ | async">
-            <button type="button" class="btn btn-default" (click)="onStandardOrder()">Standard Order</button>
-          </div>
-          <div class="form-group col-xs-2">
+            <button type="button" class="btn btn-default" *ngIf="!(editMode$ |async) && !(strategyMode$ | async)"
+                    (click)="onStrategyBuilder()">Strategy Builder</button>
+            <button type="button" class="btn btn-default" *ngIf="strategyMode$ | async"
+                    (click)="onStandardOrder()">Standard Order</button>
             <button type="button" class="btn btn-danger" (click)="onCancel()">Reset</button>
-          </div>
-          <div class="form-group col-xs-2 col-xs-offset-2">
-            <button type="button" class="btn btn-default" (click)="onMarketData()">Market Data for Contract</button>
-          </div>
+            <button type="button" class="btn btn-default order-form__actions-spacer-before"
+                    (click)="onMarketData()">Market Data for Contract</button>
         </div>
       </div>
     </form>
   </div>
 </div>
-<div class="col-xs-6">
-<app-order-market-data *ngIf="contract" [contract]="contract"></app-order-market-data>
+<div class="row order-form__market-row">
+  <div class="col-xs-12 col-md-10">
+    <app-order-market-data *ngIf="contract" [contract]="contract"></app-order-market-data>
+  </div>
 </div>

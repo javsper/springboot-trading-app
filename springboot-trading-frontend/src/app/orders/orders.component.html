@@ -1,18 +1,30 @@
-<div class="row">
-  <div class="col-md-4">
-    <h2 class="media-heading">Orders</h2>
-  </div>
-</div>
-<hr>
-<div class="row">
-  <div class="col-xs-3">
-    <button class="btn btn-primary" (click)="onOpenNewOrder()">Open New Order</button>
-    <div class="row">
-      <app-open-order-item *ngFor="let openOrder of openOrders |async" [order]="openOrder"></app-open-order-item>
+<div class="orders-page">
+  <div class="row orders-page__title">
+    <div class="col-xs-12">
+      <h2 class="media-heading">Orders</h2>
     </div>
-    <button class="btn btn-danger" (click)="onCancelAllOpenOrders()">Cancel All Open Orders</button>
   </div>
-  <div class="col-md-8 col-md-offset-1">
-    <router-outlet></router-outlet>
+  <hr class="orders-page__divider" />
+  <div class="row orders-page__body">
+    <aside class="col-sm-4 col-md-3 orders-page__sidebar">
+      <div class="orders-sidebar">
+        <div class="orders-sidebar__actions">
+          <button type="button" class="btn btn-primary btn-block" (click)="onOpenNewOrder()">
+            Open New Order
+          </button>
+          <div class="orders-sidebar__list">
+            <app-open-order-item *ngFor="let openOrder of openOrders | async" [order]="openOrder"></app-open-order-item>
+          </div>
+          <button type="button" class="btn btn-danger btn-block" (click)="onCancelAllOpenOrders()">
+            Cancel All Open Orders
+          </button>
+        </div>
+      </div>
+    </aside>
+    <section class="col-sm-8 col-md-9 orders-page__main">
+      <div class="orders-detail">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
   </div>
 </div>

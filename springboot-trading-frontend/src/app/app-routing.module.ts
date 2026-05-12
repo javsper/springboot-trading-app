@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 
 const appRoutes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: '/login' },
   {path: 'orders', loadChildren: () => import('./orders/orders.routes').then(m => m.routes)},
   {path: 'portfolio', loadChildren: () => import('./portfolio/portfolio.routes').then(m => m.routes)},
   {path: 'market-data', loadChildren: () => import('./market-data/market-data.routes').then(m=> m.routes)},

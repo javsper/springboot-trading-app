@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.app-errors {
+  position: relative;
+  z-index: 1030;
+}
+
+.app-errors app-error-message {
+  display: block;
+}

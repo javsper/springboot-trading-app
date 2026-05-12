@@ -1,8 +1,10 @@
-<app-error-message *ngFor="let error of errorMessages" [errorMessage]="error"></app-error-message>
+<div class="app-errors">
+  <app-error-message *ngFor="let error of errorMessages" [errorMessage]="error"></app-error-message>
+</div>
 <app-header></app-header>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+<div class="app-main">
+  <div class="container">
+    <div class="app-sheet">
       <router-outlet></router-outlet>
     </div>
   </div>

@@ -1,0 +1,36 @@
+.smdi {
+  height: 100%;
+}
+
+.smdi__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.smdi__card {
+  cursor: default;
+  border: 1px solid var(--app-border) !important;
+  border-radius: var(--app-radius-sm, 6px);
+  display: block;
+}
+
+.smdi__title {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.smdi__combo {
+  margin-bottom: 0.5rem;
+}
+
+.smdi__ticks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.35rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.smdi__tick {
+  margin: 0;
+}

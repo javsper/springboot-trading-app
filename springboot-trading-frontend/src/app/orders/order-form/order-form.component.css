@@ -1,3 +1,49 @@
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+.order-form__block {
+  margin-bottom: 1.25rem;
+}
+
+.order-form__section-title {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.order-form__deriv-title {
+  margin: 0.75rem 0 1rem;
+  font-size: 0.95rem;
+  color: var(--app-text-muted);
+}
+
+.order-form__hr {
+  margin: 1.25rem 0;
+  border-top-color: var(--app-border);
+}
+
+.order-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.75rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.order-form__actions .btn {
+  margin: 0;
+}
+
+.order-form__actions-spacer-before {
+  margin-left: 0;
+}
+
+@media (min-width: 992px) {
+  .order-form__actions-spacer-before {
+    margin-left: auto;
+  }
+}
+
+.order-form__market-row {
+  margin-top: 1.5rem;
+}

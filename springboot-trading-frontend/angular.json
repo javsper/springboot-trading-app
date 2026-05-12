@@ -93,6 +93,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "host": "0.0.0.0",
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "buildTarget": "springboot-trading-frontend:build:production"
@@ -129,5 +133,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "297d920e-d1c7-4c64-b94f-d908eee2b300"
   }
 }

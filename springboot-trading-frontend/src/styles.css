@@ -1,29 +1,374 @@
-/* You can add global styles to this file, and also import other style files */
-html {
-  font-family: sans-serif;
-  text-align: center;
+/* Global theme — dark UI, readable contrast, subtle depth */
+:root {
+  --app-bg: #0f1117;
+  --app-bg-mid: #151a24;
+  --app-surface: #1a1f2a;
+  --app-surface-elevated: #232a38;
+  --app-surface-hover: #2a3142;
+  --app-border: #3d4558;
+  --app-border-bright: #4f586e;
+  --app-text: #e8ebf2;
+  --app-text-muted: #8f9ab0;
+  --app-accent: #5eb0ff;
+  --app-accent-dim: #3d8fd9;
+  --app-accent-glow: rgba(94, 176, 255, 0.35);
+  --app-danger: #f87171;
+  --app-success: #4ade80;
+  --app-radius: 10px;
+  --app-radius-sm: 6px;
+  --app-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --app-shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
-body {
-  margin: 3rem;
-  background-color: #323131;
-  color: #f5f3f3;
+html {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+body.theme-dark {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--app-text);
+  background: linear-gradient(165deg, var(--app-bg) 0%, var(--app-bg-mid) 42%, #10151f 100%);
+  position: relative;
+}
+
+/* Soft ambient light (no interaction) */
+body.theme-dark::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 80% at 0% -20%, rgba(94, 176, 255, 0.12), transparent 55%),
+    radial-gradient(ellipse 100% 60% at 100% 100%, rgba(139, 92, 246, 0.08), transparent 50%);
+}
+
+body.theme-dark app-root {
+  position: relative;
+  z-index: 1;
+  display: block;
 }
 
 a {
   text-decoration: none;
-  color: #00c0e5;
-  font-weight: bold;
+  color: var(--app-accent);
+  font-weight: 600;
+  transition: color 0.15s ease, box-shadow 0.15s ease;
 }
 
-a:hover {
-  color: #a382f7;
+a:hover,
+a:focus {
+  color: #9dceff;
+  text-decoration: none;
 }
+
+h1, h2, h3, h4, .media-heading {
+  color: var(--app-text);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 0.35rem;
+  margin-bottom: 0.65rem;
+}
+
+h2.media-heading,
+h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--app-accent);
+  display: inline-block;
+  border-radius: 1px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--app-border);
+  margin: 1.25rem 0;
+  opacity: 1;
+}
+
+/* Main layout */
+.app-main {
+  padding: 1.5rem 0 3rem;
+}
+
+.app-main .container {
+  max-width: 1280px;
+}
+
+/* Content “sheet” behind routed views */
+.app-sheet {
+  background: linear-gradient(180deg, rgba(26, 31, 42, 0.92) 0%, rgba(20, 24, 32, 0.96) 100%);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+  padding: 1.75rem 1.5rem 2.25rem;
+  backdrop-filter: blur(8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Panels */
+.panel {
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow-soft);
+  color: var(--app-text);
+}
+
+.panel-default > .panel-heading {
+  background: linear-gradient(180deg, var(--app-surface-elevated) 0%, var(--app-surface) 100%);
+  border-bottom: 1px solid var(--app-border);
+  color: var(--app-text);
+  font-weight: 600;
+  border-radius: var(--app-radius) var(--app-radius) 0 0;
+}
+
+.panel-body {
+  color: var(--app-text);
+}
+
+.app-auth-panel {
+  margin-top: 2rem;
+  box-shadow: var(--app-shadow);
+}
+
+.app-auth-panel .panel-heading {
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+/* Lists */
 .list-group-item {
-  background-color: #8d8d8d;
-  border-color: black;
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-border) !important;
+  color: var(--app-text);
+  margin-bottom: 8px;
+  border-radius: var(--app-radius-sm) !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.navbar-default {
-  background-color: darkgrey;
-  border-color: black;
+
+.list-group-item:hover {
+  background-color: var(--app-surface-hover);
+  border-color: var(--app-border-bright) !important;
+}
+
+/* Forms */
+.form-control {
+  background-color: #12151c;
+  border: 1px solid var(--app-border);
+  color: var(--app-text);
+  border-radius: var(--app-radius-sm);
+  min-height: 42px;
+  padding: 10px 14px;
+  font-size: 15px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control:focus {
+  border-color: var(--app-accent);
+  box-shadow: 0 0 0 3px var(--app-accent-glow);
+  background-color: #12151c;
+  color: var(--app-text);
+}
+
+.form-control::placeholder {
+  color: var(--app-text-muted);
+}
+
+label {
+  color: var(--app-text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Buttons */
+.btn {
+  border-radius: var(--app-radius-sm);
+  font-weight: 600;
+  padding: 9px 18px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--app-accent-glow);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #6bb8ff 0%, var(--app-accent) 100%);
+  border-color: var(--app-accent-dim);
+  color: #0a0e14;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(180deg, #8ac8ff 0%, #7ab8ff 100%);
+  border-color: #7ab8ff;
+  color: #0a0e14;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(94, 176, 255, 0.35);
+}
+
+.btn-danger {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  border-color: #b91c1c;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(180deg, #f87171 0%, #ef4444 100%);
+  transform: translateY(-1px);
+}
+
+/* Tables */
+.table {
+  color: var(--app-text);
+  background-color: transparent;
+}
+
+.table > thead > tr > th {
+  border-bottom: 2px solid var(--app-border);
+  color: var(--app-text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 600;
+}
+
+.table > tbody > tr > td {
+  border-top: 1px solid var(--app-border);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Alerts */
+.alert {
+  border-radius: var(--app-radius-sm);
+  border: none;
+  font-weight: 500;
+}
+
+.alert-danger {
+  background: rgba(248, 113, 113, 0.12);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+}
+
+/* Navbar */
+.navbar-inverse {
+  background: linear-gradient(180deg, #1a1f2a 0%, #12151c 100%);
+  border-color: var(--app-border);
+  border-width: 0 0 1px;
+  margin-bottom: 0;
+  box-shadow: var(--app-shadow-soft);
+}
+
+.navbar-inverse .navbar-brand {
+  color: var(--app-text) !important;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: var(--app-accent) !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: var(--app-text-muted) !important;
+  font-weight: 600;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: var(--app-text) !important;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  background-color: rgba(94, 176, 255, 0.12) !important;
+  color: var(--app-accent) !important;
+}
+
+.navbar-inverse .navbar-toggle {
+  border-color: var(--app-border);
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: var(--app-text-muted);
+}
+
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  border-color: var(--app-border);
+}
+
+/* Nested navbar-default inside inverse — reset */
+.navbar-inverse .navbar-default {
+  background: transparent;
+  border: none;
+}
+
+/* Wells */
+.well {
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-border);
+  color: var(--app-text);
+  border-radius: var(--app-radius-sm);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.text-muted {
+  color: var(--app-text-muted) !important;
+}
+
+/* Numeric emphasis for prices / IDs */
+.app-mono,
+.font-mono {
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", Menlo, monospace;
+}
+
+/* Bootstrap 3 default button on dark theme */
+.btn-default {
+  background-color: var(--app-surface-elevated);
+  border-color: var(--app-border);
+  color: var(--app-text);
+}
+
+.btn-default:hover,
+.btn-default:focus {
+  background-color: var(--app-surface-hover);
+  border-color: var(--app-border-bright);
+  color: var(--app-text);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-horizontal .form-group {
+  margin-bottom: 1rem;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
 }

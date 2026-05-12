@@ -1,30 +1,21 @@
-<div class="row" style="margin-bottom: 10px">
-  <div class="col-xs-12">
-
+<div class="smdi" *ngIf="ticker">
+  <div class="smdi__toolbar">
+    <button class="btn btn-danger btn-sm" type="button" (click)="onCancelMarketData()" title="Stop streaming">Remove</button>
   </div>
-  <div class="col-xs-12 ">
-    <a
-      style="cursor: pointer; border: transparent"
-      routerLinkActive="active"
-      class="list-group-item clearfix">
-      <button class="btn btn-danger pull-right top-right" type="button" (click)="onCancelMarketData()">X</button>
-      <div class="row">
-        <div *ngIf="contract">
-        <h4 class="list-group-item-heading">{{contract.lastTradeDate? contract.symbol + ' ' + contract.lastTradeDate: contract.symbol}}</h4>
-        <div *ngFor="let comboLeg of contract.comboLegs">
-          <div class="row">
-            <app-combo-leg-data-display [comboLeg]="comboLeg"></app-combo-leg-data-display>
-          </div>
-        </div>
-        <div class="row" *ngFor="let tick of ticker.data">
-
-          <p class="list-group-item-text col-xs-6">{{tick.field | fieldname}} : {{tick.price | currency}}</p>
-        </div>
+  <a class="list-group-item clearfix smdi__card" routerLinkActive="active">
+    <div *ngIf="contract" class="smdi__body">
+      <h4 class="list-group-item-heading smdi__title">
+        {{ contract.lastTradeDate ? contract.symbol + ' ' + contract.lastTradeDate : contract.symbol }}
+      </h4>
+      <div *ngFor="let comboLeg of contract.comboLegs" class="smdi__combo">
+        <app-combo-leg-data-display [comboLeg]="comboLeg"></app-combo-leg-data-display>
       </div>
+      <div class="smdi__ticks">
+        <p class="list-group-item-text smdi__tick" *ngFor="let tick of ticker.data">
+          {{ tick.field | fieldname }}: {{ tick.price | currency }}
+        </p>
       </div>
-
-      <app-option-market-data-item *ngIf="optionTicker" [optionTicker]="optionTicker" [contract]="contract"></app-option-market-data-item>
-
-    </a>
-  </div>
+    </div>
+    <app-option-market-data-item *ngIf="optionTicker" [optionTicker]="optionTicker" [contract]="contract"></app-option-market-data-item>
+  </a>
 </div>

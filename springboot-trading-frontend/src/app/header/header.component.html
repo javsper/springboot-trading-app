@@ -1,28 +1,32 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse navbar-static-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" (click)="collapsed = !collapsed">
+      <button type="button" class="navbar-toggle collapsed" (click)="collapsed = !collapsed"
+              [attr.aria-expanded]="!collapsed" aria-controls="navbar-main">
+        <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
       </button>
-      <a href="#" class="navbar-brand">IBKR API</a>
+      <a routerLink="/portfolio" class="navbar-brand">Trading</a>
     </div>
-    <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
+    <div id="navbar-main" class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
 
       <div class="navbar-default">
         <ul class="nav navbar-nav">
           <li routerLinkActive="active" *ngIf="isLoggedIn"><a routerLink="/orders">Orders</a></li>
           <li routerLinkActive="active" *ngIf="isLoggedIn"><a routerLink="/portfolio">Portfolio</a></li>
-          <li routerLinkActive="active"><a routerLink="/market-data">Market Data</a></li>
+          <li routerLinkActive="active"><a routerLink="/market-data">Market data</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li routerLinkActive="active" *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
-          <li routerLinkActive="active" *ngIf="isLoggedIn"><a style="cursor: pointer" (click)="onLogout()">Logout</a></li>
+          <li routerLinkActive="active" *ngIf="!isLoggedIn"><a routerLink="/login">Log in</a></li>
+          <li *ngIf="isLoggedIn"><a style="cursor: pointer" (click)="onLogout()">Log out</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" *ngIf="isLoggedIn">
           <li class="dropdown" appDropdown>
-            <a style="cursor: pointer" class="dropdown-toggle" role="button">Manage <span class="caret"></span> </a>
-            <ul class="dropdown-menu">
-              <li><a [ngClass]="{'disabled': isConnected}" (click)="onConnect()">Connect</a></li>
+            <a style="cursor: pointer" class="dropdown-toggle" role="button" aria-haspopup="true">
+              Connection <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a [ngClass]="{'disabled': isConnected}" (click)="onConnect()">Connect TWS</a></li>
               <li><a [ngClass]="{'disabled': !isConnected}" (click)="onDisconnect()">Disconnect</a></li>
             </ul>
           </li>

@@ -1,0 +1,48 @@
+.market-data-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+
+.market-data-page__title {
+  margin: 0;
+}
+
+.market-data-page__add-btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding-left: 14px;
+  padding-right: 14px;
+  font-size: 1.35rem;
+  line-height: 1;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.market-data-page__divider {
+  margin: 0.75rem 0 1.25rem;
+}
+
+.market-data-page__section-title {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  color: var(--app-text-muted);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.market-data-page__grid {
+  margin-top: 0.25rem;
+}
+
+.market-data-page__cell {
+  margin-bottom: 1.25rem;
+}
+
+.market-data-page__card {
+  height: 100%;
+}

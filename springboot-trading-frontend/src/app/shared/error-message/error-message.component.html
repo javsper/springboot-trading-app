@@ -1,6 +1,6 @@
 <div class="error-message">
-  <div class="row">
-    <p class="col-xs-10">{{'Error Code '+errorMessage.errorCode +': '+errorMessage.message}}</p>
-    <a class="col-xs-1 pull-right" style="color: #202020" (click)="onClose()">close X</a>
+  <div class="error-message__inner">
+    <p class="error-message__text">{{ 'Error ' + errorMessage.errorCode + ': ' + errorMessage.message }}</p>
+    <button type="button" class="error-message__dismiss" (click)="onClose()">Dismiss</button>
   </div>
 </div>

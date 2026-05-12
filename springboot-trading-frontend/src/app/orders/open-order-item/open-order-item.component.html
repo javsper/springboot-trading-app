@@ -1,23 +1,21 @@
-<div class="row" style="margin-bottom: 10px">
-  <div class="col-xs-12">
-
+<div class="open-order-item" *ngIf="order">
+  <div class="open-order-item__toolbar">
+    <button class="btn btn-danger btn-sm" type="button" (click)="onCancelOrder()">Cancel order</button>
   </div>
-  <button class="btn btn-danger pull-right top-right" type="button" (click)="onCancelOrder()">Cancel Order</button>
-  <div class="col-xs-12 list-group-item">
   <a
-    style="cursor: pointer; border: transparent"
+    class="list-group-item clearfix open-order-item__body"
     [routerLink]="[order.id]"
-    routerLinkActive="active"
-    class="list-group-item clearfix">
-    <div class="row">
-      <div class="pull-left">
-        <h4 class="list-group-item-heading">{{order.contractData.localSymbol}}</h4>
-        <p class="list-group-item-text col-lg-6">Limit Price: {{order.limitPrice}}</p>
-        <p class="list-group-item-text col-lg-6">Qty: {{order.totalQuantity}}</p>
-        <p class="list-group-item-text col-lg-6">TIF: {{order.timeInForce}}</p>
-        <p class="list-group-item-text col-lg-6">Status: {{order.status}}</p>
+    routerLinkActive="active">
+    <div class="open-order-item__row">
+      <div class="open-order-item__main">
+        <h4 class="list-group-item-heading">{{ order.contractData.localSymbol }}</h4>
+        <div class="open-order-item__meta">
+          <p class="list-group-item-text">Limit: {{ order.limitPrice }}</p>
+          <p class="list-group-item-text">Qty: {{ order.totalQuantity }}</p>
+          <p class="list-group-item-text">TIF: {{ order.timeInForce }}</p>
+          <p class="list-group-item-text">Status: {{ order.status }}</p>
+        </div>
       </div>
     </div>
   </a>
-  </div>
 </div>

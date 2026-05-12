@@ -1,12 +1,15 @@
-<h2> Market Data</h2>
-<button class="btn btn-primary" type="button">+</button>
-<hr>
-<h3> Ticker Data: </h3>
-<div class="row">
-  <div class="col-xs-12">
-    <div class="col-xs-4" *ngFor="let standardData of standardMarketData">
-      <app-standard-market-data-item [ticker]="standardData"></app-standard-market-data-item>
+<div class="market-data-page">
+  <header class="market-data-page__header">
+    <h2 class="media-heading market-data-page__title">Market data</h2>
+    <button class="btn btn-primary market-data-page__add-btn" type="button" title="Add ticker">+</button>
+  </header>
+  <hr class="market-data-page__divider" />
+  <h3 class="market-data-page__section-title">Ticker data</h3>
+  <div class="row market-data-page__grid">
+    <div class="col-sm-6 col-md-4 col-lg-3 market-data-page__cell" *ngFor="let standardData of standardMarketData">
+      <div class="market-data-page__card">
+        <app-standard-market-data-item [ticker]="standardData"></app-standard-market-data-item>
+      </div>
     </div>
   </div>
 </div>
-

@@ -1,0 +1,33 @@
+.open-order-item {
+  margin-bottom: 1rem;
+}
+
+.open-order-item__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.open-order-item__body {
+  cursor: pointer;
+  border: 1px solid var(--app-border) !important;
+  border-radius: var(--app-radius-sm, 6px);
+}
+
+.open-order-item__body:hover {
+  border-color: var(--app-border-bright, #4f586e) !important;
+}
+
+.open-order-item__meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.35rem 1rem;
+}
+
+.open-order-item__meta .list-group-item-text {
+  margin: 0;
+}
+
+.open-order-item .list-group-item-heading {
+  margin-bottom: 0.65rem;
+}

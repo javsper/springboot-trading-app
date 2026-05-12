@@ -1,31 +1,40 @@
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <div class="alert alert-danger" *ngIf="error">
-      <p>{{error}}</p>
-    </div>
-    <div *ngIf="isLoading" style="text-align: center">
-      <app-loading-spinner></app-loading-spinner>
-    </div>
-    <form #authForm="ngForm" (ngSubmit)="login(authForm)" *ngIf="!isLoading">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text"
-               class="form-control"
-               id="username"
-               name="username"
-               ngModel
-               required/>
+    <div class="panel panel-default app-auth-panel">
+      <div class="panel-heading">Sign in</div>
+      <div class="panel-body">
+        <div class="alert alert-danger" *ngIf="error">
+          <p class="login-error">{{ error }}</p>
+        </div>
+        <div *ngIf="isLoading" class="login-loading">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form #authForm="ngForm" (ngSubmit)="login(authForm)" *ngIf="!isLoading">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text"
+                   class="form-control"
+                   id="username"
+                   name="username"
+                   ngModel
+                   required
+                   autocomplete="username"
+                   placeholder="Enter username"/>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password"
+                   class="form-control"
+                   id="password"
+                   name="password"
+                   ngModel
+                   required
+                   autocomplete="current-password"
+                   placeholder="Enter password"/>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password"
-               class="form-control"
-               id="password"
-               name="password"
-               ngModel
-               required/>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
   </div>
 </div>

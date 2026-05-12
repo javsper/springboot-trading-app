@@ -1,0 +1,39 @@
+.orders-page__title {
+  margin-bottom: 0;
+}
+
+.orders-page__divider {
+  margin: 0.75rem 0 1.25rem;
+}
+
+.orders-page__body {
+  align-items: flex-start;
+}
+
+.orders-sidebar {
+  position: sticky;
+  top: 0.75rem;
+}
+
+.orders-sidebar__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.orders-sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 1rem;
+}
+
+.orders-detail {
+  padding-left: 0;
+}
+
+@media (min-width: 768px) {
+  .orders-detail {
+    padding-left: 0.5rem;
+  }
+}

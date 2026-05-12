@@ -4,7 +4,7 @@
    style="cursor: pointer"
    [ngClass]="{'': !isPnLready(), 'green': isPnLready()&&isDailyProfit ,'red': isPnLready()&&!isDailyProfit}">
   <div>
-    <h4 style="color:white" class="list-group-item-heading">{{position.contractData.localSymbol}}</h4>
+    <h4 class="list-group-item-heading position-item__symbol">{{position.contractData.localSymbol}}</h4>
     <div class="col-xs-6">
       <div class="row">
         <p class="list-group-item-text col-xs-6">Position: {{position.position}}</p>

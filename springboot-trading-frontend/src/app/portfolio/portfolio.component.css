@@ -1,0 +1,32 @@
+.portfolio-page__title {
+  margin-bottom: 0;
+}
+
+.portfolio-page__divider {
+  margin: 0.75rem 0 1.25rem;
+}
+
+.portfolio-page__columns {
+  align-items: flex-start;
+}
+
+.portfolio-page__column {
+  margin-bottom: 1.5rem;
+}
+
+.portfolio-page__section-divider {
+  margin: 1.25rem 0;
+}
+
+@media (min-width: 768px) {
+  .portfolio-page__column--left {
+    padding-right: 1rem;
+    border-right: 1px solid var(--app-border);
+    margin-bottom: 0;
+  }
+
+  .portfolio-page__column--right {
+    padding-left: 1rem;
+    margin-bottom: 0;
+  }
+}

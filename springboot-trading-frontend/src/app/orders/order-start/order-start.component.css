@@ -1,0 +1,14 @@
+.order-start {
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+.order-start__hint {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--app-text-muted);
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.55;
+}

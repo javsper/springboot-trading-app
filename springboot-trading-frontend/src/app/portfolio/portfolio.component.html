@@ -1,16 +1,18 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h2 class="media-heading">Portfolio</h2>
+<div class="portfolio-page">
+  <div class="row portfolio-page__title">
+    <div class="col-xs-12">
+      <h2 class="media-heading">Portfolio</h2>
+    </div>
   </div>
-</div>
-<hr>
-<div class="row">
-  <div class="col-xs-6">
-    <app-account></app-account>
-    <hr>
-    <router-outlet></router-outlet>
-  </div>
-  <div class="col-xs-6">
-    <app-position-list></app-position-list>
+  <hr class="portfolio-page__divider" />
+  <div class="row portfolio-page__columns">
+    <div class="col-sm-6 portfolio-page__column portfolio-page__column--left">
+      <app-account></app-account>
+      <hr class="portfolio-page__section-divider" />
+      <router-outlet></router-outlet>
+    </div>
+    <div class="col-sm-6 portfolio-page__column portfolio-page__column--right">
+      <app-position-list></app-position-list>
+    </div>
   </div>
 </div>

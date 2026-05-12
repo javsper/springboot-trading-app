@@ -30,16 +30,26 @@ export class LoginService {
   }
 
   autoLogin() {
-    const userData: {
-      username: string;
-      token: string;
-      authorities: string;
-    } = JSON.parse(localStorage.getItem('userData'));
-    if (!userData) {
-      return
+    const raw = localStorage.getItem('userData');
+    if (!raw) {
+      return;
     }
-    const loadedUser = new User(userData.username, userData.token, userData.authorities);
-    this.user.next(loadedUser);
+    try {
+      const userData = JSON.parse(raw) as {
+        username: string;
+        token: string;
+        authorities: string;
+      };
+      if (!userData?.username || !userData?.token) {
+        localStorage.removeItem('userData');
+        return;
+      }
+      this.user.next(
+        new User(userData.username, userData.token, userData.authorities)
+      );
+    } catch {
+      localStorage.removeItem('userData');
+    }
   }
 
   logout() {
