@@ -2,19 +2,83 @@ input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
-.order-form__block {
+/* 12-column grid: all rows align to the same vertical rhythm */
+.order-form__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: 1.1rem;
   margin-bottom: 1.25rem;
+  align-items: end;
+}
+
+.order-form__grid--top {
+  margin-bottom: 0.5rem;
+}
+
+.order-form__grid--tight-top {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.order-form__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.order-form__cell label {
+  margin-bottom: 0;
+  line-height: 1.25;
+}
+
+.order-form__cell--2 {
+  grid-column: span 2;
+}
+
+.order-form__cell--3 {
+  grid-column: span 3;
+}
+
+.order-form__cell--4 {
+  grid-column: span 4;
+}
+
+.order-form__cell--5 {
+  grid-column: span 5;
+}
+
+.order-form__cell--6 {
+  grid-column: span 6;
+}
+
+.order-form__cell--12 {
+  grid-column: span 12;
+}
+
+.order-form__contract {
+  margin-top: 0.25rem;
+}
+
+.order-form__deriv {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--app-border);
 }
 
 .order-form__section-title {
-  margin: 1rem 0 0.75rem;
+  margin: 1.25rem 0 0.65rem;
   font-size: 1.05rem;
 }
 
 .order-form__deriv-title {
-  margin: 0.75rem 0 1rem;
+  margin: 0 0 0.85rem;
   font-size: 0.95rem;
   color: var(--app-text-muted);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .order-form__hr {
@@ -46,4 +110,13 @@ input.ng-invalid.ng-touched {
 
 .order-form__market-row {
   margin-top: 1.5rem;
+}
+
+/* Stack fields on narrow screens so nothing overflows */
+@media (max-width: 767px) {
+  .order-form__grid--top .order-form__cell,
+  .order-form__contract > .order-form__grid .order-form__cell,
+  .order-form__deriv .order-form__grid .order-form__cell {
+    grid-column: 1 / -1;
+  }
 }
